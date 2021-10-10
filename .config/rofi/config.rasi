@@ -1,0 +1,8 @@
+/** Basic config file **/
+
+configuration {
+  font: "MesloLGS NF 12";
+  show-icons: true;
+  icon-theme: "LaCapitaine";
+  theme: "~/.cache/wal/colors-rofi-light.rasi";
+}
