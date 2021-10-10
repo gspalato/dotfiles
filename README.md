@@ -3,7 +3,7 @@ My Manjaro install's dotfiles and other configurations.
 
 ## Main Setup
 
-- [Arch Linux](https://www.archlinux.org/)
+- [Manjaro](https://www.manjaro.org/)
 - [i3-gaps](https://github.com/Airblader/i3)
 - [ibhagwan's picom](https://github.com/ibhagwan/picom)
 - [dunst](https://github.com/dunst-project/dunst)
