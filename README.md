@@ -84,6 +84,7 @@ These are the keybinds. Look through [`.config/i3/config`](https://github.com/gs
 
 - Install the [dependencies](#using).
 - Clone the repo to `~/`.
+- Put your wallpapers at `/usr/share/backgrounds`.
 - That's it... I think.
 
 #### LightDM
