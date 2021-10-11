@@ -1,1 +1,1 @@
-export $(dbus-launch --auto-syntax)
+export $(dbus-launch)

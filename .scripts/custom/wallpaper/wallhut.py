@@ -13,6 +13,8 @@ import os, sys, random as randomgen
 import argparse, configparser
 
 default_folder = '/usr/share/backgrounds'
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 # Predefined functions
 def get_random_wallpaper(path):
@@ -22,17 +24,22 @@ def print_error(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 def write_config(cfg):
-    with open('config.ini', 'w') as file:
+    with open(os.path.join(__location__, 'config.ini'), 'w') as file:
         cfg.write(file)
 
-def string_to_bool(v):
-  return v.lower() in ("yes", "true", "t", "1")
+def to_bool(v):
+    if (isinstance(v, bool)):
+        return v
+    elif (isinstance(v, str)):
+        return v.lower() in ("yes", "true", "t", "1")
+    elif (isinstance(v, int)):
+        return v > 0
 
 # Load configuration file
 config = configparser.ConfigParser()
 
 try:
-    config.read('config.ini')
+    config.read(os.path.join(__location__, 'config.ini'))
 except (configparser.ParsingError):
     # If config.ini doesn't exist, create one.
     config.set('UserConfig', 'FolderPath', default_folder)
@@ -46,7 +53,7 @@ except (configparser.ParsingError):
 # Load user configurations.
 folderpath = config.get('UserConfig', 'FolderPath', fallback=default_folder)
 userwallpaper = config.get('UserConfig', 'Wallpaper', fallback='')
-random = string_to_bool(config.get('UserConfig', 'Random', fallback=False))
+random = to_bool(config.get('UserConfig', 'Random', fallback=False))
 
 is_user_wallpaper_set = len(userwallpaper) > 0
 

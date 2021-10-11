@@ -2,7 +2,9 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 
-figlet welcome back! | lolcat
+pfetch | lolcat
+
+alias wallhut="~/.scripts/custom/wallpaper/wallhut.py"
 
 (cat ~/.cache/wal/sequences &)
 
