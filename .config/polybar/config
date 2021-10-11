@@ -41,15 +41,11 @@ bottom = true
 padding=0
 font-0=Iosevka Nerd Font:antialias=true:size=11.5;3
 font-1=IPAGothic:size=12:antialias=true;3
-font-2=FontAwesome5Free:style=Regular:size=9:antialias=true;3
-font-3=FontAwesome5Free:style=Solid:size=9:antialias=true;3
+font-2=Iosevka Nerd Font:antialias=true:size=5;3
 
 dpi = 100
 
 modules-left = i3
-; Spotify (scripts at github.com/dietervanhoof/polybar-spotify-controls)
-;modules-center = previous playpause next spotify
-; Mpd
 modules-center = time 
 modules-right = wlan previous playpause next spotify pulseaudio
 
@@ -84,12 +80,17 @@ reverse-scroll = true
 
 label-focused = " "
 label-focused-padding = 1
+label-focused-font= 2
 
 label-occupied = 
 label-occupied-padding = 1
 
 label-empty = 
 label-empty-padding = 1
+
+label-urgent = " "
+#label-urgent = %{F#FFA500} %{F-}
+label-urgent-padding = 1
 
 
 [module/mpd]
@@ -294,7 +295,7 @@ hook-1 = python3 ~/.scripts/spotify/spotify_status.py
 initial = 2
 click-left = i3-msg '[class="Spotify"] focus'
 tail = true
-interval = 1
+interval = 0
 
 
 [module/battery]

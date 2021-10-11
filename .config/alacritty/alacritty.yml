@@ -10,7 +10,7 @@ window:
 scrolling:
   history: 10000
   multiplier: 3
-background_opacity: .5
+background_opacity: .4
 window.dynamic_title: true
 
 # Font Customization
@@ -24,7 +24,7 @@ font:
   italic:
     family: MesloLGS NF
     style: Italic
-  size: 9.5
+  size: 10
   offset:
     x: 0
     y: 0
@@ -40,6 +40,8 @@ colors:
   cursor:
     text: CellBackground
     cursor: CellForeground
+  primary:
+    background: '0x000000'
 # Hepburn
   primary:
     background: '0x000000'
