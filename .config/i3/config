@@ -180,7 +180,7 @@ exec_always --no-startup-id xrdb ~/.Xresources
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id nvidia-settings -l
 exec_always --no-startup-id xinput --set-prop 11 'libinput Accel Profile Enabled' 0, 1
-exec_always --no-startup-id wal -i ~/Pictures/Wallpapers -b "#070707"
+exec_always --no-startup-id $HOME/.scripts/custom/wallpaper/wallhut.py
 exec_always --no-startup-id $HOME/.scripts/spotify/launchlistener.sh
 
 exec firefox
