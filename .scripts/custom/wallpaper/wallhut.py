@@ -74,7 +74,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('-r', '--random',
     help='select a random wallpaper.',
-    action="store_true",
+    action='store_true',
     default=random
 )
 
@@ -84,10 +84,20 @@ parser.add_argument('-f', '--folder',
     default=folderpath
 )
 
+parser.add_argument('-c', '--current',
+    help='get the current wallpaper path',
+    action='store_true',
+    default=False
+)
+
 args = parser.parse_args()
 
 random = args.random
 folderpath = os.path.expanduser(args.folder)
+
+if (args.current):
+    print(current)
+    exit()
 
 if (random):
     print('Getting random wallpaper.')
