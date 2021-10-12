@@ -4,7 +4,7 @@
 
 pfetch
 
-alias wallhut="~/.scripts/custom/wallpaper/wallhut.py"
+alias wallnut="~/.scripts/custom/wallpaper/wallnut.py"
 
 (cat ~/.cache/wal/sequences &)
 
