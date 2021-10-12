@@ -107,7 +107,7 @@ if (not os.path.isdir(folderpath)):
     print_error('Supplied folder isn\'t valid.')
     exit()
 
-current = os.path.expanduser(userwallpaper) if is_user_wallpaper_set else os.path.join(folderpath, current)
+current = os.path.expanduser(userwallpaper) if (is_user_wallpaper_set and not random) else os.path.join(folderpath, current)
 config.set('Internal', 'Current', current)
 
 # Apply with pywal
