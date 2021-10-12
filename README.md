@@ -15,7 +15,7 @@
 
 Hey there, thanks for taking a look.
 These are the dotfiles I use on my Linux setup.
-There's still some useless stuff that was pushed (such as spicetify themes), but this is a WIP so expect there to be ~ ~~many~~ some bugs.
+There's still some useless stuff that was pushed (such as spicetify themes), but this is a WIP so expect there to be ~~many~~ some bugs.
 
 <a id="using"></a>
 
