@@ -38,7 +38,7 @@ There's still some useless stuff that was pushed (such as spicetify themes), but
 - **Color Scheme:** [pywal](https://github.com/dylanaraps/pywal)
 
 - **Web Browser:** [Firefox](https://firefox.com)
-- **Code Editor:** [Visual Studio Code](https://code.visualstudio.com/)
+- **Code Editor:** [Visual Studio Code (Transparent)](https://aur.archlinux.org/packages/code-transparent)
 - **Music Player:** [Spotify](https://www.spotify.com/)
 
 <a id="keybinds"></a>
