@@ -1,0 +1,43 @@
+[2021-10-14 17:35:04.258] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/ruby/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/ruby/package.json'
+[2021-10-14 17:35:04.258] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/rust/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/rust/package.json'
+[2021-10-14 17:35:04.259] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/fsharp/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/fsharp/package.json'
+[2021-10-14 17:35:04.259] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/vb/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/vb/package.json'
+[2021-10-14 17:35:04.259] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/html/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/html/package.json'
+[2021-10-14 17:35:04.260] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/shellscript/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/shellscript/package.json'
+[2021-10-14 17:35:04.260] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/xml/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/xml/package.json'
+[2021-10-14 17:45:48.785] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-defaults/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-defaults/package.json'
+[2021-10-14 17:45:48.788] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-monokai/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-monokai/package.json'
+[2021-10-14 17:45:48.788] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-solarized-dark/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-solarized-dark/package.json'
+[2021-10-14 17:45:48.789] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-quietlight/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-quietlight/package.json'
+[2021-10-14 17:45:48.789] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-tomorrow-night-blue/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-tomorrow-night-blue/package.json'
+[2021-10-14 17:45:48.789] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-abyss/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-abyss/package.json'
+[2021-10-14 17:45:48.789] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-kimbie-dark/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-kimbie-dark/package.json'
+[2021-10-14 17:45:48.789] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-seti/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-seti/package.json'
+[2021-10-14 17:45:48.789] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-monokai-dimmed/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-monokai-dimmed/package.json'
+[2021-10-14 17:45:48.790] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-red/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-red/package.json'
+[2021-10-14 17:45:48.790] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-solarized-light/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-solarized-light/package.json'
+[2021-10-14 17:55:44.856] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-defaults/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-defaults/package.json'
+[2021-10-14 17:55:44.857] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-monokai/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-monokai/package.json'
+[2021-10-14 17:55:44.857] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-solarized-dark/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-solarized-dark/package.json'
+[2021-10-14 17:55:44.859] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-quietlight/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-quietlight/package.json'
+[2021-10-14 17:55:44.859] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-tomorrow-night-blue/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-tomorrow-night-blue/package.json'
+[2021-10-14 17:55:44.859] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-abyss/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-abyss/package.json'
+[2021-10-14 17:55:44.860] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-red/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-red/package.json'
+[2021-10-14 17:55:44.860] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-kimbie-dark/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-kimbie-dark/package.json'
+[2021-10-14 17:55:44.860] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-monokai-dimmed/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-monokai-dimmed/package.json'
+[2021-10-14 17:55:44.860] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-seti/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-seti/package.json'
+[2021-10-14 17:55:44.860] [renderer1] [error] EACCES: permission denied, open '/usr/lib/code/extensions/theme-solarized-light/package.json': Error: EACCES: permission denied, open '/usr/lib/code/extensions/theme-solarized-light/package.json'
+[2021-10-14 17:59:08.576] [renderer1] [error] Unable to write into user settings because the file is dirty. Please save the user settings file first and then try again.: Error: Unable to write into user settings because the file is dirty. Please save the user settings file first and then try again.
+    at E.toConfigurationEditingError (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:1981:18781)
+    at E.validate (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:1981:22601)
+    at E.doWriteConfiguration (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:1981:15186)
+    at Object.factory (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:1981:15020)
+    at d.consume (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:68:16672)
+    at vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:68:16487
+    at new Promise (<anonymous>)
+    at d.queue (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:68:16411)
+    at E.writeConfiguration (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:1981:15005)
+    at E.writeConfigurationValue (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:1981:44591)
+    at vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:1981:30749
+    at Array.map (<anonymous>)
+    at E.updateValue (vscode-file://vscode-app/usr/lib/code/out/vs/workbench/workbench.desktop.main.js:1981:30737)

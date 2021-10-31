@@ -1,0 +1,65 @@
+[2021-10-14 17:28:00.097] [exthost] [info] extension host started
+[2021-10-14 17:28:00.176] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"extensionId":{"value":"vscode.debug-auto-launch","_lower":"vscode.debug-auto-launch"},"activationEvent":"*"}
+[2021-10-14 17:28:00.177] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/debug-auto-launch/dist/extension
+[2021-10-14 17:28:00.184] [exthost] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2021-10-14 17:28:00.184] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/git/dist/main
+[2021-10-14 17:28:00.263] [exthost] [info] ExtensionService#_doActivateExtension s-nlf-fh.glassit {"startup":true,"extensionId":{"value":"s-nlf-fh.glassit","_lower":"s-nlf-fh.glassit"},"activationEvent":"*"}
+[2021-10-14 17:28:00.263] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/spalato/.vscode-oss/extensions/s-nlf-fh.glassit-0.2.3/extension
+[2021-10-14 17:28:00.854] [exthost] [info] ExtensionService#_doActivateExtension vscode.github {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2021-10-14 17:28:00.855] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/github/dist/extension.js
+[2021-10-14 17:28:00.862] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.js-debug {"startup":false,"extensionId":{"value":"ms-vscode.js-debug","_lower":"ms-vscode.js-debug"},"activationEvent":"onCommand:extension.js-debug.clearAutoAttachVariables"}
+[2021-10-14 17:28:00.862] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/ms-vscode.js-debug/src/extension.js
+[2021-10-14 17:28:01.149] [exthost] [info] eager extensions activated
+[2021-10-14 17:28:01.171] [exthost] [info] ExtensionService#_doActivateExtension vscode.configuration-editing {"startup":false,"extensionId":{"value":"vscode.configuration-editing","_lower":"vscode.configuration-editing"},"activationEvent":"onLanguage:jsonc"}
+[2021-10-14 17:28:01.171] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/configuration-editing/dist/configurationEditingMain
+[2021-10-14 17:28:01.175] [exthost] [info] ExtensionService#_doActivateExtension vscode.json-language-features {"startup":false,"extensionId":{"value":"vscode.json-language-features","_lower":"vscode.json-language-features"},"activationEvent":"onLanguage:jsonc"}
+[2021-10-14 17:28:01.175] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/json-language-features/client/dist/node/jsonClientMain
+[2021-10-14 17:28:01.233] [exthost] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"extensionId":{"value":"vscode.typescript-language-features","_lower":"vscode.typescript-language-features"},"activationEvent":"onLanguage:jsonc"}
+[2021-10-14 17:28:01.233] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/typescript-language-features/dist/extension
+[2021-10-14 17:28:01.276] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":false,"extensionId":{"value":"vscode.emmet","_lower":"vscode.emmet"},"activationEvent":"onStartupFinished"}
+[2021-10-14 17:28:01.276] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/emmet/dist/node/emmetNodeMain
+[2021-10-14 17:28:01.289] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":false,"extensionId":{"value":"vscode.merge-conflict","_lower":"vscode.merge-conflict"},"activationEvent":"onStartupFinished"}
+[2021-10-14 17:28:01.289] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/merge-conflict/dist/mergeConflictMain
+[2021-10-14 17:34:00.203] [exthost] [info] ExtensionService#_doActivateExtension RobbOwen.synthwave-vscode {"startup":false,"extensionId":{"value":"RobbOwen.synthwave-vscode","_lower":"robbowen.synthwave-vscode"},"activationEvent":"*"}
+[2021-10-14 17:34:00.203] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/spalato/.vscode-oss/extensions/robbowen.synthwave-vscode-0.1.10/src/extension.js
+[2021-10-14 17:34:57.876] [exthost] [info] extension host terminating: renderer closed the socket
+[2021-10-14 17:34:58.884] [exthost] [info] exiting with code 0
+[2021-10-14 17:35:00.131] [exthost] [info] extension host started
+[2021-10-14 17:35:00.131] [exthost] [info] Skipping acquiring lock for /home/spalato/.config/Code - OSS/User/workspaceStorage/a4883b54a90f7fc7c7d39959367fc904.
+[2021-10-14 17:35:00.247] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"extensionId":{"value":"vscode.debug-auto-launch","_lower":"vscode.debug-auto-launch"},"activationEvent":"*"}
+[2021-10-14 17:35:00.247] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/debug-auto-launch/dist/extension
+[2021-10-14 17:35:00.250] [exthost] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2021-10-14 17:35:00.250] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/git/dist/main
+[2021-10-14 17:35:00.362] [exthost] [info] ExtensionService#_doActivateExtension vscode.github {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2021-10-14 17:35:00.363] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/github/dist/extension.js
+[2021-10-14 17:35:00.366] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.js-debug {"startup":false,"extensionId":{"value":"ms-vscode.js-debug","_lower":"ms-vscode.js-debug"},"activationEvent":"onCommand:extension.js-debug.clearAutoAttachVariables"}
+[2021-10-14 17:35:00.366] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/ms-vscode.js-debug/src/extension.js
+[2021-10-14 17:35:00.478] [exthost] [info] eager extensions activated
+[2021-10-14 17:35:00.487] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":false,"extensionId":{"value":"vscode.emmet","_lower":"vscode.emmet"},"activationEvent":"onStartupFinished"}
+[2021-10-14 17:35:00.487] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/emmet/dist/node/emmetNodeMain
+[2021-10-14 17:35:00.491] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":false,"extensionId":{"value":"vscode.merge-conflict","_lower":"vscode.merge-conflict"},"activationEvent":"onStartupFinished"}
+[2021-10-14 17:35:00.491] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/merge-conflict/dist/mergeConflictMain
+[2021-10-14 17:35:00.795] [exthost] [info] ExtensionService#_doActivateExtension RobbOwen.synthwave-vscode {"startup":false,"extensionId":{"value":"RobbOwen.synthwave-vscode","_lower":"robbowen.synthwave-vscode"},"activationEvent":"*"}
+[2021-10-14 17:35:00.795] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/spalato/.vscode-oss/extensions/robbowen.synthwave-vscode-0.1.10/src/extension.js
+[2021-10-14 17:35:00.801] [exthost] [info] ExtensionService#_doActivateExtension s-nlf-fh.glassit {"startup":false,"extensionId":{"value":"s-nlf-fh.glassit","_lower":"s-nlf-fh.glassit"},"activationEvent":"*"}
+[2021-10-14 17:35:00.801] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/spalato/.vscode-oss/extensions/s-nlf-fh.glassit-0.2.3/extension
+[2021-10-14 17:35:00.932] [exthost] [info] ExtensionService#_doActivateExtension vscode.configuration-editing {"startup":false,"extensionId":{"value":"vscode.configuration-editing","_lower":"vscode.configuration-editing"},"activationEvent":"onLanguage:jsonc"}
+[2021-10-14 17:35:00.932] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/configuration-editing/dist/configurationEditingMain
+[2021-10-14 17:35:00.934] [exthost] [info] ExtensionService#_doActivateExtension vscode.json-language-features {"startup":false,"extensionId":{"value":"vscode.json-language-features","_lower":"vscode.json-language-features"},"activationEvent":"onLanguage:jsonc"}
+[2021-10-14 17:35:00.935] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/json-language-features/client/dist/node/jsonClientMain
+[2021-10-14 17:35:00.952] [exthost] [info] ExtensionService#_doActivateExtension vscode.typescript-language-features {"startup":false,"extensionId":{"value":"vscode.typescript-language-features","_lower":"vscode.typescript-language-features"},"activationEvent":"onLanguage:jsonc"}
+[2021-10-14 17:35:00.952] [exthost] [info] ExtensionService#loadCommonJSModule file:///usr/lib/code/extensions/typescript-language-features/dist/extension
+[2021-10-14 17:53:31.016] [exthost] [info] ExtensionService#_doActivateExtension dlasagno.wal-theme {"startup":false,"extensionId":{"value":"dlasagno.wal-theme","_lower":"dlasagno.wal-theme"},"activationEvent":"*"}
+[2021-10-14 17:53:31.016] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/spalato/.vscode-oss/extensions/dlasagno.wal-theme-1.1.2/out/extension.js
+[2021-10-14 17:54:10.455] [exthost] [error] [vscode.json-language-features] provider FAILED
+[2021-10-14 17:54:10.457] [exthost] [error] Canceled: Canceled
+	at E.makeCancelError (/usr/lib/code/extensions/json-language-features/client/dist/node/jsonClientMain.js:1:505514)
+	at E.handleFailedRequest (/usr/lib/code/extensions/json-language-features/client/dist/node/jsonClientMain.js:1:505365)
+	at /usr/lib/code/extensions/json-language-features/client/dist/node/jsonClientMain.js:1:465580
+	at async s.provideHover (/usr/lib/code/out/vs/workbench/services/extensions/node/extensionHostProcess.js:85:164654)
+[2021-10-14 17:59:12.052] [exthost] [error] [vscode.json-language-features] provider FAILED
+[2021-10-14 17:59:12.052] [exthost] [error] Canceled: Canceled
+	at E.makeCancelError (/usr/lib/code/extensions/json-language-features/client/dist/node/jsonClientMain.js:1:505514)
+	at E.handleFailedRequest (/usr/lib/code/extensions/json-language-features/client/dist/node/jsonClientMain.js:1:505365)
+	at /usr/lib/code/extensions/json-language-features/client/dist/node/jsonClientMain.js:1:465580
+	at async s.provideHover (/usr/lib/code/out/vs/workbench/services/extensions/node/extensionHostProcess.js:85:164654)

@@ -17,6 +17,13 @@ __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 # Predefined functions
+def send_notification(title, body, icon, timeout=1500, uid="0111", urgency="normal"):
+    cmd = f'dunstify -a "Wallnut" -i "{icon}" -t "{timeout}" -r "{uid}" -u "{urgency}" "{title}" "{body}"'
+    os.popen(cmd)
+
+def get_script_path():
+    return os.path.dirname(os.path.realpath(sys.argv[0]))
+
 def get_random_wallpaper(path):
     dirlist = os.listdir(os.path.expanduser(path))
     if (len(dirlist) == 0):
@@ -119,7 +126,18 @@ config.set('Internal', 'Current', current)
 stream = os.popen('wal -i ' + current)
 output = stream.read()
 
+# Handle gifs
+#if (current.endswith('.gif')):
+#    print("Applying GIF wallpaper.")
+#    gApply = os.path.join(get_script_path(), 'gif')
+#    os.popen('killall xwinwrap')
+#    os.popen('killall gifview')
+#    gStream = os.popen(f'{gApply} {current}')
+#    gOutput = gStream.read()
+
 write_config(config)
 
 print('Applying ' + ('random' if random else '') + ' wallpaper at', current)
 print(output)
+
+send_notification("Applied wallpaper!", f"{os.path.basename(current)}", current)

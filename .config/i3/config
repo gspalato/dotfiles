@@ -28,10 +28,21 @@ exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+bindsym XF86AudioPlay exec --no-startup-id ~/.scripts/bin/gPlayerctl pp
+bindsym XF86AudioStop exec --no-startup-id ~/.scripts/bin/gPlayerctl s
+bindsym XF86AudioNext exec --no-startup-id ~/.scripts/bin/gPlayerctl n
+bindsym XF86AudioPrev exec --no-startup-id ~/.scripts/bin/gPlayerctl p
+
+bindsym XF86AudioRaiseVolume       exec --no-startup-id ~/.scripts/bin/gVolumectl up 1
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id ~/.scripts/bin/gVolumectl up 10
+bindsym XF86AudioLowerVolume       exec --no-startup-id ~/.scripts/bin/gVolumectl down 1
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id ~/.scripts/bin/gVolumectl down 10
+bindsym XF86AudioMute              exec --no-startup-id ~/.scripts/bin/gVolumectl mute
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -165,10 +176,19 @@ bindsym $mod+Shift+G exec colorgrab
 gaps inner 15
 gaps outer 5
 
+
 for_window [class="^.*"] border pixel 0
 
 # Special window properties
-for_window [title="Firefox"] floating enable
+# for_window [title="Firefox"] floating enable
+
+# Pop-ups, menus, etc.
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable 
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable 
+for_window [window_type="menu"] floating enable
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
 for_window [class="^Steam$" title="^Friends$"] floating enable
@@ -197,20 +217,20 @@ exec_always --no-startup-id xinput --set-prop 11 'libinput Accel Profile Enabled
 exec_always --no-startup-id $HOME/.scripts/custom/wallpaper/wallnut.py
 exec_always --no-startup-id $HOME/.scripts/spotify/launchlistener.sh
 
-exec firefox
+exec firefox-nightly
 exec spotify
 exec discord
 
 # Colors
 
 set $unfocused_border #24292f
-set $focused_border #ffffff
+set $focused_border #ffffff55
 
-# class                 border  backgr. text    indicator child_border
+# class                 border    backgr.   text    indicator child_border
 client.focused          #00000044 #00000044 #ffffff #ffffff   $focused_border
 client.focused_inactive #00000044 #00000044 #ffffff #ffffff   $focused_border
 client.unfocused        #00000066 #00000066 #ffffff #ffffff   $unfocused_border
 client.urgent           #ffa50055 #ffa50055 #ffffff #ffffff   $focused_border
-client.placeholder      #ffffff #ffffff #ffffff #ffffff   #ffffff
+client.placeholder      #ffffff   #ffffff   #ffffff #ffffff   #ffffff
 
 client.background       #00000066

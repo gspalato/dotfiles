@@ -1,0 +1,43 @@
+[2021-10-14 17:28:09.307] [sharedprocess] [info] [logs cleanup]: Starting to clean up old logs.
+[2021-10-14 17:28:29.302] [sharedprocess] [info] [code cache cleanup]: Starting to clean up old code cache folders.
+[2021-10-14 17:28:29.303] [sharedprocess] [info] [storage cleanup]: Starting to clean up storage folders.
+[2021-10-14 17:28:39.313] [sharedprocess] [info] [language pack cache cleanup]: Starting to clean up unused language packs.
+[2021-10-14 17:33:54.825] [sharedprocess] [info] Installing extension: robbowen.synthwave-vscode
+[2021-10-14 17:33:59.901] [sharedprocess] [info] Downloaded extension: robbowen.synthwave-vscode /home/spalato/.config/Code - OSS/CachedExtensionVSIXs/robbowen.synthwave-vscode-0.1.10
+[2021-10-14 17:34:00.000] [sharedprocess] [info] Extracted extension to /home/spalato/.vscode-oss/extensions/.6985bea2-0f69-44e7-aff6-756df6fec430: robbowen.synthwave-vscode
+[2021-10-14 17:34:00.046] [sharedprocess] [info] Renamed to /home/spalato/.vscode-oss/extensions/robbowen.synthwave-vscode-0.1.10
+[2021-10-14 17:34:00.048] [sharedprocess] [info] Extracting completed. robbowen.synthwave-vscode
+[2021-10-14 17:34:00.092] [sharedprocess] [info] Extension installed successfully: robbowen.synthwave-vscode
+[2021-10-14 17:53:27.647] [sharedprocess] [info] Installing extension: dlasagno.wal-theme
+[2021-10-14 17:53:30.654] [sharedprocess] [info] Downloaded extension: dlasagno.wal-theme /home/spalato/.config/Code - OSS/CachedExtensionVSIXs/dlasagno.wal-theme-1.1.2
+[2021-10-14 17:53:30.781] [sharedprocess] [info] Extracted extension to /home/spalato/.vscode-oss/extensions/.b68082e8-9a9d-4465-a0e9-52246e9adf80: dlasagno.wal-theme
+[2021-10-14 17:53:30.846] [sharedprocess] [info] Renamed to /home/spalato/.vscode-oss/extensions/dlasagno.wal-theme-1.1.2
+[2021-10-14 17:53:30.848] [sharedprocess] [info] Extracting completed. dlasagno.wal-theme
+[2021-10-14 17:53:30.883] [sharedprocess] [info] Extension installed successfully: dlasagno.wal-theme
+[2021-10-14 17:55:35.175] [sharedprocess] [info] Uninstalling extension: dlasagno.wal-theme
+[2021-10-14 17:55:35.476] [sharedprocess] [info] Detected extension removed from another source dlasagno.wal-theme
+[2021-10-14 17:55:35.834] [sharedprocess] [info] Successfully uninstalled extension: dlasagno.wal-theme
+[2021-10-14 17:56:19.402] [sharedprocess] [info] Installing extension: lukinco.lukin-vscode-theme
+[2021-10-14 17:56:21.619] [sharedprocess] [info] Downloaded extension: lukinco.lukin-vscode-theme /home/spalato/.config/Code - OSS/CachedExtensionVSIXs/lukinco.lukin-vscode-theme-0.1.5
+[2021-10-14 17:56:21.630] [sharedprocess] [info] Extracted extension to /home/spalato/.vscode-oss/extensions/.18e2be4c-507d-4d96-b721-c723ff4c19ae: lukinco.lukin-vscode-theme
+[2021-10-14 17:56:21.664] [sharedprocess] [info] Renamed to /home/spalato/.vscode-oss/extensions/lukinco.lukin-vscode-theme-0.1.5
+[2021-10-14 17:56:21.665] [sharedprocess] [info] Extracting completed. lukinco.lukin-vscode-theme
+[2021-10-14 17:56:21.701] [sharedprocess] [info] Extension installed successfully: lukinco.lukin-vscode-theme
+[2021-10-14 17:56:41.249] [sharedprocess] [info] Installing extension: beardedbear.beardedtheme
+[2021-10-14 17:56:51.492] [sharedprocess] [info] Installing extension: jolaleye.horizon-theme-vscode
+[2021-10-14 17:56:54.148] [sharedprocess] [info] Downloaded extension: beardedbear.beardedtheme /home/spalato/.config/Code - OSS/CachedExtensionVSIXs/beardedbear.beardedtheme-4.0.0
+[2021-10-14 17:56:54.205] [sharedprocess] [info] Extracted extension to /home/spalato/.vscode-oss/extensions/.0e8d7a3d-b53c-45f0-ae27-0649ede03914: beardedbear.beardedtheme
+[2021-10-14 17:56:54.250] [sharedprocess] [info] Renamed to /home/spalato/.vscode-oss/extensions/beardedbear.beardedtheme-4.0.0
+[2021-10-14 17:56:54.250] [sharedprocess] [info] Extracting completed. beardedbear.beardedtheme
+[2021-10-14 17:56:54.284] [sharedprocess] [info] Extension installed successfully: beardedbear.beardedtheme
+[2021-10-14 17:56:57.127] [sharedprocess] [info] Downloaded extension: jolaleye.horizon-theme-vscode /home/spalato/.config/Code - OSS/CachedExtensionVSIXs/jolaleye.horizon-theme-vscode-2.0.2
+[2021-10-14 17:56:57.162] [sharedprocess] [info] Extracted extension to /home/spalato/.vscode-oss/extensions/.2b5780b9-9d37-47ad-97d4-bb07033b1732: jolaleye.horizon-theme-vscode
+[2021-10-14 17:56:57.206] [sharedprocess] [info] Renamed to /home/spalato/.vscode-oss/extensions/jolaleye.horizon-theme-vscode-2.0.2
+[2021-10-14 17:56:57.207] [sharedprocess] [info] Extracting completed. jolaleye.horizon-theme-vscode
+[2021-10-14 17:56:57.251] [sharedprocess] [info] Extension installed successfully: jolaleye.horizon-theme-vscode
+[2021-10-14 17:57:14.465] [sharedprocess] [info] Installing extension: teabyii.ayu
+[2021-10-14 17:57:16.212] [sharedprocess] [info] Downloaded extension: teabyii.ayu /home/spalato/.config/Code - OSS/CachedExtensionVSIXs/teabyii.ayu-1.0.3
+[2021-10-14 17:57:16.359] [sharedprocess] [info] Extracted extension to /home/spalato/.vscode-oss/extensions/.9e3e355f-af62-4891-a5bf-e7c07b3aba4e: teabyii.ayu
+[2021-10-14 17:57:16.401] [sharedprocess] [info] Renamed to /home/spalato/.vscode-oss/extensions/teabyii.ayu-1.0.3
+[2021-10-14 17:57:16.403] [sharedprocess] [info] Extracting completed. teabyii.ayu
+[2021-10-14 17:57:16.446] [sharedprocess] [info] Extension installed successfully: teabyii.ayu
