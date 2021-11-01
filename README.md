@@ -36,8 +36,9 @@ There's still some useless stuff that was pushed (such as spicetify themes), but
   - [lightdm-webkit2-greeter](https://github.com/sbalneav/lightdm-webkit2-greeter)
   - [Glorious Theme](https://github.com/manilarome/lightdm-webkit2-theme-glorious)
 - **Color Scheme:** [pywal](https://github.com/dylanaraps/pywal)
+- **GTK Theme:** [wpgtk](https://github.com/dylanaraps/wpgtk)
 
-- **Web Browser:** [Firefox](https://firefox.com)
+- **Web Browser:** [Firefox Nightly](https://firefox.com)
 - **Code Editor:** [Visual Studio Code (Transparent)](https://aur.archlinux.org/packages/code-transparent)
 - **Music Player:** [Spotify](https://www.spotify.com/)
 

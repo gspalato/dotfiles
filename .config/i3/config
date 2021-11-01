@@ -178,6 +178,7 @@ gaps outer 5
 
 
 for_window [class="^.*"] border pixel 0
+for_window [window_type="tooltip"] border pixel 0
 
 # Special window properties
 # for_window [title="Firefox"] floating enable
