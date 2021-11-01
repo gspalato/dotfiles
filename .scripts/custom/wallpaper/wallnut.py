@@ -123,14 +123,12 @@ current = os.path.expanduser(userwallpaper) if (is_user_wallpaper_set and not ra
 config.set('Internal', 'Current', current)
 
 # Apply with pywal
-stream = os.popen(f'wal -i {current}')
+stream = os.popen(f'wal -i {current} --backend colorthief')
 output = stream.read()
 
 # Create GTK theme with wpgtk
 wstream = os.popen(f'wpg -a {current} -s {current}')
 woutput = wstream.read()
-
-
 
 # Handle gifs
 #if (current.endswith('.gif')):
@@ -143,9 +141,8 @@ woutput = wstream.read()
 
 write_config(config)
 
-print('Applying ' + ('random' if random else '') + ' wallpaper at', current)
-print(output)
-print(woutput)
-
+print(f'Applying {("random" if random else "")} wallpaper at {current}')
+print(f'pywal:\n{output}')
+print(f'wpgtk:\n{woutput}')
 
 send_notification("Applied wallpaper!", f"{os.path.basename(current)}", current)
