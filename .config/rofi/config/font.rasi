@@ -1,3 +1,4 @@
 * {
-    font: "Fira Code 13";
+    font: "Fira Code 14";
+    letter-spacing: 0.5px;
 }
