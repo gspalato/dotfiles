@@ -1,0 +1,139 @@
+configuration {
+  show-icons:          true;
+  icon-theme:          "LaCapitaine";
+  drun-display-format: "{name}";
+  disable-history:     false;
+  click-to-exit:       true;
+  location:            0;
+}
+
+@import "font.rasi"
+@import "colors.rasi"
+
+window {
+  transparency: "real";
+  background-color:  #00000055;
+  text-color:  #ffffff;
+  border:               1px;
+  border-color:         #333333;
+  border-radius:        7px;
+  width:                750px;
+  anchor:               center;
+  x-offset:             0;
+y-offset:             -50;
+}
+
+prompt {
+enabled:           false;
+padding:           0px;
+background-color:  #00000000;
+text-color:        @IMG;
+}
+
+entry {
+  background-color:  transparent;
+  text-color:        #ffffffff;
+  placeholder-color: #ffffffaa;
+  expand:            true;
+  horizontal-align:  0;
+  placeholder:       "Search...";
+  blink:             true;
+  border:            0px 0px 1px 0px;
+  border-color:      @BDR;
+  border-radius:     7px 7px 0px 0px;
+  padding:           0px;
+}
+
+inputbar {
+children:		                [ prompt, entry ];
+background-color:               #00000000;
+text-color:                     #ffffffff;
+expand:                         false;
+border:	    0px 0px 0px 0px;
+border-radius:                  0px;
+border-color:                   #333333ff;
+margin:                         0px 0px 0px 0px;
+padding:                        0px;
+position:                       center;
+}
+
+case-indicator {
+  background-color:               @BG;
+  text-color:                     @FG;
+  spacing:                        0;
+}
+
+
+listview {
+  background-color:               #00000000;
+  columns:                        1;
+  lines:			              7;
+  spacing:                        4px;
+  cycle:                          false;
+  dynamic:                        true;
+  layout:                         vertical;
+}
+
+mainbox {
+background-color:               #00000000;
+children:                       [ inputbar, listview ];
+spacing:                        15px;
+padding:                        15px;
+}
+
+element {
+  background-color:               transparent;
+  text-color:                     #ffffffff;
+  orientation:                    horizontal;
+  border-radius:                  4px;
+  padding:                        6px 6px 6px 6px;
+}
+
+element-icon {
+  background-color: 	            inherit;
+  text-color:       		        inherit;
+  horizontal-align:               0.5;
+  vertical-align:                 0.5;
+  size:                           24px;
+  border:                         0px;
+}
+
+element-text {
+  background-color:               inherit;
+  text-color:                     inherit;
+  expand:                         true;
+  horizontal-align:               0;
+  vertical-align:                 0.5;
+  margin:                         2px 0px 2px 2px;
+}
+
+element normal.urgent,
+element alternate.urgent {
+  background-color:               @UGT;
+  text-color:                     @FG;
+  border-radius:                  9px;
+}
+
+element normal.active,
+element alternate.active {
+  background-color:               @BGA;
+  text-color:                     @FG;
+}
+
+element selected {
+  background-color:               @BGA;
+  text-color:                     @SEL;
+  border:                  	    0px 0px 0px 0px;
+  border-radius:                  10px;
+  border-color:                   @BDR;
+}
+
+element selected.urgent {
+  background-color:               @UGT;
+  text-color:                     @FG;
+}
+
+element selected.active {
+  background-color:               @BGA;
+  color:                          @FG;
+}
