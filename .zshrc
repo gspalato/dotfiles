@@ -45,5 +45,7 @@ source $ZSH/oh-my-zsh.sh
 export DOTBARE_DIR="$HOME/.dotfiles"
 export SWWW_TRANSITION_FPS=165
 
-
 alias wallnut="$HOME/.scripts/custom/wallpaper/wallnut.py"
+
+clear
+neofetch --kitty ~/Pictures/Wallpapers/default.png
