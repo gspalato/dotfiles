@@ -1,0 +1,14 @@
+background = #111111
+background-opacity = 0.75
+background-blur = true
+
+window-padding-x = 25
+window-padding-y = 25
+
+window-width = 100
+window-height = 25
+
+class = "ghostty"
+
+font-family = JetBrains Mono
+

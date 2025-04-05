@@ -1,0 +1,9 @@
+xbackground = #111111
+background-opacity = 0.8
+background-blur = true
+
+window-padding-x = 25
+window-padding-y = 25
+
+window-width = 1280
+window-height = 720
