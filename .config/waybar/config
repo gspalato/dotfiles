@@ -3,13 +3,12 @@
     "margin-bottom" : 10,
     "margin-left": 10,
     "margin-right": 10,
-    "height" : 30,
+    "height": 30,
     "modules-left": [
       "hyprland/workspaces",
       "mpris",
     ],
     "modules-center": [
-      //"hyprland/workspaces",
       "hyprland/window",
     ],
     "modules-right": [
@@ -20,12 +19,13 @@
     ],
     "hyprland/window": {
       "format": "{}",
-      "max-length": 35,
+      "max-length": 25,
       "separate-outputs": true,
       "icon": true,
       "icon-size": 20,
     },
     "hyprland/workspaces": {
+      //"format": "",
       "format": "●",
       "on-click": "activate",
       "sort-by-number": true,
@@ -36,14 +36,15 @@
     "mpris": {
         "dynamic-order": ["artist", "title"],
 	"dynamic-len": 35,
-	"format": "<span>{status_icon}</span> {dynamic}",
+	"format": "<span>{player_icon}</span> {dynamic}",
 	"format-paused": "<span>{status_icon}</span> <i>{dynamic}</i>",
         "format-stopped": "",
 	"interval": 0.25,
 	"method": "pipewire",
 	"player-icons": {
 		"default": "",
-		"mpv": "🎵"
+		"mpv": "🎵",
+		"spotify": "",
 	},
 	"status-icons": {
 		"paused": "",
@@ -82,7 +83,7 @@
     },
     "network": {
 	"format-icons": ["", "", "", ""],
-      "format-wifi": " ",
+      "format-wifi": "",
       "format-ethernet": "{cidr} ",
       "tooltip-format": "{ifname} via {gwaddr} ",
       "format-linked": "{ifname} (No IP) ",
@@ -101,7 +102,7 @@
         "phone": "",
         "portable": "",
         "car": "",
-        "default": [" ", " ", "  "]
+        "default": [" ", " ", " "]
       },
       "on-click": "pavucontrol"
     },
