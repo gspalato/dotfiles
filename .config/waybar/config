@@ -7,6 +7,7 @@
     "modules-left": [
       "hyprland/workspaces",
       "mpris",
+      "cava",
     ],
     "modules-center": [
       "hyprland/window",
@@ -35,7 +36,8 @@
     },
     "mpris": {
         "dynamic-order": ["artist", "title"],
-	"dynamic-len": 35,
+	"format-len": 25,
+        "dynamic-importance-order": ["title", "artist", "album", "position", "length"],
 	"format": "<span>{player_icon}</span> {dynamic}",
 	"format-paused": "<span>{status_icon}</span> <i>{dynamic}</i>",
         "format-stopped": "",
@@ -44,7 +46,7 @@
 	"player-icons": {
 		"default": "",
 		"mpv": "🎵",
-		"spotify": "",
+		"spotify": "<span font='9' rise='1' color='#1ED760'></span>",
 	},
 	"status-icons": {
 		"paused": "",
@@ -53,13 +55,23 @@
 	},
 	// "ignored-players": ["firefox"]
     },
+    "cava": {
+        "cava_config": "$HOME/.config/cava/config",
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+        "framerate": 240,
+        "method": "pipewire",
+        "bar_delimiter": 0,
+        "hide_on_silence": true,
+        "bars": 10,
+        "monstercat": false,
+     },
     "clock": {
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-      "format-alt": "{:%Y-%m-%d}"
+      "format-alt": "{:%Y-%m-%d}",
     },
     "cpu": {
       "format": "  {usage}%",
-      "tooltip": false
+      "tooltip": false,
     },
     "memory": {
       "format": " {used:.1f} GB"
@@ -88,7 +100,7 @@
       "tooltip-format": "{ifname} via {gwaddr} ",
       "format-linked": "{ifname} (No IP) ",
       "format-disconnected": " ⚠ ",
-      "format-alt": "{ifname}: {ipaddr}/{cidr}"
+      "on-click": "ghostty -e nmtui",
     },
     "pulseaudio": {
       "format": "{icon}{volume}%",
