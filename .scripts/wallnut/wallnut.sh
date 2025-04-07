@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Path to wallpapers directory
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 
@@ -30,27 +29,35 @@ find_wallpapers() {
     \) | sort
 }
 
-# Use fzf with image preview to select a wallpaper
-# This uses direct kitty protocol commands which Ghostty supports
-selected_wallpaper=$(find_wallpapers | fzf --preview '
-    # Get terminal dimensions
-    COLUMNS=$FZF_PREVIEW_COLUMNS
-    LINES=$FZF_PREVIEW_LINES
-    
-    # Calculate preview position and size
-    WIDTH=$((COLUMNS * 9 / 10))
-    HEIGHT=$((LINES * 7 / 10))
-    
-    # Print the filename first
-    echo "$(basename {})"
-    echo "Size: $(du -h {} | cut -f1)"
-    echo "Resolution: $(identify -format "%wx%h" {} 2>/dev/null || echo "Unknown")"
-    echo ""
-    
-    # Display image 
-    # Using direct kitty protocol commands which Ghostty supports
-    kitten icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} > /dev/tty
-')
+# Set up ueberzugpp
+case "$(uname -a)" in
+    *Darwin*) UEBERZUG_TMP_DIR="$TMPDIR" ;;
+    *) UEBERZUG_TMP_DIR="/tmp" ;;
+esac
+
+cleanup() {
+    ueberzugpp cmd -s "$SOCKET" -a exit
+}
+
+trap cleanup HUP INT QUIT TERM EXIT
+
+UB_PID_FILE="$UEBERZUG_TMP_DIR/.$(uuidgen)"
+ueberzugpp layer --no-stdin --silent --use-escape-codes --pid-file "$UB_PID_FILE"
+UB_PID=$(cat "$UB_PID_FILE")
+export SOCKET="$UEBERZUG_TMP_DIR"/ueberzugpp-"$UB_PID".socket
+
+# Use fzf with ueberzugpp for preview
+selected_wallpaper=$(find_wallpapers | fzf --reverse \
+    --preview="echo -e \"File: \$(basename {})\nSize: \$(du -h {} | cut -f1)\nResolution: \$(identify -format \"%wx%h\" {} 2>/dev/null || echo \"Unknown\")\n\"; \
+               ueberzugpp cmd -s $SOCKET -i fzfpreview -a add \
+               -x \$FZF_PREVIEW_LEFT -y \$((FZF_PREVIEW_TOP + 4)) \
+               --max-width \$FZF_PREVIEW_COLUMNS --max-height \$((FZF_PREVIEW_LINES - 4)) \
+               -f {}" \
+    --bind "resize:reload(echo)" \
+    --preview-window "right:60%")
+
+# Clean up ueberzugpp
+ueberzugpp cmd -s "$SOCKET" -a exit
 
 # Exit if no wallpaper was selected
 if [ -z "$selected_wallpaper" ]; then
@@ -65,5 +72,4 @@ wallust run "$selected_wallpaper"
 
 # Copy it for hyprlock
 cp "$selected_wallpaper" ~/.config/hypr/.current_wallpaper
-
 wallnut_print "Wallpaper applied successfully!"
