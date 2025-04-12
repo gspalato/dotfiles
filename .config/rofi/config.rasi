@@ -1,30 +1,39 @@
 configuration {
-  modes: "window,drun,run,ssh";
-  font: "GeistMono Nerd Font 18";
-  drun-display-format: "{name}";
+   modes:               "window,drun,run,ssh";
+   font:                "GeistMono Nerd Font Propo 16";
+   drun-display-format: "{name}";
+   display-drun:        "󰄶 ";
+   show-icons: true;
 }
 
 * {
-  // general
-  bg: #111111;
-  bgt: #11111195;
-  t: transparent;
-  fg: #eeeeee;
+   // general
+   bg: #111111;
+   bgt: #11111195;
+   t: transparent;
+   fg: #eeeeee;
+   bc: rgba(242, 242, 242, 0.15);
 
-  selected-bg: @fg;
-  selected-fg: @bg;
+   selected-bg: @fg;
+   selected-fg: @bg;
 
-  // for windows
-  active: #a9b665;
-  urgent: #fb4934;
+   // for windows
+   active: #a9b665;
+   urgent: #fb4934;
 }
 
 window {
-  fullscreen: true;
-  padding: 35% 30%;       // you might want to ajust these to resize rofi.
-  transparency: "real";
-  background-color: @bgt;
-  border-color: @t;
+   fullscreen: true;
+   padding: 35% 30%;       // you might want to ajust these to resize rofi.
+   //padding: 10px;
+   transparency: "real";
+   background-color: @bgt;
+   border-color: @t;
+   //border-radius: 10px;
+   location: center;
+   anchor: center;
+   x-offset: 0px;
+   y-offset: 0px;
 }
 
 listview {
@@ -63,6 +72,7 @@ element {
     border:  0;
     padding: 5px;
     border-radius: 5px;
+    spacing: 10px;
 }
 
 element.normal.normal {
@@ -130,7 +140,7 @@ button.selected {
 
 textbox-prompt-sep {
     expand:     false;
-    str:        ":";
+    //str:        ":";
     text-color: @fg;
     margin:     0 0.3em 0 0;
 }

@@ -64,6 +64,7 @@
         "hide_on_silence": true,
         "bars": 10,
         "monstercat": false,
+        "sleep_timer": 1, 
      },
     "clock": {
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",

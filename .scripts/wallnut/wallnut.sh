@@ -54,7 +54,8 @@ selected_wallpaper=$(find_wallpapers | fzf --reverse \
                --max-width \$FZF_PREVIEW_COLUMNS --max-height \$((FZF_PREVIEW_LINES - 4)) \
                -f {}" \
     --bind "resize:reload(echo)" \
-    --preview-window "right:60%")
+    --preview-window "right:60%" \
+    --with-nth -1)
 
 # Clean up ueberzugpp
 ueberzugpp cmd -s "$SOCKET" -a exit
@@ -67,9 +68,13 @@ fi
 
 # Apply the selected wallpaper
 wallnut_print "Applying wallpaper: $selected_wallpaper"
+
 matugen image "$selected_wallpaper"
 wallust run "$selected_wallpaper"
 
 # Copy it for hyprlock
 cp "$selected_wallpaper" ~/.config/hypr/.current_wallpaper
+
+# Alert!
 wallnut_print "Wallpaper applied successfully!"
+notify-send -a "Wallnut" "Changed wallpaper!" "$selected_wallpaper" -i ~/.config/hypr/.current_wallpaper

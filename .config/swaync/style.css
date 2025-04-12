@@ -1,0 +1,56 @@
+@define-color cc-bg rgba(0, 0, 0, .25);
+@define-color not-bg rgba(0, 0, 0, .25);
+@define-color not-bg rgba(0, 0, 0, .4);
+
+* {
+    font-family: GeistMono Nerd Font;
+}
+
+.control-center {
+    background: @cc-bg;
+    padding: 10px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .13);
+}
+
+.notification-row {
+    outline: none;
+    background: transparent;
+}
+
+.notification-group {
+    background: transparent;
+}
+
+.notification {
+    background: @not-bg;
+    box-shadow: 0 0 0 1px rgba(242, 242, 242, .15);
+    border: none;
+}
+
+.notification-content {
+    padding: 5px;
+}
+
+.notification-action, .notification-default-action {
+    padding: 5px;
+}
+
+.image, .body-image {
+    border-radius: 5px;
+}
+
+.image {
+    padding-right: 10px;
+}
+
+.body-image {
+    padding-top: 10px;
+}
+
+.blank-window {
+    background: transparent;
+}
+
+button, button:hover {
+    border: none;
+}
