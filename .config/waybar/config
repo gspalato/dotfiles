@@ -46,7 +46,7 @@
 	"player-icons": {
 		"default": "🎵",
 		"mpv": "🎵",
-		"spotify": "<span font='9' rise='1' color='#1ED760'></span>",
+		"spotify": "<span font='9' rise='0' color='#1ED760'></span>",
 	},
 	"status-icons": {
 		"paused": "",
@@ -95,8 +95,9 @@
       "format-icons": ["", "", "", "", ""]
     },
     "network": {
-	"format-icons": ["", "", "", ""],
-      "format-wifi": "",
+      "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+      "format-wifi": "󰤨",
+      //"format-wifi": "",
       "format-ethernet": "{cidr} ",
       "tooltip-format": "{ifname} via {gwaddr} ",
       "format-linked": "{ifname} (No IP) ",
