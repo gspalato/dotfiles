@@ -1,8 +1,48 @@
-import { App } from 'astal/gtk3';
+import { App, Widget } from 'astal/gtk3';
 import { Variable, GLib, bind } from 'astal';
 import { Astal, Gtk, Gdk } from 'astal/gtk3';
 
-import Battery from 'gi://AstalBattery?version=0.1';
+import AstalBattery from 'gi://AstalBattery?version=0.1';
+
+const battery = AstalBattery.get_default();
+
+function BatteryIcon() {
+    const batteryBind = Variable.derive(
+        [bind(battery, 'percentage'), bind(battery, 'charging')],
+        (percent, isCharging) => {
+            percent = Math.floor(percent * 10) * 10;
+            return `battery-level-${percent}${
+                isCharging && percent !== 100 ? '-charging' : ''
+            }-symbolic`;
+        }
+    );
+
+    return <icon className="barIcon" icon={batteryBind()} />;
+}
+
+export function BatteryPercentLabel(props: { reveal: Variable<boolean> }) {
+    const { reveal } = props;
+
+    const setup = (revealer: Widget.Revealer) => {
+        reveal.subscribe((show) => {
+            revealer.revealChild = show;
+        });
+    };
+
+    return (
+        <revealer
+            transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
+            setup={setup}
+        >
+            <label
+                className="battery-percentage"
+                label={bind(battery, 'percentage').as(
+                    (p) => `${Math.round(p * 100)}%`
+                )}
+            />
+        </revealer>
+    );
+}
 
 type Props = {
     icons?: string[];
@@ -17,20 +57,59 @@ export const BatteryLevel = (props: Props) => {
         chargingIcons = ['󰢟', '󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'],
     } = props;
 
-    const bat = Battery.get_default();
+    const percentage = bind(battery, 'percentage');
 
+    const isHovering = Variable(false);
+
+    const onHover = () => {
+        isHovering.set(true);
+    };
+
+    const onHoverLost = () => {
+        isHovering.set(false);
+    };
+
+    /*
     const text = bind(bat, 'percentage').as((p) => {
         const set = bat.charging ? chargingIcons : icons;
-
-        const index = Math.floor((p / 100) * (set.length - 1));
+        const index = Math.floor(p * (set.length - 1));
         const icon = set[index] || set[set.length - 1];
 
         return `${icon}${showPercentage ? ` ${Math.round(p * 100)}%` : ''}`;
     });
+    */
 
     return (
-        <box className="battery module" visible={bind(bat, 'isPresent')}>
-            <label label={text} />
-        </box>
+        <eventbox
+            className="module-event"
+            onHover={onHover}
+            onHoverLost={onHoverLost}
+        >
+            <box
+                className="battery module"
+                visible={bind(battery, 'isPresent')}
+                halign={Gtk.Align.CENTER}
+            >
+                <BatteryIcon />
+                <BatteryPercentLabel reveal={isHovering} />
+                {/*bind(
+                    Variable.derive([percentage, isCharging], (p, c) => {
+                        const set = bat.charging ? chargingIcons : icons;
+                        const index = Math.floor(p * (set.length - 1));
+                        const icon = set[index] || set[set.length - 1];
+
+                        return (
+                            <>
+                                <label label={icon} />
+                                <BatteryPercentLabel
+                                    shouldShow={isHovering}
+                                    percent={p * 100}
+                                />
+                            </>
+                        );
+                    })
+                )*/}
+            </box>
+        </eventbox>
     );
 };

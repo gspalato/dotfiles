@@ -9,8 +9,10 @@ import { Wifi } from './Wifi';
 import { Volume } from './Volume';
 import { Media } from './Media';
 
+import { APP_NAME } from '../config/data';
+
 export default function Bar(gdkmonitor: Gdk.Monitor) {
-    const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
+    const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
 
     return (
         <window
@@ -18,6 +20,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             className="bar"
             exclusivity={Astal.Exclusivity.EXCLUSIVE}
             anchor={TOP | LEFT | RIGHT}
+            namespace={APP_NAME}
         >
             <centerbox>
                 <box
@@ -30,6 +33,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                     <Media />
                 </box>
                 <box className="area">
+                    <></>
                     <HyprlandWindow maxLength={30} />
                 </box>
                 <box

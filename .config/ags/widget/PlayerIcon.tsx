@@ -7,11 +7,12 @@ const media = Mpris.get_default();
 type Props = {
     player: Mpris.Player;
     symbolic?: boolean;
+    playerIcons?: { [player: string]: string };
     [key: string]: any;
 };
 
 export const PlayerIcon = (props: Props) => {
-    const { player, symbolic = false, ...rest } = props;
+    const { player, playerIcons, symbolic = false, ...rest } = props;
 
     const iconName = bind(player, 'entry').as((entry) => {
         let name = `${entry}${symbolic ? '-symbolic' : ''}`;

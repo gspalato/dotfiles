@@ -3,7 +3,8 @@ import { Gtk, Widget } from 'astal/gtk3';
 import Pango from 'gi://Pango?version=1.0';
 import Mpris from 'gi://AstalMpris?version=0.1';
 import { PlayerIcon } from './PlayerIcon';
-import { CavaSpectrum } from './Cava2';
+import { CavaSpectrum } from './Cava';
+import { toggleWindow } from '../utils/window';
 
 const media = Mpris.get_default();
 
@@ -40,6 +41,8 @@ export function NowPlaying(props: {
         <revealer
             transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
             setup={setup}
+            halign={Gtk.Align.START}
+            valign={Gtk.Align.CENTER}
         >
             <label
                 className="now-playing"
@@ -51,7 +54,13 @@ export function NowPlaying(props: {
     );
 }
 
-export const Media = () => {
+type MediaProps = {
+    playerIcons?: { [player: string]: string };
+};
+
+export const Media = (props: MediaProps) => {
+    const { playerIcons } = props;
+
     const activePlayer = Variable(false);
     const isHovering = Variable(false);
 
@@ -63,11 +72,16 @@ export const Media = () => {
         isHovering.set(false);
     };
 
+    const onClick = () => {
+        toggleWindow('media-menu');
+    };
+
     return (
         <eventbox
             visible={activePlayer}
             onHover={onHover}
             onHoverLost={onHoverLost}
+            onClick={onClick}
         >
             <box className="media module">
                 {bind(media, 'players').as((players) => {

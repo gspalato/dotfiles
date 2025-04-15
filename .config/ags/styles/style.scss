@@ -1,0 +1,142 @@
+@import "./theme.scss";
+@import "./media-menu.scss";
+
+* {
+    all: unset;
+    font-family: $font-family;
+    font-size: $font-size;
+}
+
+window {
+    background: transparent;
+}
+
+.bar {
+    background: transparent;
+
+    centerbox {
+        margin: $outer-margin-top $outer-margin-right $outer-margin-bottom $outer-margin-left;
+    }
+
+    .area {
+        background: transparent;
+
+        &>.module,
+        &>.module-event>.module {
+            margin-right: 5px;
+        }
+
+        &>.module:last-child,
+        &>.module-event:last-child>.module {
+            margin-right: 0;
+        }
+    }
+
+    .module {
+        min-height: $module-min-height;
+        background-color: $module-bg-color;
+        border-radius: $module-border-radius;
+        padding: 2px 15px;
+        box-shadow: inset 0 0 0 1px $border-color;
+    }
+}
+
+/* Workspaces Module */
+
+.module.workspaces button {
+    //background: $unfocused-workspace-color;
+
+    &>label {
+        color: $unfocused-workspace-color;
+        font-family: 'GeistMono Nerd Font Propo';
+        font-size: 16px;
+    }
+
+    margin: 0 5px;
+
+    min-width: 6px;
+    min-height: 6px;
+
+    border-radius: 50px;
+
+    transition: background-color 0.2s ease-in-out;
+
+    &.focused>label {
+        //background: $focused-workspace-color;
+        color: $focused-workspace-color;
+        font-weight: bold;
+    }
+}
+
+/*
+.workspaces {
+    color: #ffffff;
+    border-radius: 24px;
+    font-weight: bolder;
+}
+
+.workspaces button {
+    padding: 0 6.5px;
+    border-radius: 24px;
+    margin: 0 5px;
+    background-color: $unfocused-workspace-color;
+    transition: background-color 0.15s ease-in;
+}
+
+.workspaces button:hover,
+.workspaces button.active:hover {
+    background-color: $foreground;
+}
+
+.workspaces button.focused {
+    background-color: $focused-workspace-color;
+    margin: 0 3.5px;
+    border-radius: 24px;
+}
+
+.workspaces button.active {
+    background-color: $focused-workspace-color;
+}
+
+.workspaces button.focused label {
+    min-height: 10px;
+    font-size: 1px;
+    transition: min-width 0.15s ease-in-out;
+}
+
+.workspaces label {
+    min-width: 1px;
+    min-height: 12px;
+    font-size: 1px;
+    transition: min-width 0.15s ease-in-out;
+}
+*/
+
+/* Time Module */
+
+.module.time {
+    font-weight: 600;
+}
+
+/* Fixing spacings */
+
+.module.mpris>*:not(:last-child),
+.module.media>*:not(:last-child) {
+    padding-right: $spacing;
+}
+
+.module.media .now-playing {
+    font-size: $font-size;
+    padding-right: $spacing;
+    border-right-width: 1px;
+    border-color: #ffffff;
+}
+
+.module.battery>*:not(:first-child),
+.module.volume>*:not(:first-child) {
+    padding-left: $spacing;
+}
+
+.module.cava drawingarea {
+    min-width: 50px;
+}
