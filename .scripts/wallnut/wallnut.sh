@@ -73,8 +73,8 @@ matugen image "$selected_wallpaper"
 wallust run "$selected_wallpaper"
 
 # Copy it for hyprlock
-cp "$selected_wallpaper" ~/.config/hypr/.current_wallpaper
+cp "$selected_wallpaper" ~/.current.wall
 
 # Alert!
 wallnut_print "Wallpaper applied successfully!"
-notify-send -a "Wallnut" "Changed wallpaper!" "$selected_wallpaper" -i ~/.config/hypr/.current_wallpaper
+notify-send -a "Wallnut" "Changed wallpaper!" "$(basename $selected_wallpaper)" -i ~/.config/hypr/.current_wallpaper

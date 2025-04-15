@@ -36,8 +36,10 @@
     },
     "mpris": {
         "dynamic-order": ["artist", "title"],
-	"format-len": 25,
+	"dynamic-len": 25,
+        "format-len": 25,
         "dynamic-importance-order": ["title", "artist", "album", "position", "length"],
+        "dynamic-separator": " · ",
 	"format": "<span>{player_icon}</span> {dynamic}",
 	"format-paused": "<span>{status_icon}</span> <i>{dynamic}</i>",
         "format-stopped": "",
@@ -46,7 +48,8 @@
 	"player-icons": {
 		"default": "🎵",
 		"mpv": "🎵",
-		"spotify": "<span font='9' rise='0' color='#1ED760'></span>",
+		"spotify": "<span color='#1ED760'></span>"
+                //"spotify": "<span font='9' rise='0' color='#1ED760'></span>",
 	},
 	"status-icons": {
 		"paused": "",
@@ -57,6 +60,7 @@
     },
     "cava": {
         "cava_config": "$HOME/.config/cava/config",
+        //"format-icons": ["、","。","〃","〆","々","〆","〇","〈"],
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
         "framerate": 240,
         "method": "pipewire",
