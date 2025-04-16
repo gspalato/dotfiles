@@ -8,17 +8,26 @@ type Props = {
     player: Mpris.Player;
     symbolic?: boolean;
     playerIcons?: { [player: string]: string };
+    showOnIconlessPlayer?: boolean;
     [key: string]: any;
 };
 
 export const PlayerIcon = (props: Props) => {
-    const { player, playerIcons, symbolic = false, ...rest } = props;
+    const {
+        player,
+        playerIcons,
+        showOnIconlessPlayer = false,
+        symbolic = false,
+        ...rest
+    } = props;
+
+    const defaultIconName = 'emblem-music-symbolic';
 
     const iconName = bind(player, 'entry').as((entry) => {
         let name = `${entry}${symbolic ? '-symbolic' : ''}`;
-        name = Widget.Icon.lookup_icon(name) ? name : 'emblem-music-symbolic';
+        name = Widget.Icon.lookup_icon(name) ? name : defaultIconName;
         return name;
     });
 
-    return <icon className="player-icon" icon={iconName} />;
+    return <icon className="player-icon" icon={iconName} {...rest} />;
 };

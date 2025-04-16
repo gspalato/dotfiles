@@ -1,13 +1,13 @@
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 import { Variable } from 'astal';
 
-import { HyprlandWorkspaces } from './HyprlandWorkspaces';
-import { HyprlandWindow } from './HyprlandWindow';
-import { Time } from './Time';
-import { BatteryLevel } from './Battery';
-import { Wifi } from './Wifi';
-import { Volume } from './Volume';
-import { Media } from './Media';
+import { HyprlandWorkspaces } from '../widget/HyprlandWorkspaces';
+import { HyprlandWindow } from '../widget/HyprlandWindow';
+import { Time } from '../widget/Time';
+import { BatteryLevel } from '../widget/Battery';
+import { Wifi } from '../widget/Wifi';
+import { Volume } from '../widget/Volume';
+import { Media } from '../widget/Media';
 
 import { APP_NAME } from '../config/data';
 

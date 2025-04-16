@@ -1,7 +1,7 @@
 import { App, Gdk } from 'astal/gtk3';
 
-import Bar from './widget/Bar';
-import { MediaWindow } from './widget/MediaWindow';
+import Bar from './windows/Bar';
+import { MediaWindow } from './windows/MediaWindow';
 
 import style from './styles/style.scss';
 

@@ -83,10 +83,11 @@ export const CavaSpectrum = (props: Props) => {
                     barHeight
                 );
 
-                cava.connect('notify::values', () => self.queue_draw());
+                //cava.connect('notify::values', () => self.queue_draw());
 
                 self.connect('draw', (_, cr: Cairo.Context) => {
                     const values = cava.get_values();
+                    self.queue_draw();
 
                     const context = self.get_style_context();
                     const h = self.get_allocated_height();

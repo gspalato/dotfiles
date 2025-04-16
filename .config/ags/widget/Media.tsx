@@ -22,7 +22,8 @@ export const NowPlaying = (props: {
     const currentTrack = Variable('');
 
     const setup = (revealer: Widget.Revealer) => {
-        bind(player, 'title').subscribe((title) => {
+        const triggerTitleTimeoutReveal = (title: string) => {
+            console.log('title changed:', title);
             currentTrack.set(title);
             revealer.revealChild = true;
             const timeoutTrack = currentTrack.get();
@@ -30,11 +31,37 @@ export const NowPlaying = (props: {
                 if (timeoutTrack === currentTrack.get())
                     if (revealer) revealer.revealChild = false;
             }, 3000);
-        });
+        };
 
+        bind(player, 'title').subscribe(triggerTitleTimeoutReveal);
+
+        Variable.derive([shouldShow, currentTrack]).subscribe(
+            ([show, track]) => {
+                if (track === '' || !track) revealer.revealChild = false;
+                else revealer.revealChild = show;
+            }
+        );
+
+        // Check if something is playing when the app starts.
+        // If it is, then trigger the timeout animation.
+        const initialTitle = player.title;
+        if (
+            initialTitle &&
+            initialTitle !== '' &&
+            player.entry &&
+            player.playbackStatus === Mpris.PlaybackStatus.PLAYING
+        ) {
+            currentTrack.set(initialTitle);
+            triggerTitleTimeoutReveal(initialTitle);
+        }
+
+        /*
         shouldShow.subscribe((show) => {
-            revealer.revealChild = show;
+            const track = currentTrack.get();
+            if (track === '' || !track) revealer.revealChild = false;
+            else revealer.revealChild = show;
         });
+        */
     };
 
     const titleBind = Variable.derive(
@@ -49,12 +76,15 @@ export const NowPlaying = (props: {
             halign={Gtk.Align.START}
             valign={Gtk.Align.CENTER}
         >
-            <label
-                className="now-playing"
-                ellipsize={Pango.EllipsizeMode.END}
-                maxWidthChars={20}
-                label={titleBind()}
-            />
+            <box className="space-between-ltr">
+                <PlayerIcon player={player} />
+                <label
+                    className="now-playing"
+                    ellipsize={Pango.EllipsizeMode.END}
+                    maxWidthChars={20}
+                    label={titleBind()}
+                />
+            </box>
         </revealer>
     );
 };
@@ -72,7 +102,7 @@ export const Media = () => {
     };
 
     const onClick = () => {
-        toggleWindow('media-menu');
+        if (activePlayer.get()) toggleWindow('media-menu');
     };
 
     return (
@@ -93,13 +123,12 @@ export const Media = () => {
 
                     if (!player.entry) {
                         activePlayer.set(false);
+                    } else {
+                        activePlayer.set(true);
                     }
-
-                    activePlayer.set(true);
 
                     return [
                         <>
-                            <PlayerIcon player={player} />
                             <NowPlaying
                                 player={player}
                                 shouldShow={isHovering}

@@ -5,7 +5,7 @@ import { toggleWindow } from '../utils/window';
 
 import { APP_NAME } from '../config/data';
 import Pango from 'gi://Pango?version=1.0';
-import { MediaControls } from './MediaControls';
+import { MediaControls } from '../widget/MediaControls';
 
 export interface MediaWidgetProps {
     player: Mpris.Player;
@@ -35,20 +35,24 @@ const TrackInfo = ({ player }: MediaWidgetProps) => {
                 halign={Gtk.Align.CENTER}
                 hexpand
                 ellipsize={Pango.EllipsizeMode.END}
-                label={bind(player, 'title')}
+                label={bind(player, 'title') ?? ''}
             />
             <label
                 className="artist-name"
                 //justify={Gtk.Justification.CENTER}
                 halign={Gtk.Align.CENTER}
                 hexpand
-                label={bind(player, 'artist')}
+                label={bind(player, 'artist') ?? ''}
             />
         </box>
     );
 };
 
 const PositionSlider = ({ player }: MediaWidgetProps) => {
+    if (!player) {
+        return <></>;
+    }
+
     const updatePosition = bind(player, 'position').as((p) =>
         player.length > 0 ? p / player.length : 0
     );
@@ -97,7 +101,7 @@ const MediaContainer = () => {
             players.find((p) => p.get_entry() === 'spotify') ?? players[0];
 
         if (!player) {
-            return '';
+            return <></>;
         }
 
         return (
