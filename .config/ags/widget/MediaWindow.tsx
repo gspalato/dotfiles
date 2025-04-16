@@ -4,6 +4,8 @@ import Mpris from 'gi://AstalMpris';
 import { toggleWindow } from '../utils/window';
 
 import { APP_NAME } from '../config/data';
+import Pango from 'gi://Pango?version=1.0';
+import { MediaControls } from './MediaControls';
 
 export interface MediaWidgetProps {
     player: Mpris.Player;
@@ -11,6 +13,83 @@ export interface MediaWidgetProps {
 }
 
 const media = Mpris.get_default();
+
+const CoverArt = ({ player }: MediaWidgetProps) => {
+    return (
+        <box
+            className="cover-art"
+            hexpand={false}
+            css={bind(player, 'coverArt').as(
+                (path) => `background-image: url("${path}");`
+            )}
+        />
+    );
+};
+
+const TrackInfo = ({ player }: MediaWidgetProps) => {
+    return (
+        <box className="track-info" vertical={true}>
+            <label
+                className="track-name"
+                justify={Gtk.Justification.CENTER}
+                xalign={0}
+                hexpand
+                ellipsize={Pango.EllipsizeMode.END}
+                label={bind(player, 'title')}
+            />
+            <label
+                className="artist-name"
+                justify={Gtk.Justification.CENTER}
+                xalign={0}
+                hexpand
+                label={bind(player, 'artist')}
+            />
+        </box>
+    );
+};
+
+const PositionSlider = ({ player }: MediaWidgetProps) => {
+    const updatePosition = bind(player, 'position').as((p) =>
+        player.length > 0 ? p / player.length : 0
+    );
+
+    const lengthStr = (length: number) => {
+        const min = Math.floor(length / 60);
+        const sec = Math.floor(length % 60);
+        const sec0 = sec < 10 ? '0' : '';
+        return `${min}:${sec0}${sec}`;
+    };
+
+    return (
+        <box vertical={true}>
+            <slider
+                className="position-slider"
+                drawValue={false}
+                hexpand={true}
+                onDragged={({ value }) => {
+                    player.position = player.length * value;
+                }}
+                value={bind(updatePosition)}
+            />
+            <box className="position-label" hexpand={true}>
+                <label
+                    label={bind(player, 'position').as((position) =>
+                        lengthStr(position)
+                    )}
+                    halign={Gtk.Align.START}
+                    hexpand={true}
+                />
+                <label
+                    label={bind(player, 'length').as((length) =>
+                        lengthStr(length)
+                    )}
+                    halign={Gtk.Align.END}
+                    hexpand={true}
+                />
+            </box>
+        </box>
+    );
+};
 
 const MediaContainer = () => {
     const update = bind(media, 'players').as((players) => {
@@ -21,7 +100,14 @@ const MediaContainer = () => {
             return '';
         }
 
-        return <box className="media-box" vertical={true}></box>;
+        return (
+            <box className="media-box" vertical={true} vexpand>
+                <CoverArt player={player} />
+                <TrackInfo player={player} />
+                <PositionSlider player={player} />
+                <MediaControls player={player} />
+            </box>
+        );
     });
 
     return update;

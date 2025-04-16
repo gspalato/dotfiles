@@ -7,17 +7,32 @@ import AstalBattery from 'gi://AstalBattery?version=0.1';
 const battery = AstalBattery.get_default();
 
 function BatteryIcon() {
+    const icons = ['󰂎', '󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹'];
+    const chargingIcons = [
+        '󰢟',
+        '󰢜',
+        '󰂆',
+        '󰂇',
+        '󰂈',
+        '󰢝',
+        '󰂉',
+        '󰢞',
+        '󰂊',
+        '󰂋',
+        '󰂅',
+    ];
+
     const batteryBind = Variable.derive(
         [bind(battery, 'percentage'), bind(battery, 'charging')],
         (percent, isCharging) => {
-            percent = Math.floor(percent * 10) * 10;
-            return `battery-level-${percent}${
-                isCharging && percent !== 100 ? '-charging' : ''
-            }-symbolic`;
+            const set = isCharging ? chargingIcons : icons;
+            const index = Math.floor(percent * (set.length - 1));
+            const icon = set[index] || set[set.length - 1];
+            return icon;
         }
     );
 
-    return <icon className="barIcon" icon={batteryBind()} />;
+    return <label className="barIcon" label={batteryBind()} />;
 }
 
 export function BatteryPercentLabel(props: { reveal: Variable<boolean> }) {
@@ -92,23 +107,6 @@ export const BatteryLevel = (props: Props) => {
             >
                 <BatteryIcon />
                 <BatteryPercentLabel reveal={isHovering} />
-                {/*bind(
-                    Variable.derive([percentage, isCharging], (p, c) => {
-                        const set = bat.charging ? chargingIcons : icons;
-                        const index = Math.floor(p * (set.length - 1));
-                        const icon = set[index] || set[set.length - 1];
-
-                        return (
-                            <>
-                                <label label={icon} />
-                                <BatteryPercentLabel
-                                    shouldShow={isHovering}
-                                    percent={p * 100}
-                                />
-                            </>
-                        );
-                    })
-                )*/}
             </box>
         </eventbox>
     );

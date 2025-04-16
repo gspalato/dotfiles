@@ -8,6 +8,7 @@ import style from './styles/style.scss';
 App.start({
     instanceName: 'nsh',
     css: style,
+    icons: './assets/icons',
     main() {
         Bar(0 as any);
         MediaWindow();

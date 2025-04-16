@@ -1,13 +1,26 @@
+@use 'sass:color';
+
 @import "./theme.scss";
+
+$media-menu-padding: 30px;
 
 .media-box {
     background-color: $module-bg-color;
     min-width: 300px;
-    min-height: 435px;
     border-radius: 25px;
+
+    box-shadow: inset 0 0 0 1px $border-color;
 
     margin-top: $outer-margin-top;
     margin-left: $outer-margin-left;
+
+    &>*:not(:first-child) {
+        margin-top: calc($media-menu-padding / 2);
+    }
+
+    &>*:last-child {
+        margin-bottom: $media-menu-padding;
+    }
 }
 
 .player-icon {
@@ -16,35 +29,32 @@
 
 .now-playing {
     font-size: 12px;
-    margin: 0 5px;
 }
 
 .track-info {
-    padding: 0 30px;
-}
+    padding: 0 $media-menu-padding;
 
-.track-name {
-    margin: 2px 0;
+    & label {
+        font-size: 16px;
+
+        &.track-name {
+            font-family: $font-family-display;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        &.artist-name {
+            font-weight: 500;
+        }
+    }
 }
 
 .cover-art {
     background-size: cover;
     min-width: 250px;
     min-height: 250px;
-    margin: 30px 30px 7px;
+    margin: $media-menu-padding $media-menu-padding 0 $media-menu-padding;
     border-radius: 12px;
-}
-
-.track-info label {
-    font-size: 14px;
-}
-
-.track-name {
-    font-weight: bold;
-}
-
-.artist-name {
-    font-weight: lighter;
 }
 
 .position-slider {
@@ -53,7 +63,7 @@
 }
 
 .position-slider trough {
-    background-color: black;
+    background-color: #ffffff22;
     border-radius: 24px;
     min-height: 5px;
 }
@@ -75,11 +85,14 @@
 
 .media-controls {
     font-size: 35px;
-    margin: 3px 0;
+
+    & icon {
+        font-size: 32px;
+    }
 }
 
 .play-button {
-    background-color: $foreground;
+    background-color: color.change($foreground, $alpha: 1);
     color: rgba(0, 0, 0, 1);
     border-radius: 50%;
     padding: 5px;

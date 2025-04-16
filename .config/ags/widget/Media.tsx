@@ -8,10 +8,15 @@ import { toggleWindow } from '../utils/window';
 
 const media = Mpris.get_default();
 
-export function NowPlaying(props: {
+export interface MediaWidgetProps {
+    player: Mpris.Player;
+    children?: Gtk.Widget[];
+}
+
+export const NowPlaying = (props: {
     shouldShow: Variable<boolean>;
     player: Mpris.Player;
-}) {
+}) => {
     const { player, shouldShow } = props;
 
     const currentTrack = Variable('');
@@ -52,15 +57,9 @@ export function NowPlaying(props: {
             />
         </revealer>
     );
-}
-
-type MediaProps = {
-    playerIcons?: { [player: string]: string };
 };
 
-export const Media = (props: MediaProps) => {
-    const { playerIcons } = props;
-
+export const Media = () => {
     const activePlayer = Variable(false);
     const isHovering = Variable(false);
 
@@ -89,9 +88,8 @@ export const Media = (props: MediaProps) => {
                         players.find((p) => p.get_entry() === 'spotify') ??
                         players[0];
 
-                    if (!player) {
+                    if (!player.entry) {
                         activePlayer.set(false);
-                        return <></>;
                     }
 
                     activePlayer.set(true);

@@ -7,7 +7,7 @@ import Wp from 'gi://AstalWp';
 const audio = Wp.get_default()?.get_audio();
 
 const VolumeIcon = () => {
-    const volumeThresholds = [101, 67, 34, 1, 0];
+    const volumeThresholds = [67, 34, 1, 0];
 
     const setupStack = (stack: Widget.Stack) => {
         if (!audio) return;
@@ -26,11 +26,16 @@ const VolumeIcon = () => {
     return (
         <box className="barIcon">
             <stack setup={setupStack}>
-                <icon name="101" icon="audio-volume-overamplified-symbolic" />
-                <icon name="67" icon="audio-volume-high-symbolic" />
-                <icon name="34" icon="audio-volume-medium-symbolic" />
-                <icon name="1" icon="audio-volume-low-symbolic" />
-                <icon name="0" icon="audio-volume-muted-symbolic" />
+                {/*
+                <label name={'67'} label="" />
+                <label name={'34'} label="" />
+                <label name={'0'} label="" />
+                */}
+
+                <icon name="67" icon="custom-audio-volume-high-symbolic" />
+                <icon name="34" icon="custom-audio-volume-medium-symbolic" />
+                <icon name="1" icon="custom-audio-volume-low-symbolic" />
+                <icon name="0" icon="custom-audio-volume-muted-symbolic" />
             </stack>
         </box>
     );
