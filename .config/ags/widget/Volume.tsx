@@ -115,7 +115,10 @@ export const Volume = (props: Props) => {
             onHoverLost={onHoverLost}
             onScroll={onScroll}
         >
-            <box visible={!!speaker} className="module volume">
+            <box
+                visible={!!speaker}
+                className="module volume space-between-rtl"
+            >
                 <VolumeIcon />
                 <VolumePercentLabel reveal={isHovering} />
             </box>

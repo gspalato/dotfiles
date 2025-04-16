@@ -20,7 +20,7 @@ export const Mpris = (props: Props) => {
 
     return bind(mpris, 'players').as((ps) =>
         ps[0] ? (
-            <box className="mpris module">
+            <box className="mpris module space-between-ltr">
                 <PlayerIcon player={ps[0]} />
                 <label
                     ellipsize={Pango.EllipsizeMode.END}

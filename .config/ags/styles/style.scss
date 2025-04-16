@@ -1,5 +1,10 @@
-@import "./theme.scss";
-@import "./media-menu.scss";
+@import "./variables.scss";
+
+@import "./modules/avatar.scss";
+@import "./modules/media.scss";
+@import "./modules/media-menu.scss";
+@import "./modules/time.scss";
+@import "./modules/workspaces.scss";
 
 * {
     all: unset;
@@ -46,114 +51,10 @@ window {
     }
 }
 
-/* Avatar Module */
-.module.avatar {
-    min-height: $module-min-height;
-    min-width: $module-min-height;
-    padding: 0px 1px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-}
-
-/* Workspaces Module */
-
-.module.workspaces button {
-    //background: $unfocused-workspace-color;
-
-    &>label {
-        color: $unfocused-workspace-color;
-        font-family: 'GeistMono Nerd Font Propo';
-        font-size: 16px;
-    }
-
-    margin: 0 5px;
-
-    min-width: 6px;
-    min-height: 6px;
-
-    border-radius: 50px;
-
-    transition: background-color 0.2s ease-in-out;
-
-    &.focused>label {
-        //background: $focused-workspace-color;
-        color: $focused-workspace-color;
-        font-weight: bold;
-    }
-}
-
-/*
-.workspaces {
-    color: #ffffff;
-    border-radius: 24px;
-    font-weight: bolder;
-}
-
-.workspaces button {
-    padding: 0 6.5px;
-    border-radius: 24px;
-    margin: 0 5px;
-    background-color: $unfocused-workspace-color;
-    transition: background-color 0.15s ease-in;
-}
-
-.workspaces button:hover,
-.workspaces button.active:hover {
-    background-color: $foreground;
-}
-
-.workspaces button.focused {
-    background-color: $focused-workspace-color;
-    margin: 0 3.5px;
-    border-radius: 24px;
-}
-
-.workspaces button.active {
-    background-color: $focused-workspace-color;
-}
-
-.workspaces button.focused label {
-    min-height: 10px;
-    font-size: 1px;
-    transition: min-width 0.15s ease-in-out;
-}
-
-.workspaces label {
-    min-width: 1px;
-    min-height: 12px;
-    font-size: 1px;
-    transition: min-width 0.15s ease-in-out;
-}
-*/
-
-/* Current Window Module */
-.module.window label {}
-
-/* Time Module */
-
-.module.time {
-    font-weight: 600;
-}
-
-/* Fixing spacings */
-
-.module.mpris>*:not(:last-child),
-.module.media>*:not(:last-child) {
+.space-between-ltr>*:not(:last-child) {
     padding-right: $spacing;
 }
 
-.module.media .now-playing {
-    font-size: $font-size;
-    padding-right: calc($spacing + 2px); // Just so it looks good.
-    border-right: 1px solid $border-color;
-}
-
-.module.battery>*:not(:first-child),
-.module.volume>*:not(:first-child) {
+.space-between-rtl>*:not(:first-child) {
     padding-left: $spacing;
-}
-
-.module.media .now-playing {
-    font-weight: 600;
 }

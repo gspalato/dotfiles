@@ -82,7 +82,7 @@ export const Media = () => {
             onHoverLost={onHoverLost}
             onClick={onClick}
         >
-            <box className="media module">
+            <box className="media module space-between-ltr">
                 {bind(media, 'players').as((players) => {
                     const player =
                         players.find((p) => p.get_entry() === 'spotify') ??

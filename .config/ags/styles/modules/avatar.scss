@@ -1,0 +1,10 @@
+@import "./variables.scss";
+
+.module.avatar {
+    min-height: $module-min-height;
+    min-width: $module-min-height;
+    padding: 0px 1px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}

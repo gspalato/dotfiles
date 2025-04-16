@@ -1,0 +1,23 @@
+@import "./variables.scss";
+
+.module.workspaces button {
+    &>label {
+        color: $unfocused-workspace-color;
+        font-family: 'GeistMono Nerd Font Propo';
+        font-size: 16px;
+    }
+
+    margin: 0 5px;
+
+    min-width: 6px;
+    min-height: 6px;
+
+    border-radius: 50px;
+
+    transition: background-color 0.2s ease-in-out;
+
+    &.focused>label {
+        color: $focused-workspace-color;
+        font-weight: bold;
+    }
+}
