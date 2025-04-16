@@ -5,7 +5,7 @@
 $media-menu-padding: 30px;
 
 .media-box {
-    background-color: $module-bg-color;
+    background-color: color.change($module-bg-color, $alpha: .6);
     min-width: 300px;
     border-radius: 25px;
 
@@ -40,7 +40,7 @@ $media-menu-padding: 30px;
         &.track-name {
             font-family: $font-family-display;
             font-size: 20px;
-            font-weight: bold;
+            font-weight: bolder;
         }
 
         &.artist-name {

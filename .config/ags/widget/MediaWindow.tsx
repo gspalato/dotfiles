@@ -31,16 +31,16 @@ const TrackInfo = ({ player }: MediaWidgetProps) => {
         <box className="track-info" vertical={true}>
             <label
                 className="track-name"
-                justify={Gtk.Justification.CENTER}
-                xalign={0}
+                //justify={Gtk.Justification.CENTER}
+                halign={Gtk.Align.CENTER}
                 hexpand
                 ellipsize={Pango.EllipsizeMode.END}
                 label={bind(player, 'title')}
             />
             <label
                 className="artist-name"
-                justify={Gtk.Justification.CENTER}
-                xalign={0}
+                //justify={Gtk.Justification.CENTER}
+                halign={Gtk.Align.CENTER}
                 hexpand
                 label={bind(player, 'artist')}
             />

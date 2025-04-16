@@ -18,6 +18,8 @@ export const Time = (props: Props) => {
         <label
             className="time module"
             onDestroy={() => time.drop()}
+            valign={Gtk.Align.CENTER}
+            halign={Gtk.Align.CENTER}
             label={time()}
         />
     );

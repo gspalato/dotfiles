@@ -82,7 +82,10 @@ export const Media = () => {
             onHoverLost={onHoverLost}
             onClick={onClick}
         >
-            <box className="media module space-between-ltr">
+            <box
+                className="media module space-between-ltr"
+                valign={Gtk.Align.CENTER}
+            >
                 {bind(media, 'players').as((players) => {
                     const player =
                         players.find((p) => p.get_entry() === 'spotify') ??
