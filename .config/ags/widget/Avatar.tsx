@@ -5,11 +5,12 @@ export const Avatar = () => {
     const path = `${home}/.face.icon`;
 
     return (
-        <box
+        <icon
             className="avatar module"
             css={`
                 background-image: url('${path}');
             `}
+            icon={path}
         />
     );
 };

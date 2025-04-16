@@ -96,7 +96,7 @@ export const CavaSpectrum = (props: Props) => {
                     const fg = context.get_property(
                         'color',
                         Gtk.StateFlags.NORMAL
-                    );
+                    ) as any;
 
                     cr.setSourceRGBA(fg.red, fg.green, fg.blue, fg.alpha);
 

@@ -97,7 +97,7 @@ export const Media = () => {
 
                     activePlayer.set(true);
 
-                    return (
+                    return [
                         <>
                             <PlayerIcon player={player} />
                             <NowPlaying
@@ -105,8 +105,8 @@ export const Media = () => {
                                 shouldShow={isHovering}
                             />
                             <CavaSpectrum framerate={240} />
-                        </>
-                    );
+                        </>,
+                    ];
                 })}
             </box>
         </eventbox>

@@ -40,7 +40,7 @@ $media-menu-padding: 30px;
         &.track-name {
             font-family: $font-family-display;
             font-size: 20px;
-            font-weight: bolder;
+            font-weight: 700;
         }
 
         &.artist-name {
@@ -79,13 +79,13 @@ $media-menu-padding: 30px;
 }
 
 .position-label label {
-    font-weight: lighter;
+    font-weight: 400;
     font-size: 13px;
+
+    padding-top: 2px;
 }
 
 .media-controls {
-    font-size: 35px;
-
     & icon {
         font-size: 32px;
     }

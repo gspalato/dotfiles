@@ -10,7 +10,6 @@ import { Volume } from './Volume';
 import { Media } from './Media';
 
 import { APP_NAME } from '../config/data';
-import { Avatar } from './Avatar';
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
     const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;

@@ -66,14 +66,6 @@ type Props = {
 };
 
 export const BatteryLevel = (props: Props) => {
-    const {
-        showPercentage = true,
-        icons = ['󰂎', '󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹'],
-        chargingIcons = ['󰢟', '󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'],
-    } = props;
-
-    const percentage = bind(battery, 'percentage');
-
     const isHovering = Variable(false);
 
     const onHover = () => {

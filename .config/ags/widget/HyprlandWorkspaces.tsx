@@ -70,6 +70,7 @@ export const HyprlandWorkspaces = (props: Props) => {
 
     return (
         <box className="workspaces module">
+            <></>
             <box className="workspaces-container">
                 {bind(hypr, 'workspaces').as((wss) =>
                     wss

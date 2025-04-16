@@ -4,19 +4,17 @@ import { Astal, Gtk, Gdk } from 'astal/gtk3';
 
 import Hyprland from 'gi://AstalHyprland?version=0.1';
 import { getIconFromClass, truncateString } from '../utils';
+import Pango from 'gi://Pango?version=1.0';
 
 type Props = {
     maxLength?: number;
 };
 
 export const HyprlandWindow = (props: Props) => {
-    const { maxLength } = props;
+    const { maxLength = 25 } = props;
 
     const hypr = Hyprland.get_default();
     const focused = bind(hypr, 'focusedClient');
-    const icon = Variable.derive([focused], (client) => {
-        console.log(client.initialClass, client.class);
-    });
 
     return (
         <box
@@ -24,11 +22,11 @@ export const HyprlandWindow = (props: Props) => {
             visible={focused.as(Boolean)}
         >
             {focused.as((client) => {
-                if (client === null) return null;
+                if (client === null) return undefined;
 
                 const iconName = getIconFromClass(client.initialClass);
 
-                return (
+                return [
                     <>
                         <icon
                             className="window-icon"
@@ -36,14 +34,12 @@ export const HyprlandWindow = (props: Props) => {
                             visible={!!iconName}
                         />
                         <label
-                            label={bind(client, 'title').as((s) =>
-                                props.maxLength
-                                    ? truncateString(s, props.maxLength)
-                                    : s
-                            )}
+                            ellipsize={Pango.EllipsizeMode.END}
+                            maxWidthChars={maxLength}
+                            label={bind(client, 'title').as(String)}
                         />
-                    </>
-                );
+                    </>,
+                ];
             })}
         </box>
     );
