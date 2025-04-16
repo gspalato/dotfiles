@@ -101,7 +101,7 @@ export const BatteryLevel = (props: Props) => {
             onHoverLost={onHoverLost}
         >
             <box
-                className="battery module space-between-rtl"
+                className="battery module space-between-sm-rtl"
                 visible={bind(battery, 'isPresent')}
                 halign={Gtk.Align.CENTER}
             >

@@ -51,6 +51,14 @@ window {
     }
 }
 
+.space-between-sm-ltr>*:not(:last-child) {
+    padding-right: $spacing-sm;
+}
+
+.space-between-sm-rtl>*:not(:first-child) {
+    padding-left: $spacing-sm;
+}
+
 .space-between-ltr>*:not(:last-child) {
     padding-right: $spacing;
 }

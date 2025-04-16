@@ -117,7 +117,7 @@ export const Volume = (props: Props) => {
         >
             <box
                 visible={!!speaker}
-                className="module volume space-between-rtl"
+                className="module volume space-between-sm-rtl"
             >
                 <VolumeIcon />
                 <VolumePercentLabel reveal={isHovering} />
