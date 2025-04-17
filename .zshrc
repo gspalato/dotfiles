@@ -1,7 +1,9 @@
 # Load wallust color scheme.
 cat ~/.cache/wallust/sequences
+#printf '\033]11;#111111\007'
 
-neofetch --size 300 --kitty ~/Pictures/pinterest_pfp.jpg
+#neofetch --size 300 --kitty ~/Pictures/pinterest_pfp.jpg
+fastfetch
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -116,3 +118,10 @@ export DOTBARE_DIR="$HOME/.dotfiles"
 export DOTBARE_TREE="$HOME"
 
 eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/home/spxlato/.bun/_bun" ] && source "/home/spxlato/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

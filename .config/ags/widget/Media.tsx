@@ -25,6 +25,12 @@ export const NowPlaying = (props: {
         const triggerTitleTimeoutReveal = (title: string) => {
             console.log('title changed:', title);
             currentTrack.set(title);
+
+            if (!title || title === '') {
+                currentTrack.set('');
+                return;
+            }
+
             revealer.revealChild = true;
             const timeoutTrack = currentTrack.get();
             setTimeout(() => {
@@ -117,9 +123,17 @@ export const Media = () => {
                 valign={Gtk.Align.CENTER}
             >
                 {bind(media, 'players').as((players) => {
+                    players = media.get_players();
+                    if (players.length === 0) {
+                        activePlayer.set(false);
+                        return [<></>];
+                    }
+
                     const player =
                         players.find((p) => p.get_entry() === 'spotify') ??
                         players[0];
+
+                    console.log('currentplayer', player.entry, player.title);
 
                     if (!player.entry) {
                         activePlayer.set(false);
