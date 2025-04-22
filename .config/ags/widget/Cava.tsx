@@ -24,20 +24,16 @@ type Props = {
     smooth?: boolean;
 };
 
-const isCavaAvailable = exec('which cava') != '';
-
 export const Cava = (props: Props) => {
-    return (
-        <box
-            halign={Gtk.Align.CENTER}
-            valign={Gtk.Align.CENTER}
-            className="cava module"
-            visible
-        >
-            <></>
-            <CavaSpectrum {...props} />
-        </box>
-    );
+    return new Widget.Box({
+        halign: Gtk.Align.CENTER,
+        valign: Gtk.Align.CENTER,
+        className: 'cava module',
+        visible: true,
+        children: [
+            CavaSpectrum(props)
+        ]
+    })
 };
 
 export const CavaSpectrum = (props: Props) => {
@@ -73,74 +69,70 @@ export const CavaSpectrum = (props: Props) => {
     let silenceCounter = 0;
     const silenceThreshold = 10;
 
-    return (
-        <drawingarea
-            hexpand
-            vexpand
-            setup={(self) => {
-                self.set_size_request(
-                    bars * barWidth + (bars - 1) * padding,
-                    barHeight
-                );
+    return new Widget.DrawingArea({
+        hexpand: true,
+        vexpand: true,
+        setup: (self) => {
+            self.set_size_request(
+                bars * barWidth + (bars - 1) * padding,
+                barHeight
+            );
 
-                //cava.connect('notify::values', () => self.queue_draw());
+            self.connect('draw', (_, cr: Cairo.Context) => {
+                const values = cava.get_values();
+                self.queue_draw();
 
-                self.connect('draw', (_, cr: Cairo.Context) => {
-                    const values = cava.get_values();
-                    self.queue_draw();
+                const context = self.get_style_context();
+                const h = self.get_allocated_height();
+                const w = self.get_allocated_width();
 
-                    const context = self.get_style_context();
-                    const h = self.get_allocated_height();
-                    const w = self.get_allocated_width();
+                // Primary color fetched from CSS.
+                const fg = context.get_property(
+                    'color',
+                    Gtk.StateFlags.NORMAL
+                ) as any;
 
-                    // Primary color fetched from CSS.
-                    const fg = context.get_property(
-                        'color',
-                        Gtk.StateFlags.NORMAL
-                    ) as any;
+                cr.setSourceRGBA(fg.red, fg.green, fg.blue, fg.alpha);
 
-                    cr.setSourceRGBA(fg.red, fg.green, fg.blue, fg.alpha);
+                // Silence control.
+                if (values[0] > 0) silenceCounter = 0;
+                else silenceCounter++;
 
-                    // Silence control.
-                    if (values[0] > 0) silenceCounter = 0;
-                    else silenceCounter++;
+                const spectrum =
+                    silenceCounter > silenceThreshold
+                        ? new Array(bars).fill(0)
+                        : values;
 
-                    const spectrum =
-                        silenceCounter > silenceThreshold
-                            ? new Array(bars).fill(0)
-                            : values;
+                const centerY = h / 2;
+                const width = barWidth ?? w / bars - padding;
 
-                    const centerY = h / 2;
-                    const width = barWidth ?? w / bars - padding;
+                let dx = 0;
 
-                    let dx = 0;
+                for (let i = 0; i < spectrum.length; i++) {
+                    const value = Math.min(spectrum[i], 1);
 
-                    for (let i = 0; i < spectrum.length; i++) {
-                        const value = Math.min(spectrum[i], 1);
+                    let height = Math.max(value * barHeight, 1) / 2;
+                    height = Math.min(height, barHeight);
 
-                        let height = Math.max(value * barHeight, 1) / 2;
-                        height = Math.min(height, barHeight);
+                    const radius = width / 2;
+                    const yTop = centerY - height;
+                    const yBottom = centerY + height;
 
-                        const radius = width / 2;
-                        const yTop = centerY - height;
-                        const yBottom = centerY + height;
+                    // Bar
+                    cr.rectangle(dx, yTop, width, height * 2);
 
-                        // Bar
-                        cr.rectangle(dx, yTop, width, height * 2);
+                    // Roundness
+                    cr.arc(dx + radius, yTop, radius, 0, 2 * Math.PI);
+                    cr.arc(dx + radius, yBottom, radius, 0, 2 * Math.PI);
 
-                        // Roundness
-                        cr.arc(dx + radius, yTop, radius, 0, 2 * Math.PI);
-                        cr.arc(dx + radius, yBottom, radius, 0, 2 * Math.PI);
+                    cr.closePath();
+                    dx += width + padding;
+                }
 
-                        cr.closePath();
-                        dx += width + padding;
-                    }
-
-                    cr.fill();
-                });
-            }}
-        />
-    );
+                cr.fill();
+            })
+        }
+    })
 };
 
 let CavaWidget;

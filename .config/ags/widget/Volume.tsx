@@ -1,5 +1,5 @@
 import { App, Widget } from 'astal/gtk3';
-import { Variable, GLib, bind, exec } from 'astal';
+import { Variable, GLib, bind, exec, Binding } from 'astal';
 import { Astal, Gtk, Gdk } from 'astal/gtk3';
 
 import Wp from 'gi://AstalWp';
@@ -8,6 +8,14 @@ const audio = Wp.get_default()?.get_audio();
 
 const VolumeIcon = () => {
     const volumeThresholds = [67, 34, 1, 0];
+    const volumeIcons = []
+
+    const volumeMap = {
+        0: "custom-audio-volume-muted-symbolic",
+        1: "custom-audio-volume-low-symbolic",
+        34: "custom-audio-volume-medium-symbolic",
+        67: "custom-audio-volume-high-symbolic"
+    }
 
     const setupStack = (stack: Widget.Stack) => {
         if (!audio) return;
@@ -17,52 +25,53 @@ const VolumeIcon = () => {
                 return;
             }
 
-            stack.shown = volumeThresholds
+            stack.shown = Object.keys(volumeMap)
+                .map(v => Number(v))
                 .find((threshold) => threshold <= speaker.volume * 100)!
                 .toString();
         });
     };
 
-    return (
-        <box className="barIcon">
-            <stack setup={setupStack}>
-                {/*
-                <label name={'67'} label="" />
-                <label name={'34'} label="" />
-                <label name={'0'} label="" />
-                */}
+    return new Widget.Box({
+        className: '',
+        children: [
+            new Widget.Stack({
+                setup: (stack: Widget.Stack) => {
+                    if (!audio) return;
+                    audio.get_default_speaker()?.connect('notify', (speaker) => {
+                        if (speaker.get_mute()) {
+                            stack.shown = '0';
+                            return;
+                        }
 
-                <icon name="67" icon="custom-audio-volume-high-symbolic" />
-                <icon name="34" icon="custom-audio-volume-medium-symbolic" />
-                <icon name="1" icon="custom-audio-volume-low-symbolic" />
-                <icon name="0" icon="custom-audio-volume-muted-symbolic" />
-            </stack>
-        </box>
-    );
+                        stack.shown = volumeThresholds
+                            .find((threshold) => threshold <= speaker.volume * 100)!
+                            .toString();
+                    });
+                },
+                children: Object.entries(volumeMap).map((v) => new Widget.Icon({ name: v[0], icon: v[1] }))
+            })
+        ]
+    })
 };
 
 export function VolumePercentLabel(props: { reveal: Variable<boolean> }) {
     const { reveal } = props;
 
-    const setup = (revealer: Widget.Revealer) => {
-        reveal.subscribe((show) => {
-            revealer.revealChild = show;
-        });
-    };
-
-    return (
-        <revealer
-            transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-            setup={setup}
-        >
-            <label
-                className="volume-percentage"
-                label={bind(audio?.defaultSpeaker, 'volume').as(
-                    (p) => `${Math.round(p * 100)}%`
-                )}
-            />
-        </revealer>
-    );
+    return new Widget.Revealer({
+        transition_type: Gtk.RevealerTransitionType.SLIDE_RIGHT,
+        setup: (revealer: Widget.Revealer) => {
+            reveal.subscribe((show) => {
+                revealer.revealChild = show;
+            });
+        },
+        child: new Widget.Label({
+            className: 'volume-percentage',
+            label: bind(audio?.defaultSpeaker!, 'volume').as(
+                (p) => `${Math.round(p * 100)}%`
+            )
+        })
+    })
 }
 
 type Props = {
@@ -70,13 +79,12 @@ type Props = {
     muteIcon?: string;
     showIcon?: boolean;
     showPercentage?: boolean;
+    css?: Binding<string> | string;
 };
 
 export const Volume = (props: Props) => {
     const {
-        showIcon = true,
-        icons = ['', '', ''],
-        showPercentage = true,
+        css
     } = props;
 
     const wp = Wp.get_default();
@@ -108,20 +116,19 @@ export const Volume = (props: Props) => {
         }
     };
 
-    return (
-        <eventbox
-            className="module-event"
-            onHover={onHover}
-            onHoverLost={onHoverLost}
-            onScroll={onScroll}
-        >
-            <box
-                visible={!!speaker}
-                className="module volume space-between-sm-rtl"
-            >
-                <VolumeIcon />
-                <VolumePercentLabel reveal={isHovering} />
-            </box>
-        </eventbox>
-    );
+    return new Widget.EventBox({
+        className: "module-event",
+        onHover,
+        onHoverLost,
+        onScroll,
+        css,
+        child: new Widget.Box({
+            visible: !!speaker,
+            className: 'module volume space-between-sm-rtl',
+            children: [
+                VolumeIcon(),
+                VolumePercentLabel({ reveal: isHovering })
+            ]
+        })
+    })
 };

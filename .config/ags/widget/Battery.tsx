@@ -1,12 +1,13 @@
 import { App, Widget } from 'astal/gtk3';
-import { Variable, GLib, bind } from 'astal';
+import { Variable, GLib, bind, Binding } from 'astal';
 import { Astal, Gtk, Gdk } from 'astal/gtk3';
 
 import AstalBattery from 'gi://AstalBattery?version=0.1';
+import { toggleWindow } from '../utils/window';
 
 const battery = AstalBattery.get_default();
 
-function BatteryIcon() {
+export const BatteryIcon = () => {
     const icons = ['󰂎', '󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹'];
     const chargingIcons = [
         '󰢟',
@@ -32,40 +33,41 @@ function BatteryIcon() {
         }
     );
 
-    return <label className="barIcon" label={batteryBind()} />;
+    return new Widget.Label({
+        className: 'battery-icon',
+        label: batteryBind()
+    });
 }
 
 export function BatteryPercentLabel(props: { reveal: Variable<boolean> }) {
     const { reveal } = props;
 
-    const setup = (revealer: Widget.Revealer) => {
-        reveal.subscribe((show) => {
-            revealer.revealChild = show;
-        });
-    };
-
-    return (
-        <revealer
-            transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-            setup={setup}
-        >
-            <label
-                className="battery-percentage"
-                label={bind(battery, 'percentage').as(
-                    (p) => `${Math.round(p * 100)}%`
-                )}
-            />
-        </revealer>
-    );
+    return new Widget.Revealer({
+        transition_type: Gtk.RevealerTransitionType.SLIDE_RIGHT,
+        setup: (revealer: Widget.Revealer) => {
+            reveal.subscribe((show) => {
+                revealer.revealChild = show;
+            });
+        },
+        child: new Widget.Label({
+            className: 'battery-percentage',
+            label: bind(battery, 'percentage').as(
+                (p) => `${Math.round(p * 100)}%`
+            )
+        })
+    })
 }
 
 type Props = {
     icons?: string[];
     chargingIcons?: string[];
     showPercentage?: boolean;
+    css?: Binding<string> | string;
 };
 
 export const BatteryLevel = (props: Props) => {
+    const { css } = props;
+
     const isHovering = Variable(false);
 
     const onHover = () => {
@@ -76,30 +78,24 @@ export const BatteryLevel = (props: Props) => {
         isHovering.set(false);
     };
 
-    /*
-    const text = bind(bat, 'percentage').as((p) => {
-        const set = bat.charging ? chargingIcons : icons;
-        const index = Math.floor(p * (set.length - 1));
-        const icon = set[index] || set[set.length - 1];
+    const onClick = () => {
+        toggleWindow('battery-menu');
+    }
 
-        return `${icon}${showPercentage ? ` ${Math.round(p * 100)}%` : ''}`;
+    return new Widget.EventBox({
+        className: 'module-event',
+        onHover,
+        onHoverLost,
+        onClick,
+        child: new Widget.Box({
+            className: "battery module space-between-sm-rtl",
+            visible: bind(battery, 'isPresent'),
+            halign: Gtk.Align.CENTER,
+            css,
+            children: [
+                BatteryIcon(),
+                BatteryPercentLabel({ reveal: isHovering })
+            ]
+        })
     });
-    */
-
-    return (
-        <eventbox
-            className="module-event"
-            onHover={onHover}
-            onHoverLost={onHoverLost}
-        >
-            <box
-                className="battery module space-between-sm-rtl"
-                visible={bind(battery, 'isPresent')}
-                halign={Gtk.Align.CENTER}
-            >
-                <BatteryIcon />
-                <BatteryPercentLabel reveal={isHovering} />
-            </box>
-        </eventbox>
-    );
 };

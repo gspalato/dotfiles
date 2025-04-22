@@ -1,15 +1,21 @@
-$background: rgba(0, 0, 0, .85);
+@use "sass:color";
+
+@import "./functions.scss";
+
+$background: rgba(0, 0, 0, 0.85);
+$surface-1: surface-color($background, 1);
+$surface-2: surface-color($background, 1);
 $foreground: #ffffffcc;
 
-$font-family-display: 'Kumbh Sans', 'Figtree', 'SF Pro Display', 'Inter', sans-serif;
-$font-family: 'Figtree', 'Manrope', 'SF Pro Text', 'GeistMono NFP', sans-serif;
-$font-family-mono: 'SF Mono', 'GeistMono NFP', sans-serif;
+$font-family-display: "Kumbh Sans", "Figtree", "SF Pro Display", "Inter", sans-serif;
+$font-family: "Figtree", "Manrope", "SF Pro Text", "GeistMono NFP", sans-serif;
+$font-family-mono: "SF Mono", "GeistMono NFP", sans-serif;
 $font-size: 16px;
 
 $spacing: 10px;
 $spacing-sm: 5px;
 
-$unfocused-workspace-color: rgba(255, 255, 255, .3);
+$unfocused-workspace-color: rgba(255, 255, 255, 0.3);
 $focused-workspace-color: #ffffff;
 
 $outer-margin-top: 10px;
@@ -19,6 +25,11 @@ $outer-margin-right: 10px;
 
 $module-min-height: 35px;
 $module-border-radius: 50px;
-$module-bg-color: rgba(0, 0, 0, .85);
+$module-bg-color: rgba(0, 0, 0, 0.85);
 
-$border-color: rgba(242, 242, 242, 0.12);
+$window-bg-color: $surface-1;
+
+$island-initial-min-height: 35px;
+$island-initial-min-width: 200px;
+
+$border-color: color.mix($background, rgba(242, 242, 242, 0.12));

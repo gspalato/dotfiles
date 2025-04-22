@@ -1,0 +1,38 @@
+@mixin rounded-full {
+    border-radius: 9999px;
+}
+
+// Add horizontal space between all direct child elements.
+@mixin space-between-x($space) {
+    > * + * {
+        margin-left: $space;
+    }
+}
+
+// Add vertical space between all direct child elements.
+@mixin space-between-y($space) {
+    > * + * {
+        margin-top: $space;
+    }
+}
+
+@function surface-color($background, $elevation) {
+    $elevation-opacities: (
+        0: 0,
+        1: 0.1,
+        2: 0.2,
+        3: 0.3,
+        4: 0.4,
+        5: 0.5
+    );
+
+    $overlay-opacity: map-get($elevation-opacities, $elevation);
+
+    @if $overlay-opacity == null {
+        @warn "Elevation #{$elevation} is not defined. Using 0.";
+        $overlay-opacity: 0;
+    }
+
+    // Apply white overlay over the background
+    @return mix(white, $background, $overlay-opacity * 100%);
+}

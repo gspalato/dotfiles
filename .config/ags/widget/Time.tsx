@@ -1,4 +1,4 @@
-import { App } from 'astal/gtk3';
+import { App, Widget } from 'astal/gtk3';
 import { Variable, GLib, bind } from 'astal';
 import { Astal, Gtk, Gdk } from 'astal/gtk3';
 
@@ -14,13 +14,11 @@ export const Time = (props: Props) => {
         () => GLib.DateTime.new_now_local().format(format)!
     );
 
-    return (
-        <label
-            className="time module"
-            onDestroy={() => time.drop()}
-            valign={Gtk.Align.CENTER}
-            halign={Gtk.Align.CENTER}
-            label={time()}
-        />
-    );
+    return new Widget.Label({
+        className: 'time module',
+        onDestroy: () => time.drop(),
+        valign: Gtk.Align.CENTER,
+        halign: Gtk.Align.CENTER,
+        label: time(),
+    });
 };

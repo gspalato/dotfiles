@@ -31,7 +31,6 @@ const TrackInfo = ({ player }: MediaWidgetProps) => {
         <box className="track-info" vertical={true}>
             <label
                 className="track-name"
-                //justify={Gtk.Justification.CENTER}
                 halign={Gtk.Align.CENTER}
                 hexpand
                 ellipsize={Pango.EllipsizeMode.END}
@@ -39,7 +38,6 @@ const TrackInfo = ({ player }: MediaWidgetProps) => {
             />
             <label
                 className="artist-name"
-                //justify={Gtk.Justification.CENTER}
                 halign={Gtk.Align.CENTER}
                 hexpand
                 label={bind(player, 'artist') ?? ''}
@@ -105,7 +103,7 @@ const MediaContainer = () => {
         }
 
         return (
-            <box className="media-box" vertical={true} vexpand>
+            <box className="media-menu-container" vertical={true} vexpand>
                 <CoverArt player={player} />
                 <TrackInfo player={player} />
                 <PositionSlider player={player} />

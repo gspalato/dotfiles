@@ -1,14 +1,39 @@
-import { App, Widget } from 'astal/gtk3';
+import { Astal, Gtk, Gdk, App, Widget } from 'astal/gtk3';
 import { Variable, GLib, bind, exec } from 'astal';
-import { Astal, Gtk, Gdk } from 'astal/gtk3';
 
 import Hyprland from 'gi://AstalHyprland?version=0.1';
-import { getIconFromClass, truncateString } from '../utils';
+import { getIconFromClass } from '../utils';
 import Pango from 'gi://Pango?version=1.0';
 
 type Props = {
     maxLength?: number;
 };
+
+export const HyprlandWindowInner = (props: Props & { isFocused: Variable<boolean> }) => {
+    const { isFocused, maxLength = 25 } = props;
+
+    const hypr = Hyprland.get_default();
+    const focused = bind(hypr, 'focusedClient');
+
+    return focused.as((client: any) => {
+        if (client === null) return [];
+
+        const iconName = getIconFromClass(client.initialClass);
+
+        return [
+            new Widget.Icon({
+                className: 'window-icon',
+                icon: iconName,
+                visible: !!iconName
+            }),
+            new Widget.Label({
+                ellipsize: Pango.EllipsizeMode.END,
+                max_width_chars: maxLength,
+                label: bind(client, 'title').as(String)
+            })
+        ];
+    })
+}
 
 export const HyprlandWindow = (props: Props) => {
     const { maxLength = 25 } = props;
@@ -16,31 +41,26 @@ export const HyprlandWindow = (props: Props) => {
     const hypr = Hyprland.get_default();
     const focused = bind(hypr, 'focusedClient');
 
-    return (
-        <box
-            className="window module space-between-ltr"
-            visible={focused.as(Boolean)}
-        >
-            {focused.as((client) => {
-                if (client === null) return undefined;
+    return new Widget.Box({
+        className: 'window module space-between-ltr',
+        visible: bind(focused).as(Boolean),
+        children: focused.as((client: any) => {
+            if (client === null) return [];
 
-                const iconName = getIconFromClass(client.initialClass);
+            const iconName = getIconFromClass(client.initialClass);
 
-                return [
-                    <>
-                        <icon
-                            className="window-icon"
-                            icon={iconName}
-                            visible={!!iconName}
-                        />
-                        <label
-                            ellipsize={Pango.EllipsizeMode.END}
-                            maxWidthChars={maxLength}
-                            label={bind(client, 'title').as(String)}
-                        />
-                    </>,
-                ];
-            })}
-        </box>
-    );
+            return [
+                new Widget.Icon({
+                    className: 'window-icon',
+                    icon: iconName,
+                    visible: !!iconName
+                }),
+                new Widget.Label({
+                    ellipsize: Pango.EllipsizeMode.END,
+                    max_width_chars: maxLength,
+                    label: bind(client, 'title').as(String)
+                })
+            ];
+        })
+    });
 };

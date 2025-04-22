@@ -1,6 +1,7 @@
 @import "./variables.scss";
 
 @import "./modules/avatar.scss";
+@import "./modules/battery-menu.scss";
 @import "./modules/media.scss";
 @import "./modules/media-menu.scss";
 @import "./modules/time.scss";
@@ -31,13 +32,13 @@ window {
     .area {
         background: transparent;
 
-        &>.module,
-        &>.module-event>.module {
+        & > .module,
+        & > .module-event > .module {
             margin-right: 5px;
         }
 
-        &>.module:last-child,
-        &>.module-event:last-child>.module {
+        & > .module:last-child,
+        & > .module-event:last-child > .module {
             margin-right: 0;
         }
     }
@@ -46,23 +47,65 @@ window {
         min-height: $module-min-height;
         background-color: $module-bg-color;
         border-radius: $module-border-radius;
-        padding: 2px 15px;
+        padding: 0px 15px;
         box-shadow: inset 0 0 0 1px $border-color;
+
+        // Enable stacked modules. They should appear as one single module.
+        & > .module,
+        & > .module-event > .module {
+            background-color: transparent;
+            padding: 0 0;
+            box-shadow: none;
+        }
     }
 }
 
-.space-between-sm-ltr>*:not(:last-child) {
+.bar.discrete {
+    background: $module-bg-color;
+
+    centerbox {
+        margin: 0 $outer-margin-right 0 $outer-margin-left;
+    }
+
+    .area {
+        background: transparent;
+
+        & > .module,
+        & > .module-event > .module {
+            margin-right: 15px;
+        }
+
+        & > .module:last-child,
+        & > .module-event:last-child > .module {
+            margin-right: 0;
+        }
+    }
+
+    .module {
+        min-height: $module-min-height;
+        background-color: transparent;
+        border-radius: 0;
+        padding: 0px 0;
+        box-shadow: none;
+    }
+}
+
+.space-between-sm-ltr > *:not(:last-child),
+.space-between-sm-ltr > .module-event:not(:last-child) > * {
     padding-right: $spacing-sm;
 }
 
-.space-between-sm-rtl>*:not(:first-child) {
+.space-between-sm-rtl > *:not(:first-child),
+.space-between-sm-rtl > .module-event:not(:first-child) > * {
     padding-left: $spacing-sm;
 }
 
-.space-between-ltr>*:not(:last-child) {
+.space-between-ltr > *:not(:last-child),
+.space-between-ltr > .module-event:not(:last-child) > * {
     padding-right: $spacing;
 }
 
-.space-between-rtl>*:not(:first-child) {
+.space-between-rtl > *:not(:first-child),
+.space-between-rtl > .module-event:not(:first-child) > * {
     padding-left: $spacing;
 }

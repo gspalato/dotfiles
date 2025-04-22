@@ -54,8 +54,7 @@ export const NowPlaying = (props: {
         if (
             initialTitle &&
             initialTitle !== '' &&
-            player.entry &&
-            player.playbackStatus === Mpris.PlaybackStatus.PLAYING
+            player.entry
         ) {
             currentTrack.set(initialTitle);
             triggerTitleTimeoutReveal(initialTitle);
@@ -75,24 +74,24 @@ export const NowPlaying = (props: {
         (title, artist) => `${title}`
     );
 
-    return (
-        <revealer
-            transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
-            setup={setup}
-            halign={Gtk.Align.START}
-            valign={Gtk.Align.CENTER}
-        >
-            <box className="space-between-ltr">
-                <PlayerIcon player={player} />
-                <label
-                    className="now-playing"
-                    ellipsize={Pango.EllipsizeMode.END}
-                    maxWidthChars={20}
-                    label={titleBind()}
-                />
-            </box>
-        </revealer>
-    );
+    return new Widget.Revealer({
+        transition_type: Gtk.RevealerTransitionType.SLIDE_RIGHT,
+        setup,
+        halign: Gtk.Align.START,
+        valign: Gtk.Align.CENTER,
+        child: new Widget.Box({
+            className: 'space-between-ltr',
+            children: [
+                PlayerIcon({ player }),
+                new Widget.Label({
+                    className: 'now-playing',
+                    ellipsize: Pango.EllipsizeMode.END,
+                    maxWidthChars: 20,
+                    label: titleBind()
+                }),
+            ]
+        })
+    });
 };
 
 export const Media = () => {
@@ -111,47 +110,38 @@ export const Media = () => {
         if (activePlayer.get()) toggleWindow('media-menu');
     };
 
-    return (
-        <eventbox
-            visible={activePlayer}
-            onHover={onHover}
-            onHoverLost={onHoverLost}
-            onClick={onClick}
-        >
-            <box
-                className="media module space-between-ltr"
-                valign={Gtk.Align.CENTER}
-            >
-                {bind(media, 'players').as((players) => {
-                    players = media.get_players();
-                    if (players.length === 0) {
-                        activePlayer.set(false);
-                        return [<></>];
-                    }
+    return new Widget.EventBox({
+        visible: !!activePlayer,
+        onHover,
+        onHoverLost,
+        onClick,
+        child: new Widget.Box({
+            className: 'media module space-between-ltr',
+            valign: Gtk.Align.CENTER,
+            children: bind(media, 'players').as((players) => {
+                players = media.get_players();
+                if (players.length === 0) {
+                    activePlayer.set(false);
+                    return [];
+                }
 
-                    const player =
-                        players.find((p) => p.get_entry() === 'spotify') ??
-                        players[0];
+                const player =
+                    players.find((p) => p.get_entry() === 'spotify') ??
+                    players[0];
 
-                    console.log('currentplayer', player.entry, player.title);
+                console.log('currentplayer', player.entry, player.title);
 
-                    if (!player.entry) {
-                        activePlayer.set(false);
-                    } else {
-                        activePlayer.set(true);
-                    }
+                if (!player.entry) {
+                    activePlayer.set(false);
+                } else {
+                    activePlayer.set(true);
+                }
 
-                    return [
-                        <>
-                            <NowPlaying
-                                player={player}
-                                shouldShow={isHovering}
-                            />
-                            <CavaSpectrum framerate={240} />
-                        </>,
-                    ];
-                })}
-            </box>
-        </eventbox>
-    );
+                return [
+                    NowPlaying({ player, shouldShow: isHovering }),
+                    CavaSpectrum({ framerate: 240 })
+                ];
+            })
+        })
+    })
 };

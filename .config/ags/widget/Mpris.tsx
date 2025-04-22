@@ -1,4 +1,4 @@
-import { App } from 'astal/gtk3';
+import { App, Widget } from 'astal/gtk3';
 import { Variable, GLib, bind } from 'astal';
 import { Astal, Gtk, Gdk } from 'astal/gtk3';
 
@@ -18,24 +18,20 @@ export const Mpris = (props: Props) => {
 
     const mpris = AstalMpris.get_default();
 
-    return bind(mpris, 'players').as((ps) =>
-        ps[0] ? (
-            <box className="mpris module space-between-ltr">
-                <PlayerIcon player={ps[0]} />
-                <label
-                    ellipsize={Pango.EllipsizeMode.END}
-                    maxWidthChars={25}
-                    label={bind(ps[0], 'metadata').as(() => {
-                        const text = `${ps[0].title}${
-                            showArtist ? separator : ''
+    return bind(mpris, 'players').as((ps) => ps[0] ? new Widget.Box({
+        className: 'mpris module space-between-ltr',
+        children: [
+            PlayerIcon({ player: ps[0] }),
+            new Widget.Label({
+                ellipsize: Pango.EllipsizeMode.END,
+                maxWidthChars: 25,
+                label: bind(ps[0], 'metadata').as(() => {
+                    const text = `${ps[0].title}${showArtist ? separator : ''
                         }${showArtist ? ps[0].artist : ''}`.trim();
 
-                        return text;
-                    })}
-                />
-            </box>
-        ) : (
-            <></>
-        )
-    );
+                    return text;
+                })
+            })
+        ]
+    }) : <></>);
 };

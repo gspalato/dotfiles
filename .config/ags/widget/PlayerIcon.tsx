@@ -29,5 +29,9 @@ export const PlayerIcon = (props: Props) => {
         return name;
     });
 
-    return <icon className="player-icon" icon={iconName} {...rest} />;
+    return new Widget.Icon({
+        className: 'player-icon',
+        icon: iconName,
+        ...rest
+    });
 };
