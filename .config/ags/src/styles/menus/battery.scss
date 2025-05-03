@@ -1,0 +1,59 @@
+@use "sass:color";
+
+@import "./variables.scss";
+
+$border-radius: 25px;
+$battery-menu-padding: 15px;
+
+.battery-menu-container {
+    background-color: color.change($module-bg-color, $alpha: 0.6); //color.change($module-bg-color, $alpha: 0.6);
+    min-width: 300px;
+    border-radius: $border-radius;
+
+    box-shadow: inset 0 0 0 1px $border-color;
+
+    padding: $battery-menu-padding;
+
+    margin-top: $outer-margin-top;
+    margin-right: $outer-margin-right;
+
+    // Add spacing between sections.
+    & > *:not(:first-child) {
+        margin-top: calc($battery-menu-padding);
+    }
+
+    & > .battery-header {
+        padding: 0 5px;
+
+        & > .battery-header-content > .battery-percentage {
+            font-size: 32px;
+        }
+
+        & > .battery-header-content > .battery-time-left {
+            font-weight: 400;
+        }
+
+        & > .battery-icon {
+            font-size: 64px;
+        }
+    }
+
+    & > .battery-info {
+        padding: calc($battery-menu-padding);
+        border-radius: 15px;
+        background: $surface-2;
+
+        border-bottom: 4px solid #00000066;
+
+        & > *:not(:last-child) {
+            margin-bottom: 5px;
+        }
+
+        & > .info-entry {
+            & > .info-value {
+                font-weight: 400;
+                color: #bbb;
+            }
+        }
+    }
+}

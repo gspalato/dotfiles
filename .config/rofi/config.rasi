@@ -1,6 +1,7 @@
 configuration {
    modes:               "window,drun,run,ssh";
-   font:                "GeistMono Nerd Font Propo 16";
+   font:                "Figtree 16";
+   //font:                "GeistMono Nerd Font Propo 16";
    drun-display-format: "{name}";
    display-drun:        "󰄶 ";
    show-icons: true;

@@ -1,0 +1,70 @@
+@use "sass:color";
+
+@import "./variables.scss";
+
+.dashboard-container {
+    background-color: $window-bg-color;
+    min-width: 300px;
+    border-radius: 25px;
+    padding: $spacing-lg;
+
+    margin-top: $outer-margin-top;
+    margin-right: $outer-margin-right;
+    margin-bottom: $outer-margin-right;
+
+    @include default-border;
+
+    & .dashboard-main {
+        & .dashboard-main-header-greeting {
+            font-size: $font-size-lg;
+        }
+
+        & .dashboard-header-button {
+            background: $surface-2;
+
+            padding: $spacing;
+
+            @include default-border;
+            border-radius: 100%;
+        }
+
+        & .dashboard-notifications {
+            & .empty-notification-label {
+                padding: $spacing-lg 0;
+                font-weight: 400;
+                color: $overlay-1;
+            }
+        }
+
+        & .section {
+            min-height: 25px;
+            background: #ffffff11;
+
+            padding: $spacing $spacing-lg;
+
+            @include default-border;
+            border-radius: 15px;
+        }
+
+        & .dashboard-sliders .slider trough {
+            background-color: #ffffff22;
+            border-radius: 24px;
+            min-height: 5px;
+        }
+
+        & .dashboard-sliders .slider trough highlight {
+            background-color: $foreground;
+            border-radius: 24px;
+            min-height: 5px;
+        }
+
+        & .dashboard-confirmation-dialog {
+            & .dashboard-confirmation-dialog-buttons > * {
+                background: #ffffff11;
+                padding: $spacing-sm;
+                @include default-border;
+                border-radius: 10px;
+            }
+        }
+    }
+}

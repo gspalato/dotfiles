@@ -1,0 +1,12 @@
+@import "./variables.scss";
+
+.module.avatar {
+    //min-height: $module-min-height;
+    min-width: $module-min-height;
+    -gtk-icon-size: $module-min-height;
+    //padding: 0px 0px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    font-size: 1px;
+}

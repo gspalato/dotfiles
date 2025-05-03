@@ -1,8 +1,0 @@
-@import "./variables.scss";
-
-.module.media .now-playing {
-    font-size: $font-size;
-    padding-right: calc($spacing + 1px); // Just so it looks good.
-    border-right: 1px solid $border-color;
-    font-weight: 600;
-}

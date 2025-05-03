@@ -14,3 +14,23 @@ export function getIconFromClass(wmclass: string) {
     );
     return iconName;
 }
+
+export function toHumanReadableTime(min: number) {
+    const hours = Math.floor(min / 60);
+    const remainingMin = min % 60;
+
+    let res = '';
+
+    const formattedHours = String(hours);
+    const formattedMin = String(remainingMin.toFixed(0));
+
+    if (hours > 0) {
+        res += `${formattedHours}h`;
+    }
+
+    if (remainingMin > 0) {
+        res += ` ${formattedMin}m`
+    }
+
+    return res.trim();
+}

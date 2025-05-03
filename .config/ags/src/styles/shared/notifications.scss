@@ -1,0 +1,43 @@
+@use "sass:color";
+
+.notification {
+    background-color: $window-bg-color;
+    border-radius: $rounded-md;
+    padding: $spacing-lg;
+
+    transition: background-color 0.1s ease-in-out;
+
+    min-width: 350px;
+
+    @include default-border;
+
+    & .notification-icon {
+        border-radius: $rounded-sm;
+    }
+
+    & .notification-info {
+        & .notification-title {
+            font-weight: 600;
+            font-size: $font-size-lg;
+        }
+
+        & .notification-datetime {
+            font-weight: 400;
+        }
+
+        & .notification-body {
+            font-weight: 500;
+        }
+    }
+
+    & .notification-action-button {
+        background: #ffffff11;
+        padding: $spacing-sm;
+        @include default-border;
+        border-radius: 10px;
+    }
+
+    &:hover {
+        background-color: color.mix($window-bg-color, $surface-1);
+    }
+}
