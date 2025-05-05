@@ -1,0 +1,38 @@
+pragma Singleton
+
+import Quickshell
+import Quickshell.Io
+import QtQuick
+
+Singleton {
+    id: root
+    property var values: []
+
+    signal cavaUpdate(values: int)
+
+    Process {
+        id: proc
+        command: ["sh", "-c", "cava -p ~/.config/quickshell/config/cava.toml"]
+        running: true
+
+        stdout: SplitParser {
+            onRead: data => {
+                const raw = data.trim().split(";").map(Number);
+                const norm = Math.max(...raw) || 1;
+                root.values = raw.map(v => v / norm);
+                
+                root.cavaUpdate(root.values)
+            }
+        }
+
+        stderr: SplitParser {
+            onRead: err => {
+                console.log(err)
+            }
+        }
+
+        function onExited(code, status) {
+            console.log("exited with code", code, "and status", status)
+        }
+    }
+}

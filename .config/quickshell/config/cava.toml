@@ -1,0 +1,21 @@
+[general]
+autosens = 1
+bars = 15
+framerate = 240
+lower_cutoff_freq = 50
+
+[input]
+method = pipewire
+source = auto
+sample_rate = 48000
+
+[smoothing]
+noise_reduction = 85
+
+[output]
+method = raw
+data_format = ascii
+raw_target = /dev/stdout
+bit_format = 16bit
+channels = mono
+ascii_max_range = 65530
