@@ -3,12 +3,14 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Wayland
 
 import "modules" as Modules
 import "modules/Workspaces" as Workspaces
-import "../shared" as Shared
-import "../media" as Media
-import "../../config"
+import "root:/components/dashboard" as Dashboard
+import "root:/components/shared" as Shared
+import "root:/components/media" as Media
+import "root:/config"
 
 Scope {
     Variants {
@@ -16,6 +18,7 @@ Scope {
         delegate: Component {
             PanelWindow {
                 id: bar
+                WlrLayershell.namespace: "nox:bar"
 
                 property var modelData
 
@@ -25,34 +28,41 @@ Scope {
                     right: true
                 }
 
-                height: Theme.moduleHeight + Theme.barMargins[0]
-                color: Qt.rgba(0,0,0,0)
+                height: Math.max(Theme.barHeight, contentContainer.implicitHeight)
+                color: "transparent"
 
+                // Content
                 Rectangle {
                     id: contentContainer
 
                     anchors.fill: parent
-                    anchors.margins: Theme.barMargins[0]
+                    anchors.topMargin: Theme.barMargins[0]
+                    anchors.rightMargin: Theme.barMargins[1]
+                    anchors.bottomMargin: Theme.barMargins[2]
+                    anchors.leftMargin: Theme.barMargins[3]
 
                     color: "transparent"
 
-                    height: Theme.moduleHeight
+                    implicitHeight: Theme.barHeight + Theme.barMargins[0] + Theme.barMargins[2]
 
                     // Left widgets
                     RowLayout {
                         id: leftWidgets
 
-                        spacing: 10
+                        spacing: 5
                         layoutDirection: Qt.LeftToRight
+
                         anchors.left: parent.left
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
 
-                        //Shared.Avatar {}
+                        Workspaces.Workspaces {}
 
-                        Workspaces.Workspaces {
-                            bar: bar
+                        /*
+                        Shared.Separator {
+                            Layout.alignment: Qt.AlignVCenter
                         }
+                        */
 
                         Modules.Media {
                             id: mediaModule
@@ -63,32 +73,43 @@ Scope {
                     RowLayout {
                         id: centerWidgets
 
-                        spacing: 10
+                        spacing: 5
                         layoutDirection: Qt.LeftToRight
                         anchors.centerIn: parent
+
                         height: parent.height
 
-                        Shared.Avatar {}
-
-                        Modules.Window {
-                            bar: bar
-                        }
+                        Modules.Window {}
                     }
 
                     // Right widgets
                     RowLayout {
                         id: rightWidgets
 
-                        spacing: 10
-                        layoutDirection: Qt.RightToLeft
+                        spacing: 5
+                        layoutDirection: Qt.LeftToRight
+
                         anchors.right: parent.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
 
-                        Modules.Time {
-                            bar: bar
+                        Modules.Time {}
+
+                        /*
+                        Shared.Separator {
+                            Layout.alignment: Qt.AlignVCenter
+                        }
+                        */
+
+                        Modules.DashboardButton {
+                            id: dashboardButton
+                            Layout.alignment: Qt.AlignVCenter
                         }
                     }
+                }
+
+                Component.onCompleted: () => {
+                    Panels.bars.push(bar);
                 }
             }
         }

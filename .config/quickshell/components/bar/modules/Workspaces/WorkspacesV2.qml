@@ -63,7 +63,8 @@ Shared.BarModule {
 
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: 200
+            // Make duration proportional to the number of workspaces skipped
+            duration: 200;
             easing.type: EasingInOutQuad
         }
     }

@@ -5,7 +5,8 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../../config"
+
+import "root:/config"
 
 Canvas {
     id: cavaCanvas
@@ -17,11 +18,11 @@ Canvas {
     property var values: []
     property int silenceCounter: 0
     property int silenceThreshold: 10
-    property int bars: 15
+    property int bars: 20
     property real barHeight: 22
     property real barWidth: 3
-    property real barMinHeight: 4
-    property int padding: 5
+    property real barMinHeight: 3
+    property int padding: 3
 
     property real calculatedWidth: bars * barWidth + (bars - 1) * padding
 
@@ -32,7 +33,7 @@ Canvas {
 
         stdout: SplitParser {
             onRead: data => {
-                const values = data.split(';').map(v => parseFloat(v)/65530);
+                const values = data.split(';').map(v => parseFloat(v)/1000);
                 cavaCanvas.values = values;
             }
         }
@@ -65,7 +66,7 @@ Canvas {
         // Clear the canvas once before rendering
         context.clearRect(0, 0, w, h);
         
-        context.fillStyle = 'white'; // White color for the bars
+        context.fillStyle = Theme.primary; // White color for the bars
 
         // Silence control
         if (values[0] > 0) {

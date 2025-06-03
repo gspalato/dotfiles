@@ -7,38 +7,44 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 
-import "../../shared" as Shared
-import "../../media" as Media
+import "root:/components/shared" as Shared
+import "root:/components/media" as Media
+import "root:/components/bar"
 
-import "../../../config"
-import "../../../data"
-import "../../../utils/utils.js" as Utils
+import "root:/config"
+import "root:/data"
+import "root:/utils/utils.js" as Utils
 
 // Container
 Shared.BarModule {
     id: root
     clip: true
 
+    required property PanelWindow bar
+
     implicitWidth: layout.implicitWidth + Theme.modulePadding[1]
-    
+
     property bool isHovered: false
+    property bool isPressed: false
+    property bool isMediaControlsToggled: false
+
     property var player: {
-        const player = Mpris.players.values.find(p => p.identity === "spotify") || Mpris.players.values[0]
+        const player = Mpris.players.values.find(p => p.identity === "Spotify") || Mpris.players.values[0];
         if (!player) {
-            console.log("no player found.")
-            return
+            console.log("no player found.");
+            return;
         }
 
-        console.log(player.identity)
-        return player
+        console.log(player.identity);
+        return player;
     }
 
     // On song change, briefly show the title.
     Connections {
         target: player
         function onPostTrackChanged() {
-            revealer.revealed = true
-            titleDisplayCounter.running = true
+            revealer.revealed = true;
+            titleDisplayCounter.running = true;
         }
     }
     Timer {
@@ -47,7 +53,7 @@ Shared.BarModule {
         running: false
         repeat: false
         onTriggered: {
-            revealer.revealed = !isHovered && false
+            revealer.revealed = !isHovered && false;
         }
     }
 
@@ -56,12 +62,31 @@ Shared.BarModule {
         anchors.fill: parent
         hoverEnabled: true
         onEntered: {
-            isHovered = true
-            revealer.revealed = true
+            isHovered = true;
+            revealer.revealed = player && true;
         }
         onExited: {
-            isHovered = false
-            revealer.revealed = false
+            isHovered = false;
+            revealer.revealed = false;
+        }
+        onPressed: {
+            isPressed = true;
+        }
+        onReleased: {
+            isPressed = false;
+        }
+        onClicked: {
+            isMediaControlsToggled = !isMediaControlsToggled;
+            console.log('toggled');
+        }
+    }
+
+    // Set color based on hover/press state.
+    color: Qt.lighter(Theme.resolvedModuleColor, isPressed ? 2.5 : (isHovered ? 1.75 : 0))
+    Behavior on color {
+        ColorAnimation {
+            duration: 150
+            easing.type: Easing.InOutQuad
         }
     }
 
@@ -116,14 +141,14 @@ Shared.BarModule {
                     height: parent.height
                     spacing: 10
 
-                    /*
                     IconImage {
-                        implicitSize: 12
+                        implicitSize: 15
                         mipmap: true
 
-                        source: "/usr/share/icons/hicolor/64x64/apps/spotify.png"
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        source: player.identity === "Spotify" ? "root:/assets/icons/spotify.svg" : ""
                     }
-                    */
 
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
@@ -137,13 +162,7 @@ Shared.BarModule {
                     }
 
                     // Discrete border
-                    Rectangle {
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        color: Qt.rgba(255, 255, 255, .15)
-                        height: .5 * parent.height
-                        width: 1
-                    }
+                    Shared.Separator {}
                 }
             }
         }

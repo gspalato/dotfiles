@@ -16,24 +16,50 @@ Shared.BarModule {
     id: root
     //required property PanelWindow bar
 
-    readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
-
-    implicitWidth: text.implicitWidth + Theme.modulePadding[1]
-    
-    IconImage {
-        implicitSize: 15
-        source: ""
+    opacity: activeWindow?.activated ? 1 : 0
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 200
+            easing.type: Easing.OutQuad
+        }
     }
 
-    Text {
-        id: text
+    readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
+
+    Binding {
+        root.implicitWidth: row.implicitWidth + Theme.modulePadding[1]
+    }
+    Behavior on implicitWidth {
+        NumberAnimation {
+            duration: 200
+            easing.type: Easing.OutQuad
+        }
+    }
+
+    Row {
+        id: row
+        spacing: 10
+
         anchors.centerIn: parent
-        text: activeWindow?.activated?activeWindow?.appId : "Desktop"
 
-        font.family: Theme.fontFamily
-        font.pixelSize: 16
-        font.weight: Font.DemiBold
+        IconImage {
+            property string icon: Quickshell.iconPath(DesktopEntries.byId(activeWindow?.appId)?.icon, true)
 
-        color: "#ffffff"
+            visible: icon !== "" && activeWindow?.activated
+            implicitSize: 18
+            source: icon
+        }
+
+        Text {
+            id: text
+            //anchors.centerIn: parent
+            text: activeWindow?.activated ? activeWindow?.appId : ""
+
+            font.family: Theme.fontFamily
+            font.pixelSize: 16
+            font.weight: Font.DemiBold
+
+            color: "#ffffff"
+        }
     }
 }
