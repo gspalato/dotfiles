@@ -33,9 +33,12 @@ ShellRoot {
         }
     }
 
-    /*
     Notifs.NotificationPanel {
+        id: notifPanel
         screen: Quickshell.screens.find(s => s.name == "DP-1")
+
+        margins {
+            top: 60
+        }
     }
-    */
 }

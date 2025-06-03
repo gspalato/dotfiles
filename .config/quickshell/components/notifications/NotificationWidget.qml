@@ -6,22 +6,38 @@ import Quickshell.Services.Notifications
 import Qt5Compat.GraphicalEffects
 
 import "root:/config"
+import "root:/utils/utils.js" as Utils
 
 Rectangle {
     id: root
     required property Notification notif
 
     property bool isSwipeable: true
+    property bool changeOpacityOnSwipe: true
 
-    color: "#55000000"
+    property var callbackOnDismiss: id => root.notif.dismiss()
+
+    color: Utils.colorAlpha(Matugen.background, .8)
+    Behavior on color {
+        ColorAnimation {
+            duration: 400
+            easing.type: Easing.OutCubic
+        }
+    }
+
     radius: 20
     implicitWidth: outerLayout.implicitWidth
     implicitHeight: outerLayout.implicitHeight
     clip: true
 
+    antialiasing: true
+    border.width: 1
+    border.color: Qt.lighter(Matugen.background, 1.75)
+    border.pixelAligned: true
+
     Behavior on x {
         NumberAnimation {
-            duration: 400
+            duration: 300
             easing.type: Easing.OutCubic
         }
     }
@@ -29,11 +45,12 @@ Rectangle {
     // Opacity changes based on the x position of the notification.
     // The notification is automatically dismissed if it is swiped away.
     onXChanged: {
-        root.opacity = 1 - (Math.abs(root.x) / width);
+        if (root.changeOpacityOnSwipe)
+            root.opacity = 1 - (Math.abs(root.x) / width);
 
         // If x means the notification was swiped away, dismiss it.
         if (root.x > 1.5 * root.width) {
-            root.notif.dismiss();
+            root.callbackOnDismiss(notif.id);
         }
     }
 
@@ -222,7 +239,7 @@ Rectangle {
                     Layout.alignment: Qt.AlignTop
 
                     width: root.implicitWidth - 20
-                    text: notif?.body
+                    text: notif?.body || ""
                     wrapMode: Text.Wrap
                     visible: text !== ""
 

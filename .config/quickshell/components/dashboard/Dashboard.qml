@@ -43,10 +43,6 @@ Rectangle {
         }
     }
 
-    //anchor.top: parent.top
-    //anchor.right: parent.right
-
-    //opacity: shown ? 1 : 0
     Behavior on opacity {
         NumberAnimation {
             duration: 300

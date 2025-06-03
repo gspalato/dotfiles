@@ -9,38 +9,18 @@ import "root:/utils/utils.js" as Utils
 ListView {
     id: notifList
 
-    // Minimum height is needed for the first item animation to work properly.
-    height: Math.max(10, Math.min(contentHeight, 500))
+    height: Math.max(100, Math.min(contentHeight, 500))
     Behavior on height {
         NumberAnimation {
-            duration: 400
+            duration: 300
             easing.type: Easing.OutCubic
         }
-    }
-
-    function clearAllNotifications() {
-        // Animate removal of all notifications by a delay for each item.
-        notifList.contentItem.children.forEach((child, i) => {
-            child?.triggerRemoveAnimation();
-        });
     }
 
     property ListModel notifications: ListModel {
         id: data
         Component.onCompleted: () => {
-            // Populate the model with existing notifications
-            Notifs.Notifications.notifications.values.forEach(n => {
-                if (n.transient)
-                    return; // Skip transient notifications
-                data.insert(0, {
-                    n: n
-                });
-            });
-
             Notifs.Notifications.notificationReceived.connect(n => {
-                if (n.transient)
-                    return; // Skip transient notifications
-
                 if (!n.lastGeneration) {
                     data.insert(0, {
                         n: n
@@ -89,11 +69,30 @@ ListView {
 
     delegate: Notifs.NotificationWidget {
         id: widget
+
+        required property int index
         required property Notification modelData
 
         notif: modelData
-        width: parent.width
+        changeOpacityOnSwipe: false
 
+        width: parent.width
+        color: Utils.colorAlpha(Matugen.background, .8)
+
+        // Remove the notification only from this popup list view model.
+        callbackOnDismiss: id => {
+            for (let i = 0; i < notifList.notifications.count; i++) {
+                const e = notifList.notifications.get(i);
+                if (e.n.id === id) {
+                    notifList.notifications.remove(i);
+                    return;
+                }
+            }
+        }
+
+        // Only trigger the remove animation if the notification was
+        // removed NOT by a swipe gesture.
+        ListView.onRemove: () => x === 0 && removeAnimation.start()
         SequentialAnimation {
             id: removeAnimation
             PropertyAction {
@@ -106,7 +105,7 @@ ListView {
                 property: "x"
                 from: 0
                 to: width
-                duration: 400
+                duration: 300
                 easing.type: Easing.OutCubic
             }
             PropertyAction {
@@ -116,9 +115,15 @@ ListView {
             }
         }
 
-        // Only trigger the remove animation if the notification was
-        // removed NOT by a swipe gesture.
-        ListView.onRemove: () => x === 0 && removeAnimation.start()
+        Timer {
+            id: removeTimer
+            interval: modelData.expireTimeout // 5 seconds
+            repeat: false
+            running: true
+            onTriggered: {
+                widget.triggerRemoveAnimation();
+            }
+        }
     }
 
     add: Transition {
@@ -131,7 +136,7 @@ ListView {
 
             // Wait for displaced items to move down first
             PauseAnimation {
-                duration: 400
+                duration: 300
             }
 
             // Then slide new item from right to its position
@@ -139,7 +144,7 @@ ListView {
                 properties: "x"
                 from: parent.width // start offscreen right
                 to: 0 // final x
-                duration: 400
+                duration: 300
                 easing.type: Easing.OutCubic
                 onStarted: console.log("Add animation started for item")
                 onFinished: console.log("Add animation finished for item")
@@ -147,11 +152,35 @@ ListView {
         }
     }
 
-    populate: notifList.add
+    populate: Transition {
+        SequentialAnimation {
+            // Start offscreen to the right
+            PropertyAction {
+                property: "x"
+                value: parent.width
+            }
+
+            // Wait for displaced items to move down first
+            PauseAnimation {
+                duration: 300
+            }
+
+            // Then slide new item from right to its position
+            NumberAnimation {
+                properties: "x"
+                from: parent.width // start offscreen right
+                to: 0 // final x
+                duration: 300
+                easing.type: Easing.OutCubic
+                onStarted: console.log("Add animation started for item")
+                onFinished: console.log("Add animation finished for item")
+            }
+        }
+    }
 
     addDisplaced: Transition {
         NumberAnimation {
-            duration: 400
+            duration: 300
             easing.type: Easing.OutCubic
             properties: "y"
             onStarted: console.log("Add displaced animation started for item")
@@ -161,7 +190,7 @@ ListView {
 
     removeDisplaced: Transition {
         NumberAnimation {
-            duration: 400
+            duration: 300
             easing.type: Easing.OutCubic
             properties: "y"
             onStarted: console.log("Remove displaced animation started for item")

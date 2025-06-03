@@ -5,9 +5,10 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 
-import "../../../config"
+import "root:/config"
 
 Rectangle {
+    id: container
     required property PanelWindow bar
 
     implicitHeight: Theme.moduleHeight
@@ -15,8 +16,6 @@ Rectangle {
 
     border.color: Theme.border
     radius: height / 2
-
-    id: container
     color: Theme.moduleColor
 
     property alias contentItem: container

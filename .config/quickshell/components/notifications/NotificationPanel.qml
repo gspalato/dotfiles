@@ -1,7 +1,11 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
+
+import "root:/config"
+import "root:/data"
 
 PanelWindow {
     WlrLayershell.namespace: "nox:notifications"
@@ -9,26 +13,49 @@ PanelWindow {
     color: "transparent"
     //color: "#30606000"
 
+    height: padding.height
+    width: 350 + 10
+
+    margins {
+        bottom: 10
+        right: 0
+    }
+
     anchors {
-        left: true
+        left: false
         top: true
         bottom: true
         right: true
     }
 
-    //NotificationDisplay {
-    //	id: display
+    ColumnLayout {
+        id: padding
 
-    //	anchors.fill: parent
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.right: parent.right
 
-    //	stack.y: 45 //(NotificationManager.showTrayNotifs ? 55 : 0)
-    //	stack.x: parent.width - stack.width - 10
-    //}
+        NotificationPopupListView {
+            id: notifList
 
-    //visible: display.stack.children.length != 0
+            width: 350
 
-    //mask: Region { item: display.stack }
-    //HyprlandWindow.visibleMask: Region {
-    //	regions: display.stack.children.map(child => child.mask)
-    //}
+            //Layout.topMargin: Panels.dashboard?.scale * (Panels.dashboard?.implicitHeight + 10)
+            Layout.rightMargin: 10
+
+            opacity: 1 - Panels.dashboard?.scale
+
+            Behavior on Layout.topMargin {
+                NumberAnimation {
+                    duration: 150
+                    easing.type: Easing.OutCubic
+                }
+            }
+        }
+    }
+
+    // Disable the mask when the dashboard is open.
+    mask: Region {
+        item: Panels.dashboard?.scale < 1 ? notifList : null
+    }
 }
