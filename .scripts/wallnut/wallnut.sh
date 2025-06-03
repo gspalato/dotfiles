@@ -77,4 +77,4 @@ cp "$selected_wallpaper" ~/.current.wall
 
 # Alert!
 wallnut_print "Wallpaper applied successfully!"
-notify-send -a "Wallnut" "Changed wallpaper!" "$(basename $selected_wallpaper)" -i ~/.config/hypr/.current_wallpaper
+~/.scripts/wallnut/notify-send.sh -a "Wallnut" "Changed wallpaper!" -h "string:image-path:$HOME/.current.wall"
