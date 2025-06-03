@@ -25,6 +25,12 @@ Rectangle {
     layer.smooth: true
 
     color: Theme.resolvedModuleColor
+    Behavior on color {
+        ColorAnimation {
+            duration: 150
+            easing.type: Easing.InOutQuad
+        }
+    }
 
     property alias contentItem: container
 }

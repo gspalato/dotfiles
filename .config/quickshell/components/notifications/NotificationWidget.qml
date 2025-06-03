@@ -35,6 +35,9 @@ Rectangle {
     border.color: Qt.lighter(Matugen.background, 1.75)
     border.pixelAligned: true
 
+    layer.enabled: true
+    layer.smooth: true
+
     Behavior on x {
         NumberAnimation {
             duration: 300

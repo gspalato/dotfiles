@@ -35,6 +35,9 @@ Rectangle {
     border.pixelAligned: true
     radius: 25
 
+    layer.enabled: true
+    layer.smooth: true
+
     scale: shown ? 1 : 0
     Behavior on scale {
         NumberAnimation {
@@ -43,12 +46,6 @@ Rectangle {
         }
     }
 
-    Behavior on opacity {
-        NumberAnimation {
-            duration: 300
-            easing.type: Easing.InOutQuad
-        }
-    }
     visible: true
 
     ColumnLayout {
@@ -56,6 +53,8 @@ Rectangle {
 
         anchors.left: parent.left
         anchors.right: parent.right
+
+        opacity: dashboard.scale
 
         ColumnLayout {
             Layout.topMargin: 15

@@ -21,43 +21,11 @@ ListView {
         id: data
         Component.onCompleted: () => {
             Notifs.Notifications.notificationReceived.connect(n => {
+                // Ignore notifications when quickshell reloads.
                 if (!n.lastGeneration) {
                     data.insert(0, {
                         n: n
                     });
-                } else {
-                    // If it's last generation, check if it already exists.
-                    // If it does, update it.
-                    // Otherwise, add it.
-
-                    let foundIndex = null;
-                    for (let i = 0; i < data.count; i++) {
-                        const e = data.get(i);
-                        if (e.n.id === n.id) {
-                            foundIndex = i;
-                            return;
-                        }
-                    }
-
-                    if (foundIndex !== null) {
-                        data.set(foundIndex, {
-                            n: n
-                        });
-                    } else {
-                        data.insert(0, {
-                            n: n
-                        });
-                    }
-                }
-            });
-
-            Notifs.Notifications.notificationDismissed.connect(id => {
-                for (let i = 0; i < data.count; i++) {
-                    const e = data.get(i);
-                    if (e.n.id === id) {
-                        data.remove(i);
-                        return;
-                    }
                 }
             });
         }
@@ -77,7 +45,6 @@ ListView {
         changeOpacityOnSwipe: false
 
         width: parent.width
-        color: Utils.colorAlpha(Matugen.background, .8)
 
         // Remove the notification only from this popup list view model.
         callbackOnDismiss: id => {
