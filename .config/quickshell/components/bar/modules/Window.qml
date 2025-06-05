@@ -8,8 +8,8 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 
-import "../../shared" as Shared
-import "../../../config"
+import "root:/components/shared" as Shared
+import "root:/config"
 
 // Container
 Shared.BarModule {
@@ -57,7 +57,7 @@ Shared.BarModule {
 
             font.family: Theme.fontFamily
             font.pixelSize: 16
-            font.weight: Font.DemiBold
+            font.weight: 450
 
             color: "#ffffff"
         }

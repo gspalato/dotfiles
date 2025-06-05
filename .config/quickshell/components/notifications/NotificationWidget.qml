@@ -6,18 +6,19 @@ import Quickshell.Services.Notifications
 import Qt5Compat.GraphicalEffects
 
 import "root:/config"
-import "root:/utils/utils.js" as Utils
+import "root:/utils/colorUtils.js" as ColorUtils
 
 Rectangle {
     id: root
     required property Notification notif
 
     property bool isSwipeable: true
+    property real swipeThreshold: root.width - root.width / 3
     property bool changeOpacityOnSwipe: true
 
     property var callbackOnDismiss: id => root.notif.dismiss()
 
-    color: Utils.colorAlpha(Matugen.background, .8)
+    color: ColorUtils.alpha(Matugen.surface_container, .8)
     Behavior on color {
         ColorAnimation {
             duration: 400
@@ -32,13 +33,20 @@ Rectangle {
 
     antialiasing: true
     border.width: 1
-    border.color: Qt.lighter(Matugen.background, 1.75)
+    border.color: Qt.lighter(Matugen.surface_container, 1.15)
     border.pixelAligned: true
 
     layer.enabled: true
     layer.smooth: true
 
     Behavior on x {
+        NumberAnimation {
+            duration: 300
+            easing.type: Easing.OutCubic
+        }
+    }
+
+    Behavior on height {
         NumberAnimation {
             duration: 300
             easing.type: Easing.OutCubic
@@ -72,6 +80,8 @@ Rectangle {
         enabled: root.isSwipeable
         anchors.fill: parent
 
+        hoverEnabled: true
+
         drag {
             minimumX: 0
             axis: Drag.XAxis
@@ -83,7 +93,7 @@ Rectangle {
                 }
 
                 // Threshold for swiping away notifications.
-                if (root.x > (root.width - root.width / 3)) {
+                if (root.x > root.swipeThreshold) {
                     root.triggerRemoveAnimation();
                 } else {
                     root.x = 0;
@@ -94,6 +104,8 @@ Rectangle {
 
     GridLayout {
         id: outerLayout
+
+        width: parent.width
 
         RowLayout {
             id: layout
@@ -121,6 +133,7 @@ Rectangle {
 
                 Layout.preferredHeight: size
                 Layout.preferredWidth: size
+                Layout.alignment: Qt.AlignTop
 
                 layer.enabled: true
                 layer.effect: OpacityMask {
@@ -183,7 +196,7 @@ Rectangle {
                         text: notif?.appName || ""
                         font.family: Theme.fontFamily
                         font.pointSize: 10
-                        font.weight: 600
+                        font.weight: 500
                         color: "#55ffffff"
                     }
 
@@ -201,7 +214,6 @@ Rectangle {
 
                         Rectangle {
                             anchors.fill: parent
-                            anchors.margins: 5
                             radius: width * 0.5
                             antialiasing: true
                             color: "#60ffffff"
@@ -221,10 +233,10 @@ Rectangle {
                 }
 
                 // Title/summary row
-                RowLayout {
+                ColumnLayout {
                     Layout.alignment: Qt.AlignTop
 
-                    Label {
+                    Text {
                         visible: text != ""
                         text: notif?.summary || ""
                         elide: Text.ElideRight
@@ -233,24 +245,34 @@ Rectangle {
                         font.family: Theme.fontFamily
                         font.pointSize: 13
                         font.weight: 600
+                        color: "#ffffff"
+                        renderType: Text.NativeRendering
                     }
-                }
 
-                // Body row
-                Label {
-                    id: bodyLabel
-                    Layout.alignment: Qt.AlignTop
+                    // Unexpanded body text
+                    Text {
+                        id: bodyLabel
+                        Layout.alignment: Qt.AlignTop
 
-                    width: root.implicitWidth - 20
-                    text: notif?.body || ""
-                    wrapMode: Text.Wrap
-                    visible: text !== ""
+                        width: root.implicitWidth - 20
+                        text: notif?.body || ""
 
-                    Layout.maximumWidth: 240
+                        Layout.maximumWidth: 240
 
-                    font.family: Theme.fontFamily
-                    font.pointSize: 11
-                    font.weight: 500
+                        font.family: Theme.fontFamily
+                        font.pointSize: 11
+                        font.weight: 300
+                        color: "#ffffff"
+                        renderType: Text.NativeRendering
+                        elide: Text.ElideRight
+
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 300
+                                easing.type: Easing.OutCubic
+                            }
+                        }
+                    }
                 }
             }
         }

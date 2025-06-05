@@ -21,6 +21,6 @@ IconImage {
 
     implicitSize: 18
     Binding {
-        root.source: `root:/assets/icons/${root.iconName}.svg`
+        root.source: "root:/assets/icons/" + root.iconName + ".svg"
     }
 }

@@ -3,6 +3,7 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 
+import "root:/components/notifications" as NotificationListView
 import "root:/components/shared" as Shared
 
 import "root:/config"
@@ -13,6 +14,8 @@ Shared.BarModule {
 
     height: parent.height
     implicitWidth: height
+
+    property int notificationCount: Notifs.Notifications.notifCount
 
     property bool isHovered: false
     property bool isPressed: false

@@ -1,108 +1,99 @@
 pragma Singleton
+pragma ComponentBehavior: Bound
 
 import Quickshell
 import QtQuick
+import Quickshell.Io
 
 Singleton {
+    id: root
+    property string filePath: "root:/config/Matugen.json"
 
-    property color background: "#101417"
+    function reapplyTheme() {
+        themeFileView.reload();
+    }
 
-    property color error: "#ffb4ab"
+    function applyColors(fileContent) {
+        const json = JSON.parse(fileContent);
+        for (const key in json) {
+            if (json.hasOwnProperty(key)) {
+                root[key] = json[key];
+            }
+        }
+    }
 
-    property color error_container: "#93000a"
+    Timer {
+        id: delayedFileRead
+        interval: 100
+        repeat: false
+        running: false
+        onTriggered: {
+            root.applyColors(themeFileView.text());
+        }
+    }
 
-    property color inverse_on_surface: "#2d3135"
+    FileView {
+        id: themeFileView
+        path: Qt.resolvedUrl(root.filePath)
+        watchChanges: true
+        onFileChanged: {
+            this.reload();
+            delayedFileRead.start();
+        }
+        onLoadedChanged: {
+            const fileContent = themeFileView.text();
+            root.applyColors(fileContent);
+        }
+    }
 
-    property color inverse_primary: "#29638a"
-
-    property color inverse_surface: "#e0e3e8"
-
-    property color on_background: "#e0e3e8"
-
-    property color on_error: "#690005"
-
-    property color on_error_container: "#ffdad6"
-
-    property color on_primary: "#00344f"
-
-    property color on_primary_container: "#cbe6ff"
-
-    property color on_primary_fixed: "#001e30"
-
-    property color on_primary_fixed_variant: "#004b71"
-
-    property color on_secondary: "#22323f"
-
-    property color on_secondary_container: "#d3e4f6"
-
-    property color on_secondary_fixed: "#0c1d29"
-
-    property color on_secondary_fixed_variant: "#394956"
-
-    property color on_surface: "#e0e3e8"
-
-    property color on_surface_variant: "#c1c7ce"
-
-    property color on_tertiary: "#362b4a"
-
-    property color on_tertiary_container: "#ebdcff"
-
-    property color on_tertiary_fixed: "#211634"
-
-    property color on_tertiary_fixed_variant: "#4d4162"
-
-    property color outline: "#8b9198"
-
-    property color outline_variant: "#41474d"
-
-    property color primary: "#97ccf8"
-
-    property color primary_container: "#004b71"
-
-    property color primary_fixed: "#cbe6ff"
-
-    property color primary_fixed_dim: "#97ccf8"
-
-    property color scrim: "#000000"
-
-    property color secondary: "#b8c8d9"
-
-    property color secondary_container: "#394956"
-
-    property color secondary_fixed: "#d3e4f6"
-
-    property color secondary_fixed_dim: "#b8c8d9"
-
-    property color shadow: "#000000"
-
-    property color source_color: "#0b5983"
-
-    property color surface: "#101417"
-
-    property color surface_bright: "#363a3e"
-
-    property color surface_container: "#1c2024"
-
-    property color surface_container_high: "#262a2e"
-
-    property color surface_container_highest: "#313539"
-
-    property color surface_container_low: "#181c20"
-
-    property color surface_container_lowest: "#0b0f12"
-
-    property color surface_dim: "#101417"
-
-    property color surface_tint: "#97ccf8"
-
-    property color surface_variant: "#41474d"
-
-    property color tertiary: "#d0c0e8"
-
-    property color tertiary_container: "#4d4162"
-
-    property color tertiary_fixed: "#ebdcff"
-
-    property color tertiary_fixed_dim: "#d0c0e8"
-
+    property color background
+    property color error
+    property color error_container
+    property color inverse_on_surface
+    property color inverse_primary
+    property color inverse_surface
+    property color on_background
+    property color on_error
+    property color on_error_container
+    property color on_primary
+    property color on_primary_container
+    property color on_primary_fixed
+    property color on_primary_fixed_variant
+    property color on_secondary
+    property color on_secondary_container
+    property color on_secondary_fixed
+    property color on_secondary_fixed_variant
+    property color on_surface
+    property color on_surface_variant
+    property color on_tertiary
+    property color on_tertiary_container
+    property color on_tertiary_fixed
+    property color on_tertiary_fixed_variant
+    property color outline
+    property color outline_variant
+    property color primary
+    property color primary_container
+    property color primary_fixed
+    property color primary_fixed_dim
+    property color scrim
+    property color secondary
+    property color secondary_container
+    property color secondary_fixed
+    property color secondary_fixed_dim
+    property color shadow
+    property color source_color
+    property color surface
+    property color surface_bright
+    property color surface_container
+    property color surface_container_high
+    property color surface_container_highest
+    property color surface_container_low
+    property color surface_container_lowest
+    property color surface_dim
+    property color surface_tint
+    property color surface_variant
+    property color tertiary
+    property color tertiary_container
+    property color tertiary_fixed
+    property color tertiary_fixed_dim
 }

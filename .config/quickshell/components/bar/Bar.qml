@@ -11,6 +11,7 @@ import "root:/components/dashboard" as Dashboard
 import "root:/components/shared" as Shared
 import "root:/components/media" as Media
 import "root:/config"
+import "root:/data"
 
 Scope {
     Variants {
@@ -92,6 +93,8 @@ Scope {
                         anchors.right: parent.right
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
+
+                        Modules.Connectivity {}
 
                         Modules.Time {}
 

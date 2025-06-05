@@ -8,6 +8,7 @@ import "components/dashboard" as DashboardComponents
 import "components/notifications" as Notifs
 
 import "root:/data"
+import "root:/config"
 
 ShellRoot {
     BarComponents.Bar {
@@ -40,5 +41,9 @@ ShellRoot {
         margins {
             top: 60
         }
+    }
+
+    Component.onCompleted: {
+        Matugen.reapplyTheme();
     }
 }

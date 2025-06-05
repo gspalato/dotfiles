@@ -32,6 +32,7 @@ ListView {
             Notifs.Notifications.notifications.values.forEach(n => {
                 if (n.transient)
                     return; // Skip transient notifications
+
                 data.insert(0, {
                     n: n
                 });
@@ -93,6 +94,9 @@ ListView {
 
         notif: modelData
         width: parent.width
+
+        color: "#33000000"
+        border.width: 0
 
         SequentialAnimation {
             id: removeAnimation

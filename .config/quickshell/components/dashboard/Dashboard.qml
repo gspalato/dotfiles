@@ -17,17 +17,19 @@ import "root:/components/shared" as Shared
 
 import "root:/config"
 import "root:/data"
-import "root:/utils/utils.js" as Utils
+import "root:/utils/colorUtils.js" as ColorUtils
 
 Rectangle {
     id: dashboard
     property bool shown: false
 
+    property var notificationList: notifList
+
     implicitHeight: layout.implicitHeight
     implicitWidth: parent.width
     transformOrigin: Item.TopRight
 
-    color: Qt.rgba(Matugen.background.r, Matugen.background.g, Matugen.background.b, .8)
+    color: ColorUtils.alpha(Matugen.surface_container, .8)
 
     antialiasing: true
     border.width: 1
@@ -245,7 +247,7 @@ Rectangle {
                                 text: "Notifications"
                                 font.family: Theme.fontFamily
                                 font.pixelSize: 15
-                                font.weight: 600
+                                font.weight: 500
                                 color: Theme.foreground
                                 renderType: Text.NativeRendering
                             }
@@ -261,6 +263,7 @@ Rectangle {
                                 width: 20
 
                                 background: "transparent"
+                                border.width: 0
 
                                 IconImage {
                                     anchors.centerIn: parent
@@ -294,7 +297,7 @@ Rectangle {
                                 text: "No notifications"
                                 font.family: Theme.fontFamily
                                 font.pixelSize: 14
-                                font.weight: 500
+                                font.weight: 300
                                 color: Theme.foreground
                                 verticalAlignment: Text.AlignVCenter
                                 renderType: Text.NativeRendering
@@ -370,10 +373,10 @@ Rectangle {
                             ListView {
                                 id: trayListView
                                 Layout.fillHeight: true
-                                Layout.fillWidth: true
+                                Layout.preferredWidth: contentWidth
 
                                 orientation: ListView.Horizontal
-                                model: SystemTray.items
+                                model: SystemTray.items.values
 
                                 delegate: IconImage {
                                     id: trayIcon

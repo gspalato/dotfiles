@@ -57,7 +57,7 @@ Shared.BarModule {
 
         font.family: Theme.fontFamily
         font.pixelSize: Theme.defaultFontSize
-        font.weight: 600
+        font.weight: 500
         renderType: Text.NativeRendering
 
         color: Theme.foreground
