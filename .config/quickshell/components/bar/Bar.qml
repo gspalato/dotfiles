@@ -8,7 +8,7 @@ import Quickshell.Wayland
 import "modules" as Modules
 import "modules/Workspaces" as Workspaces
 import "root:/components/dashboard" as Dashboard
-import "root:/components/shared" as Shared
+import "root:/components/common" as Common
 import "root:/components/media" as Media
 import "root:/config"
 import "root:/data"
@@ -29,7 +29,7 @@ Scope {
                     right: true
                 }
 
-                height: Math.max(Theme.barHeight, contentContainer.implicitHeight)
+                height: Math.max(Appearance.sizes.barHeight, contentContainer.implicitHeight)
                 color: "transparent"
 
                 // Content
@@ -37,14 +37,15 @@ Scope {
                     id: contentContainer
 
                     anchors.fill: parent
-                    anchors.topMargin: Theme.barMargins[0]
-                    anchors.rightMargin: Theme.barMargins[1]
-                    anchors.bottomMargin: Theme.barMargins[2]
-                    anchors.leftMargin: Theme.barMargins[3]
+                    anchors.topMargin: Appearance.sizes.barTopMargin
+                    anchors.rightMargin: Appearance.sizes.barRightMargin
+                    anchors.bottomMargin: Appearance.sizes.barBottomMargin
+                    anchors.leftMargin: Appearance.sizes.barLeftMargin
 
                     color: "transparent"
 
-                    implicitHeight: Theme.barHeight + Theme.barMargins[0] + Theme.barMargins[2]
+                    //implicitHeight: 50
+                    implicitHeight: Appearance.sizes.barHeight + Appearance.sizes.barTopMargin + Appearance.sizes.barBottomMargin
 
                     // Left widgets
                     RowLayout {
@@ -60,7 +61,7 @@ Scope {
                         Workspaces.Workspaces {}
 
                         /*
-                        Shared.Separator {
+                        Common.Separator {
                             Layout.alignment: Qt.AlignVCenter
                         }
                         */
@@ -99,7 +100,7 @@ Scope {
                         Modules.Time {}
 
                         /*
-                        Shared.Separator {
+                        Common.Separator {
                             Layout.alignment: Qt.AlignVCenter
                         }
                         */

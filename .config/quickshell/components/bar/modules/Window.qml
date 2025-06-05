@@ -8,11 +8,11 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 
-import "root:/components/shared" as Shared
+import "root:/components/common" as Common
 import "root:/config"
 
 // Container
-Shared.BarModule {
+Common.BarModule {
     id: root
     //required property PanelWindow bar
 
@@ -27,7 +27,7 @@ Shared.BarModule {
     readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
 
     Binding {
-        root.implicitWidth: row.implicitWidth + Theme.modulePadding[1]
+        root.implicitWidth: row.implicitWidth + Appearance.sizes.moduleHorizontalPadding
     }
     Behavior on implicitWidth {
         NumberAnimation {
@@ -50,16 +50,13 @@ Shared.BarModule {
             source: icon
         }
 
-        Text {
+        Common.StyledText {
             id: text
             //anchors.centerIn: parent
             text: activeWindow?.activated ? activeWindow?.appId : ""
 
-            font.family: Theme.fontFamily
             font.pixelSize: 16
             font.weight: 450
-
-            color: "#ffffff"
         }
     }
 }

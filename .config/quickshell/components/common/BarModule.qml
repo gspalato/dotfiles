@@ -13,18 +13,19 @@ Rectangle {
     id: container
     //required property PanelWindow bar
 
-    implicitHeight: Theme.moduleHeight
-    implicitWidth: Theme.modulePadding[1]
+    implicitHeight: Appearance.sizes.moduleHeight
+    implicitWidth: Appearance.sizes.moduleHorizontalPadding
 
     antialiasing: true
     border.width: 1
-    border.color: Theme.moduleBorder
+    border.color: Appearance.colors.moduleBorder
     border.pixelAligned: true
-    radius: implicitHeight / 2
+    radius: Appearance.rounding.full
+
     layer.enabled: true
     layer.smooth: true
 
-    color: Theme.resolvedModuleColor
+    color: Appearance.colors.moduleColor
     Behavior on color {
         ColorAnimation {
             duration: 150

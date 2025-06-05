@@ -31,6 +31,6 @@ Singleton {
     property var moduleHeight: 40
     property var moduleColor: ColorUtils.alpha(Matugen.surface_container, .45)
     property var moduleBorder: ColorUtils.alpha(Qt.lighter(Matugen.surface_container, 1.75), .45)
-    property var resolvedModuleColor: Theme.barMode === "modular" ? Theme.moduleColor : "transparent"
+    property var resolvedModuleColor: Theme.barMode === "modular" ? Appearance.colors.moduleColor : "transparent"
     property var modulePadding: [0, 30]
 }

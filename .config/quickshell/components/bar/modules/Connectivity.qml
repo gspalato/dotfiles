@@ -8,16 +8,16 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 
-import "root:/components/shared" as Shared
+import "root:/components/common" as Common
 import "root:/config"
 import "root:/data"
 
 // Container
-Shared.BarModule {
+Common.BarModule {
     id: root
 
     Binding {
-        root.implicitWidth: row.implicitWidth + Theme.modulePadding[1]
+        root.implicitWidth: row.implicitWidth + Appearance.sizes.moduleHorizontalPadding
     }
     Behavior on implicitWidth {
         NumberAnimation {
@@ -32,11 +32,11 @@ Shared.BarModule {
 
         anchors.centerIn: parent
 
-        Shared.NetworkIcon {
+        Common.NetworkIcon {
             Layout.alignment: Qt.AlignVCenter
         }
 
-        Shared.BluetoothIcon {
+        Common.BluetoothIcon {
             Layout.alignment: Qt.AlignVCenter
         }
     }

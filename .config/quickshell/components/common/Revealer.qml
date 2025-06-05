@@ -8,6 +8,8 @@ Item {
     id: root
     property bool reveal
     property bool vertical: false
+    property int duration: 200
+    property var easing: Easing.OutQuad
     clip: true
 
     implicitWidth: (reveal || vertical) ? childrenRect.width : 0
@@ -16,15 +18,15 @@ Item {
     Behavior on implicitWidth {
         enabled: !vertical
         animation: NumberAnimation {
-            duration: 200
-            easing.type: Easing.OutQuad
+            duration: root.duration
+            easing.type: root.easing
         }
     }
     Behavior on implicitHeight {
         enabled: vertical
         animation: NumberAnimation {
-            duration: 200
-            easing.type: Easing.OutQuad
+            duration: root.duration
+            easing.type: root.easing
         }
     }
 }

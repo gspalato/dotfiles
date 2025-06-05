@@ -14,7 +14,7 @@ Canvas {
 
     implicitHeight: parent.implicitHeight
     implicitWidth: calculatedWidth
-    
+
     property var values: []
     property int silenceCounter: 0
     property int silenceThreshold: 10
@@ -33,7 +33,7 @@ Canvas {
 
         stdout: SplitParser {
             onRead: data => {
-                const values = data.split(';').map(v => parseFloat(v)/1000);
+                const values = data.split(';').map(v => parseFloat(v) / 1000);
                 cavaCanvas.values = values;
             }
         }
@@ -52,7 +52,7 @@ Canvas {
     FrameAnimation {
         running: true
         onTriggered: {
-            cavaCanvas.requestAnimationFrame(() => cavaCanvas.onPaint(values))
+            cavaCanvas.requestAnimationFrame(() => cavaCanvas.onPaint(values));
         }
     }
 
@@ -65,8 +65,8 @@ Canvas {
 
         // Clear the canvas once before rendering
         context.clearRect(0, 0, w, h);
-        
-        context.fillStyle = Theme.primary; // White color for the bars
+
+        context.fillStyle = Appearance.material_colors.on_surface; // White color for the bars
 
         // Silence control
         if (values[0] > 0) {
@@ -74,10 +74,10 @@ Canvas {
         } else {
             silenceCounter++;
         }
-        
+
         const spectrum = silenceCounter > silenceThreshold ? new Array(bars).fill(0) : values;
         const centerY = h / 2;
-        
+
         let startX = (w - (barWidth * bars + (bars - 1) * padding)) / 2;
         let dx = startX;
 
@@ -86,42 +86,42 @@ Canvas {
             const value = Math.min(spectrum[i], 1);
             let height = Math.max(value * barH, barMinHeight) / 2;
             height = Math.min(height, barH);
-            
+
             const radius = barW / 2;
-            
+
             const yTop = centerY - height;
             const yBottom = centerY + height;
 
             // Begin the path for each bar
             context.beginPath();
-            
+
             // Top-left arc
             context.arc(dx + radius, yTop + radius, radius, Math.PI, 1.5 * Math.PI, false);
-            
+
             // Top line
             context.lineTo(dx + barW - radius, yTop);
-            
+
             // Top-right arc
             context.arc(dx + barW - radius, yTop + radius, radius, 1.5 * Math.PI, 0, false);
-            
+
             // Right line
             context.lineTo(dx + barW, yBottom - radius);
-            
+
             // Bottom-right arc
             context.arc(dx + barW - radius, yBottom - radius, radius, 0, 0.5 * Math.PI, false);
-            
+
             // Bottom line
             context.lineTo(dx + radius, yBottom);
-            
+
             // Bottom-left arc
             context.arc(dx + radius, yBottom - radius, radius, 0.5 * Math.PI, Math.PI, false);
-            
+
             // Close the path for the current bar
             context.closePath();
-            
+
             // Fill the bar
             context.fill();
-            
+
             // Increment the x-position for the next bar
             dx += barWidth + padding;
         }

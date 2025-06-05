@@ -37,7 +37,7 @@ Item {
             maskSource: mask
         }
     }
-    
+
     Rectangle {
         id: mask
         width: root.width
@@ -46,4 +46,3 @@ Item {
         visible: false
     }
 }
-

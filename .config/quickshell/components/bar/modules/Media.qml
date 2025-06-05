@@ -7,7 +7,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 
-import "root:/components/shared" as Shared
+import "root:/components/common" as Common
 import "root:/components/media" as Media
 import "root:/components/bar"
 
@@ -16,13 +16,13 @@ import "root:/data"
 import "root:/utils/utils.js" as Utils
 
 // Container
-Shared.BarModule {
+Common.BarModule {
     id: root
     clip: true
 
     required property PanelWindow bar
 
-    implicitWidth: layout.implicitWidth + Theme.modulePadding[1]
+    implicitWidth: layout.implicitWidth + Appearance.sizes.moduleHorizontalPadding
 
     property bool isHovered: false
     property bool isPressed: false
@@ -31,11 +31,10 @@ Shared.BarModule {
     property var player: {
         const player = Mpris.players.values.find(p => p.identity === "Spotify") || Mpris.players.values[0];
         if (!player) {
-            console.log("no player found.");
             return;
         }
+        '';
 
-        console.log(player.identity);
         return player;
     }
 
@@ -82,7 +81,7 @@ Shared.BarModule {
     }
 
     // Set color based on hover/press state.
-    color: Qt.lighter(Theme.resolvedModuleColor, isPressed ? 2.5 : (isHovered ? 1.75 : 0))
+    color: Qt.lighter(Appearance.colors.moduleColor, isPressed ? 2.5 : (isHovered ? 1.75 : 0))
     Behavior on color {
         ColorAnimation {
             duration: 150
@@ -97,7 +96,7 @@ Shared.BarModule {
         spacing: 0
 
         height: parent.height
-        width: cavaCanvas.calculatedWidth + revealer.implicitWidth
+        //width: cavaCanvas.calculatedWidth + revealer.implicitWidth
 
         Rectangle {
             id: revealer
@@ -136,38 +135,66 @@ Shared.BarModule {
                 height: parent.height
                 anchors.right: parent.right
 
-                Row {
+                RowLayout {
                     id: titleRow
                     height: parent.height
                     spacing: 10
 
                     IconImage {
-                        implicitSize: 15
+                        visible: false
+                        implicitSize: 16
                         mipmap: true
 
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.centerIn: parent
 
                         source: player.identity === "Spotify" ? "root:/assets/icons/spotify.svg" : ""
                     }
 
-                    Text {
+                    // Small padding so the progress isn't clipped.
+                    Item {
+                        Layout.leftMargin: 1
+                        implicitHeight: 22
+                        implicitWidth: 22
+
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        Common.CircularProgress {
+                            size: 26
+                            primaryColor: Matugen.primary
+                            secondaryColor: "#22ffffff"
+
+                            anchors.centerIn: parent
+
+                            Binding on value {
+                                value: player.position / player.length || 0
+                            }
+                        }
+
+                        IconImage {
+                            visible: true
+                            implicitSize: 18
+                            mipmap: false
+
+                            anchors.centerIn: parent
+
+                            property string iconName: player.isPlaying ? "media-pause2" : "media-play2"
+                            source: "root:/assets/icons/" + iconName + ".svg"
+                            //source: player.identity === "Spotify" ? "root:/assets/icons/spotify.svg" : ""
+                        }
+                    }
+
+                    Common.StyledText {
                         anchors.verticalCenter: parent.verticalCenter
                         text: player.trackTitle ? Utils.truncateString(player.trackTitle, 25) : "Unknown song"
-
-                        font.family: Theme.fontFamily
-                        font.pixelSize: Theme.defaultFontSize
-                        font.weight: Theme.defaultFontWeight
-
-                        color: Theme.foreground
                     }
 
                     // Discrete border
-                    Shared.Separator {}
+                    Common.Separator {}
                 }
             }
         }
 
-        Shared.CavaSpectrum {
+        Common.CavaSpectrum {
             id: cavaCanvas
 
             anchors.centerIn: null

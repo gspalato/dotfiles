@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 
 import "root:/config"
+import "root:/utils/colorUtils.js" as ColorUtils
 
 Rectangle {
     id: root
@@ -19,7 +20,7 @@ Rectangle {
 
     height: 32
     width: 32
-    radius: 100
+    radius: Appearance.rounding.small
 
     color: isPressed ? backgroundPressed : (isHovered ? backgroundHover : background)
     Behavior on color {
@@ -30,9 +31,9 @@ Rectangle {
     }
 
     antialiasing: true
-    border.width: .5//.5
-    border.color: Theme.border
+    border.width: .5
     border.pixelAligned: false
+    border.color: ColorUtils.alpha(Qt.lighter(root.background, 1.25), .2)
 
     MouseArea {
         anchors.fill: parent

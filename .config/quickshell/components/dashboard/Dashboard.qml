@@ -13,7 +13,7 @@ import Qt5Compat.GraphicalEffects
 import Quickshell.Services.Greetd
 
 import "root:/components/notifications" as Notifs
-import "root:/components/shared" as Shared
+import "root:/components/common" as Common
 
 import "root:/config"
 import "root:/data"
@@ -29,13 +29,13 @@ Rectangle {
     implicitWidth: parent.width
     transformOrigin: Item.TopRight
 
-    color: ColorUtils.alpha(Matugen.surface_container, .8)
+    color: ColorUtils.alpha(Appearance.material_colors.surface_container, .8)
 
     antialiasing: true
     border.width: 1
-    border.color: Qt.lighter(Matugen.background, 1.75)
+    border.color: Qt.lighter(Appearance.material_colors.surface_container, 1.25)
     border.pixelAligned: true
-    radius: 25
+    radius: Appearance.rounding.windowRounding
 
     layer.enabled: true
     layer.smooth: true
@@ -78,7 +78,7 @@ Rectangle {
                     height: 40
                     width: 40
 
-                    Shared.Avatar {}
+                    Common.Avatar {}
                 }
 
                 // Greeting text
@@ -88,32 +88,25 @@ Rectangle {
 
                     spacing: -2
 
-                    Text {
+                    Common.StyledText {
                         id: greeting
 
                         property string username: ""
                         text: "Welcome back,"
 
-                        font.family: Theme.fontFamily
                         font.pixelSize: 15
                         font.weight: 500
-                        renderType: Text.NativeRendering
-
-                        color: Theme.foreground
                     }
 
-                    Text {
+                    Common.StyledText {
                         id: usernameLabel
 
                         property string username: ""
                         text: username
 
-                        font.family: "Unbounded"
+                        font.family: Appearance.font.family.display
                         font.pixelSize: 17
                         font.weight: 500
-                        renderType: Text.NativeRendering
-
-                        color: Theme.foreground
 
                         // Get current username
                         Process {
@@ -140,12 +133,207 @@ Rectangle {
                     Layout.alignment: Qt.AlignRight
 
                     HeaderButton {
+                        id: rebootButton
+
+                        IconImage {
+                            anchors.centerIn: parent
+                            implicitSize: 18
+                            source: "root:/assets/icons/reboot.svg"
+                        }
+
+                        Process {
+                            id: rebootProc
+                            command: ["sh", "-c", "systemctl reboot"]
+                            running: false
+                        }
+
+                        // Prepare the confirmation dialog to be about rebooting the computer.
+                        onClick: {
+                            confirmationDialog.updateAndReveal("Are you sure you want to reboot your computer?", () => {
+                                console.log("Shutting down...");
+                                rebootProc.running = true;
+                            }, "Yup", "Nah");
+                        }
+                    }
+
+                    HeaderButton {
                         id: shutdownButton
 
                         IconImage {
                             anchors.centerIn: parent
                             implicitSize: 18
                             source: "root:/assets/icons/power.svg"
+                        }
+
+                        Process {
+                            id: shutdownProc
+                            command: ["sh", "-c", "systemctl poweroff"]
+                            running: false
+                        }
+
+                        // Prepare the confirmation dialog to be about shutting down the computer.
+                        onClick: {
+                            confirmationDialog.updateAndReveal("Are you sure you want to shut down your computer?", () => {
+                                console.log("Shutting down...");
+                                shutdownProc.running = true;
+                            }, "Yup", "Nah");
+                        }
+                    }
+                }
+            }
+
+            // Confirmation dialog
+            Common.Revealer {
+                id: confirmationDialog
+                vertical: true
+                duration: 200
+
+                property string prompt
+                property string confirmText: "Yup"
+                property string cancelText: "Nah"
+                property var confirmCallback: () => {}
+
+                Layout.fillWidth: true
+                Layout.leftMargin: 10
+                Layout.rightMargin: 10
+
+                function updateAndReveal(prompt, callback, confirmText = "Yup", cancelText = "Nah") {
+                    revealAnimation.prompt = prompt;
+                    revealAnimation.confirmCallback = callback;
+                    revealAnimation.confirmText = confirmText;
+                    revealAnimation.cancelText = cancelText;
+
+                    revealAnimation.start();
+                }
+
+                SequentialAnimation {
+                    id: revealAnimation
+
+                    property string prompt
+                    property string confirmText
+                    property string cancelText
+                    property var confirmCallback
+
+                    PropertyAction {
+                        target: confirmationDialog
+                        property: "reveal"
+                        value: false
+                    }
+                    // Wait for revealer to be hidden.
+                    PauseAnimation {
+                        duration: 200
+                    }
+                    // Update the content of the dialog.
+                    ParallelAnimation {
+                        PropertyAction {
+                            target: confirmationDialog
+                            property: "prompt"
+                            value: revealAnimation.prompt
+                        }
+                        PropertyAction {
+                            target: confirmationDialog
+                            property: "confirmText"
+                            value: revealAnimation.confirmText
+                        }
+                        PropertyAction {
+                            target: confirmationDialog
+                            property: "cancelText"
+                            value: revealAnimation.cancelText
+                        }
+                        PropertyAction {
+                            target: confirmationDialog
+                            property: "confirmCallback"
+                            value: revealAnimation.confirmCallback
+                        }
+                    }
+                    // Reveal the dialog.
+                    PropertyAction {
+                        target: confirmationDialog
+                        property: "reveal"
+                        value: true
+                    }
+                }
+
+                Rectangle {
+                    id: confirmationDialogBg
+
+                    implicitHeight: confirmationDialogContentContainer.implicitHeight
+                    implicitWidth: parent.width
+
+                    color: "#11ffffff"
+                    border.width: 1
+                    border.color: "#1fffffff"
+                    Layout.fillWidth: true
+
+                    radius: Appearance.rounding.small || 15
+
+                    GridLayout {
+                        id: confirmationDialogContentContainer
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+
+                        ColumnLayout {
+                            Layout.leftMargin: 10
+                            Layout.rightMargin: 10
+                            Layout.topMargin: 10
+                            Layout.bottomMargin: 10
+
+                            spacing: 10
+
+                            Common.StyledText {
+                                text: confirmationDialog.prompt
+                                wrapMode: Text.Wrap
+
+                                font.family: Appearance.font.family.main
+                                font.pixelSize: Appearance.font.pixelSize.small
+                                font.weight: 400
+
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignHCenter
+
+                                //renderType: Text.QtRendering
+                            }
+
+                            RowLayout {
+                                Common.Button {
+                                    id: confirmButton
+
+                                    Layout.fillWidth: true
+                                    radius: 12
+
+                                    Common.StyledText {
+                                        text: confirmationDialog.confirmText
+                                        font.pixelSize: 14
+                                        font.weight: 500
+                                        anchors.centerIn: parent
+                                    }
+
+                                    onClick: {
+                                        confirmationDialog.confirmCallback();
+                                        confirmationDialog.reveal = false;
+                                    }
+                                }
+
+                                Common.Button {
+                                    id: cancelButton
+
+                                    Layout.fillWidth: true
+                                    radius: 12
+
+                                    Common.StyledText {
+                                        text: confirmationDialog.cancelText
+                                        font.pixelSize: 14
+                                        font.weight: 500
+                                        anchors.centerIn: parent
+                                    }
+
+                                    onClick: {
+                                        confirmationDialog.reveal = false;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -159,11 +347,14 @@ Rectangle {
                 implicitWidth: parent.width
 
                 color: "#11ffffff"
+                border.width: 1
+                border.color: "#1fffffff"
+
                 Layout.leftMargin: 10
                 Layout.rightMargin: 10
                 Layout.fillWidth: true
 
-                radius: 15
+                radius: Appearance.rounding.small || 15
 
                 GridLayout {
                     id: slidersContainer
@@ -186,9 +377,9 @@ Rectangle {
                             Layout.fillWidth: true
                             spacing: 10
 
-                            Shared.VolumeIcon {}
+                            Common.VolumeIcon {}
 
-                            Shared.CustomSlider {
+                            Common.CustomSlider {
                                 id: volumeSlider
                                 Layout.fillWidth: true
 
@@ -213,11 +404,14 @@ Rectangle {
                 implicitWidth: parent.width
 
                 color: "#11ffffff"
+                border.width: 1
+                border.color: "#1fffffff"
+
                 Layout.leftMargin: 10
                 Layout.rightMargin: 10
                 Layout.fillWidth: true
 
-                radius: 15
+                radius: Appearance.rounding.small || 15
 
                 GridLayout {
                     id: notifsContainer
@@ -243,12 +437,10 @@ Rectangle {
                                 source: "root:/assets/icons/notification.svg"
                             }
 
-                            Text {
+                            Common.StyledText {
                                 text: "Notifications"
-                                font.family: Theme.fontFamily
                                 font.pixelSize: 15
                                 font.weight: 500
-                                color: Theme.foreground
                                 renderType: Text.NativeRendering
                             }
 
@@ -289,18 +481,15 @@ Rectangle {
                             radius: 10
 
                             // Empty notifications message
-                            Text {
+                            Common.StyledText {
                                 id: emptyNotifText
 
                                 anchors.centerIn: parent
 
                                 text: "No notifications"
-                                font.family: Theme.fontFamily
                                 font.pixelSize: 14
                                 font.weight: 300
-                                color: Theme.foreground
                                 verticalAlignment: Text.AlignVCenter
-                                renderType: Text.NativeRendering
 
                                 opacity: notifList.notifications.count === 0 ? 0.5 : 0
                                 visible: opacity > 0
@@ -336,11 +525,14 @@ Rectangle {
                 implicitWidth: parent.width
 
                 color: "#11ffffff"
+                border.width: 1
+                border.color: "#1fffffff"
+
                 Layout.leftMargin: 10
                 Layout.rightMargin: 10
                 Layout.fillWidth: true
 
-                radius: 15
+                radius: Appearance.rounding.small || 15
 
                 GridLayout {
                     id: trayContainer

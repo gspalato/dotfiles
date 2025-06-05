@@ -5,46 +5,17 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 
-import "root:/components/shared" as Shared
+import "root:/components/common" as Common
 import "root:/config"
 import "root:/data"
 
 // Container
-Shared.BarModule {
+Common.BarModule {
     id: container
-    implicitHeight: Theme.moduleHeight
-    implicitWidth: timeText.implicitWidth + Theme.modulePadding[1]
+    implicitHeight: Appearance.sizes.moduleHeight
+    implicitWidth: timeText.implicitWidth + Appearance.sizes.moduleHorizontalPadding
 
-    /*
-    property bool isHovered: false
-    property bool isPressed: false
-
-    // Hover handling
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-        onEntered: {
-            isHovered = true;
-        }
-        onExited: {
-            isHovered = false;
-        }
-        onPressed: {
-            isPressed = true;
-        }
-        onReleased: {
-            isPressed = false;
-        }
-
-        onClicked: {
-            Panels.toggleDashboard();
-        }
-    }
-    */
-
-    // Set color based on hover/press state.
-    color: Theme.resolvedModuleColor
-    //color: Qt.lighter(Theme.resolvedModuleColor, isPressed ? 2.5 : (isHovered ? 1.75 : 0))
+    color: Appearance.colors.moduleColor
     Behavior on color {
         ColorAnimation {
             duration: 150
@@ -52,15 +23,14 @@ Shared.BarModule {
         }
     }
 
-    Text {
+    Common.StyledText {
         id: timeText
 
-        font.family: Theme.fontFamily
-        font.pixelSize: Theme.defaultFontSize
-        font.weight: 500
-        renderType: Text.NativeRendering
+        font.family: Appearance.font.family.display
+        font.pixelSize: Appearance.font.pixelSize.small
+        font.weight: 600
 
-        color: Theme.foreground
+        color: Appearance.material_colors.on_surface
 
         anchors.centerIn: parent
         text: Time.data ?? ""

@@ -4,12 +4,12 @@ import Quickshell.Widgets
 import QtQuick
 
 import "root:/components/notifications" as NotificationListView
-import "root:/components/shared" as Shared
+import "root:/components/common" as Common
 
 import "root:/config"
 import "root:/data"
 
-Shared.BarModule {
+Common.BarModule {
     id: root
 
     height: parent.height
@@ -20,7 +20,7 @@ Shared.BarModule {
     property bool isHovered: false
     property bool isPressed: false
 
-    color: Qt.lighter(Theme.resolvedModuleColor, isPressed ? 2.5 : (isHovered ? 1.75 : 0))
+    color: Qt.lighter(Appearance.colors.moduleColor, isPressed ? 2.5 : (isHovered ? 1.75 : 0))
     Behavior on color {
         ColorAnimation {
             duration: 150
@@ -59,12 +59,12 @@ Shared.BarModule {
 }
 
 /*
-Shared.BarModule {
+Common.BarModule {
     id: root
     clip: true
 
-    height: Theme.moduleHeight
-    implicitWidth: icon.implicitWidth + Theme.modulePadding[1]
+    height: Appearance.sizes.moduleHeight
+    implicitWidth: icon.implicitWidth + Appearance.sizes.moduleHorizontalPadding
 
     property var bar
     property bool isDashboardVisible: false

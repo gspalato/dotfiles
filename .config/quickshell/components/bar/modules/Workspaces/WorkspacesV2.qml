@@ -6,14 +6,14 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
-import "../../../shared" as Shared
+import "../../../common" as Common
 import "../../../../config"
 import "../../../../data"
 
 // Container
-Shared.BarModule {
+Common.BarModule {
     id: root
-    
+
     property real size: 10
     property real pillExtraWidth: 10
     property real selectedWidth: 20
@@ -21,7 +21,7 @@ Shared.BarModule {
 
     property int currentWorkspace: 1
     property int visibleCount: {
-        return Math.max(Config.minWorkspaceCount, currentWorkspace)
+        return Math.max(Config.minWorkspaceCount, currentWorkspace);
     }
 
     property var indicatorWidths: []
@@ -42,9 +42,9 @@ Shared.BarModule {
     function animateWidth(index, targetWidth) {
         const animation = Qt.createQmlObject(`
             import QtQuick 2.15
-            NumberAnimation { 
-                duration: 180; 
-                easing.type: Easing.InOutQuad 
+            NumberAnimation {
+                duration: 180;
+                easing.type: Easing.InOutQuad
             }
         `, canvas, "WidthAnim");
 
@@ -59,12 +59,12 @@ Shared.BarModule {
     }
     Component.onCompleted: resetWidths()
 
-    implicitWidth: ((visibleCount - 1) * (size + indicatorSpacing) + selectedWidth) + Theme.modulePadding[1]
+    implicitWidth: ((visibleCount - 1) * (size + indicatorSpacing) + selectedWidth) + Appearance.sizes.moduleHorizontalPadding
 
     Behavior on implicitWidth {
         NumberAnimation {
             // Make duration proportional to the number of workspaces skipped
-            duration: 200;
+            duration: 200
             easing.type: EasingInOutQuad
         }
     }
@@ -72,12 +72,12 @@ Shared.BarModule {
     // Handle scrolling to change workspace.
     MouseArea {
         anchors.fill: parent
-        onWheel: event => { 
+        onWheel: event => {
             // TODO streamline this
             if (root.mon?.id <= 10) {
-                (event.angleDelta.y > 0)? Hyprland.dispatch("workspace -1") : Hyprland.dispatch("workspace +1") 
+                (event.angleDelta.y > 0) ? Hyprland.dispatch("workspace -1") : Hyprland.dispatch("workspace +1");
             } else {
-                Hyprland.dispatch("workspace 10")
+                Hyprland.dispatch("workspace 10");
             }
         }
     }
@@ -85,7 +85,7 @@ Shared.BarModule {
     FrameAnimation {
         running: true
         onTriggered: {
-            workspaceCanvas.requestAnimationFrame(() => workspaceCanvas.onPaint())
+            workspaceCanvas.requestAnimationFrame(() => workspaceCanvas.onPaint());
         }
     }
 

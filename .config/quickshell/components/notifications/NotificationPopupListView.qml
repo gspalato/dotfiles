@@ -1,8 +1,10 @@
 import QtQuick
+import QtQuick.Timeline
 import Quickshell
 import Quickshell.Services.Notifications
 
 import "root:/config"
+import "root:/components/common" as Common
 import "root:/components/notifications" as Notifs
 import "root:/utils/utils.js" as Utils
 
@@ -43,6 +45,8 @@ ListView {
 
         notif: modelData
         changeOpacityOnSwipe: false
+
+        showProgressToDismiss: false
 
         width: parent.width
 

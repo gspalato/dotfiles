@@ -6,12 +6,12 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
-import "../../../shared" as Shared
-import "../../../../config"
-import "../../../../data"
+import "root:/components/common" as Common
+import "root:/config"
+import "root:/data"
 
 // Container
-Shared.BarModule {
+Common.BarModule {
     id: root
 
     property real size: 5
@@ -24,7 +24,7 @@ Shared.BarModule {
 
     property real indicatorSpacing: 7
 
-    property var activeWorkspaceColor: Theme.primary
+    property var activeWorkspaceColor: Matugen.primary
 
     //property HyprlandWorkspace focusedWorkspace: Hyprland.workspaces.values.find(e => e.id == index + 1) || null
     property int focusedWorkspaceId: Hyprland.focusedMonitor.activeWorkspace.id
@@ -48,7 +48,7 @@ Shared.BarModule {
     }
 
     Binding {
-        root.implicitWidth: indicatorRow.implicitWidth + Theme.modulePadding[1]
+        root.implicitWidth: indicatorRow.implicitWidth + Appearance.sizes.moduleHorizontalPadding
     }
 
     Behavior on implicitWidth {
@@ -76,7 +76,7 @@ Shared.BarModule {
 
         height: parent.height
         anchors.left: parent.left
-        anchors.leftMargin: Theme.modulePadding[1] / 2
+        anchors.leftMargin: Appearance.sizes.moduleHorizontalPadding / 2
 
         uniformCellSizes: false
 
@@ -97,8 +97,8 @@ Shared.BarModule {
                 Layout.preferredHeight: focused ? activeHeight : size
                 Layout.preferredWidth: size + (activeWidth - size) * proportion
 
-                color: activeWorkspaceColor
-                opacity: focused ? 1 : .25
+                color: focused ? activeWorkspaceColor : "#22ffffff"
+                //opacity: focused ? 1 : .25
 
                 Behavior on opacity {
                     NumberAnimation {
@@ -109,7 +109,7 @@ Shared.BarModule {
 
                 Behavior on Layout.preferredWidth {
                     NumberAnimation {
-                        duration: 50
+                        duration: 100
                         easing.type: Easing.InOutQuad
                     }
                 }

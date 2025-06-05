@@ -13,7 +13,7 @@ Rectangle {
     width: parent.width
     anchors.centerIn: parent
 
-    color: Theme.background
-    border.color: Theme.border
+    color: Appearance.material_colors.background
+    //border.color: Theme.border
     radius: 30
 }

@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Services.Notifications
 import Qt5Compat.GraphicalEffects
 
+import "root:/components/common" as Common
 import "root:/config"
 import "root:/utils/colorUtils.js" as ColorUtils
 
@@ -16,9 +17,12 @@ Rectangle {
     property real swipeThreshold: root.width - root.width / 3
     property bool changeOpacityOnSwipe: true
 
+    property bool showProgressToDismiss: false
+    property real progressToDismiss: 0
+
     property var callbackOnDismiss: id => root.notif.dismiss()
 
-    color: ColorUtils.alpha(Matugen.surface_container, .8)
+    color: ColorUtils.alpha(Matugen.surface_container_low, .8)
     Behavior on color {
         ColorAnimation {
             duration: 400
@@ -33,7 +37,7 @@ Rectangle {
 
     antialiasing: true
     border.width: 1
-    border.color: Qt.lighter(Matugen.surface_container, 1.15)
+    border.color: Qt.lighter(Appearance.material_colors.surface_container, 1.15)
     border.pixelAligned: true
 
     layer.enabled: true
@@ -74,6 +78,17 @@ Rectangle {
         root.x = 2 * root.width;
     }
 
+    DropShadow {
+        anchors.fill: parent
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 5
+        samples: 11
+        color: Qt.rgba(0, 0, 0, 1)
+        cached: true
+        visible: true
+    }
+
     MouseArea {
         id: dragArea
 
@@ -106,6 +121,54 @@ Rectangle {
         id: outerLayout
 
         width: parent.width
+
+        Image {
+            id: notifImageOut
+            readonly property int size: visible ? height : 0
+
+            visible: false
+            //visible: source != ""
+            source: notif?.image || ""
+            fillMode: Image.PreserveAspectCrop
+            cache: false
+            antialiasing: true
+            mipmap: true
+
+            width: 1.25 * parent.height
+            height: parent.height
+
+            sourceSize.width: size
+            sourceSize.height: size
+
+            Layout.preferredHeight: size
+            Layout.preferredWidth: size
+            Layout.alignment: Qt.AlignTop
+
+            layer.enabled: true
+            layer.effect: OpacityMask {
+                maskSource: notifIconOpacityMask
+            }
+
+            Rectangle {
+                id: notifIconOpacityMask
+                visible: false
+                width: parent.width
+                height: parent.height
+                topLeftRadius: root.radius
+                bottomLeftRadius: root.radius
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+                    GradientStop {
+                        position: 0.0
+                        color: "white"
+                    }
+                    GradientStop {
+                        position: 1.0
+                        color: "transparent"
+                    }
+                }
+            }
+        }
 
         RowLayout {
             id: layout
@@ -192,11 +255,11 @@ Rectangle {
                         }
                     }
 
-                    Text {
+                    Common.StyledText {
                         text: notif?.appName || ""
-                        font.family: Theme.fontFamily
-                        font.pointSize: 10
-                        font.weight: 500
+                        font.pixelSize: Appearance.font.pixelSize.smaller
+                        font.family: Appearance.font.family.main
+                        font.weight: 400
                         color: "#55ffffff"
                     }
 
@@ -225,10 +288,16 @@ Rectangle {
                             }
                         }
 
-                        //CloseButton {
-                        // anchors.fill: parent
-                        // ringFill: root.backer.timePercentage
-                        //}
+                        Common.CircularProgress {
+                            anchors.centerIn: parent
+                            size: 22
+
+                            primaryColor: Matugen.primary
+                            secondaryColor: "#00ffffff"
+
+                            visible: root.showProgressToDismiss
+                            value: root.progressToDismiss
+                        }
                     }
                 }
 
@@ -236,21 +305,19 @@ Rectangle {
                 ColumnLayout {
                     Layout.alignment: Qt.AlignTop
 
-                    Text {
+                    Common.StyledText {
                         visible: text != ""
                         text: notif?.summary || ""
                         elide: Text.ElideRight
                         Layout.maximumWidth: 250
 
-                        font.family: Theme.fontFamily
-                        font.pointSize: 13
+                        font.pixelSize: Appearance.font.pixelSize.large
                         font.weight: 600
                         color: "#ffffff"
-                        renderType: Text.NativeRendering
                     }
 
                     // Unexpanded body text
-                    Text {
+                    Common.StyledText {
                         id: bodyLabel
                         Layout.alignment: Qt.AlignTop
 
@@ -259,11 +326,9 @@ Rectangle {
 
                         Layout.maximumWidth: 240
 
-                        font.family: Theme.fontFamily
-                        font.pointSize: 11
+                        font.pixelSize: Appearance.font.pixelSize.small
                         font.weight: 300
                         color: "#ffffff"
-                        renderType: Text.NativeRendering
                         elide: Text.ElideRight
 
                         Behavior on opacity {

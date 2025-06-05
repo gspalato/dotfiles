@@ -4,13 +4,14 @@ import QtQuick
 import QtQuick.Layouts
 
 import "root:/config"
+import "root:/utils/colorUtils.js" as ColorUtils
 
 Rectangle {
     id: root
 
     property color background: Qt.rgba(255, 255, 255, .1)
     property color backgroundHover: Qt.rgba(255, 255, 255, .2)
-    property color backgroundPressed: Qt.rgba(255, 255, 255, .1)
+    property color backgroundPressed: Qt.rgba(255, 255, 255, .15)
 
     property bool isHovered: false
     property bool isPressed: false
@@ -31,7 +32,7 @@ Rectangle {
 
     antialiasing: true
     border.width: .5//.5
-    border.color: Theme.border
+    border.color: ColorUtils.alpha(Qt.lighter(root.background, 1.25), .2)
     border.pixelAligned: false
 
     MouseArea {
