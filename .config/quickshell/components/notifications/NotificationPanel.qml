@@ -56,6 +56,6 @@ PanelWindow {
 
     // Disable the mask when the dashboard is open.
     mask: Region {
-        item: Panels.dashboard?.scale < 1 ? notifList : null
+        item: Panels.dashboard?.scale < 1 ? notifList.contentItem : null
     }
 }
