@@ -102,7 +102,7 @@ function alpha(color, alpha) {
  *
  * @param {Qt.rgba} rgb1 - The first color.
  * @param {Qt.rgba} rgb2 - The second color.
- * @param {number} percentage - The interpolation ratio (0-1).
+ * @param {number} percentage - The interpolation ratio (0-1), where 0 is totally the first color and 1 is totally the second color.
  * @returns {Qt.rgba} The resulting color.
  */
 function interpolateColorsInLCH(rgb1, rgb2, t) {

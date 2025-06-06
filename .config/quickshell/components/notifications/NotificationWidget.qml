@@ -4,6 +4,7 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.Notifications
 import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 
 import "root:/components/common" as Common
 import "root:/config"
@@ -40,8 +41,15 @@ Rectangle {
     border.color: Qt.lighter(Appearance.material_colors.surface_container, 1.15)
     border.pixelAligned: true
 
-    layer.enabled: true
+    layer.enabled: false
     layer.smooth: true
+    layer.effect: MultiEffect {
+        shadowVerticalOffset: 0
+        shadowHorizontalOffset: 0
+        shadowColor: "#000000"
+        shadowEnabled: true
+        shadowBlur: 0.5
+    }
 
     Behavior on x {
         NumberAnimation {

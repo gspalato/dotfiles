@@ -3,6 +3,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 
 import "components/bar" as Bar
@@ -28,11 +29,22 @@ ShellRoot {
             height: dashboard.shown && dashboard.height
         }
 
-        Dashboard.Dashboard {
-            id: dashboard
+        ColumnLayout {
+            id: dashboardPadding
+            anchors.fill: parent
 
-            Component.onCompleted: {
-                Panels.dashboard = dashboard;
+            spacing: 0
+
+            Dashboard.Dashboard {
+                id: dashboard
+
+                Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+                Layout.margins: 10
+                Layout.fillWidth: true
+
+                Component.onCompleted: {
+                    Panels.dashboard = dashboard;
+                }
             }
         }
 

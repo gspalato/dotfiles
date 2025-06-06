@@ -19,7 +19,7 @@ PanelWindow {
     visible: true
 
     height: 500
-    width: 400
+    width: 420
 
     aboveWindows: true
     exclusionMode: ExclusionMode.Ignore
@@ -28,7 +28,7 @@ PanelWindow {
     anchors.right: true
     anchors.bottom: true
 
-    margins.top: 60
-    margins.right: 10
-    margins.bottom: 10
+    margins.top: 50
+    margins.right: 0
+    margins.bottom: 0
 }

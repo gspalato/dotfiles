@@ -56,7 +56,7 @@ Singleton {
         property int moduleHorizontalPadding: 30
 
         property int barTopMargin: 10
-        property int barBottomMargin: 0
+        property int barBottomMargin: 6
         property int barLeftMargin: 10
         property int barRightMargin: 10
 

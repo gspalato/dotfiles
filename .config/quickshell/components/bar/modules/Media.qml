@@ -6,6 +6,7 @@ import Quickshell.Services.Mpris
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 
 import "root:/components/common" as Common
 import "root:/components/media" as Media
@@ -18,7 +19,6 @@ import "root:/utils/utils.js" as Utils
 // Container
 Common.BarModule {
     id: root
-    clip: true
 
     required property PanelWindow bar
 
@@ -38,12 +38,6 @@ Common.BarModule {
         function onPostTrackChanged() {
             revealer.revealed = true;
             titleDisplayCounter.running = true;
-        }
-
-        function onPositionChanged() {
-            root.position = player?.position || 0;
-            root.length = player?.length || 0;
-            console.log('position changed', root.position, root.length);
         }
     }
 
@@ -198,9 +192,26 @@ Common.BarModule {
             id: cavaCanvas
 
             anchors.centerIn: null
-            Layout.fillHeight: true
 
             opacity: player ? 1.0 : 0.5
+
+            LinearGradient {
+                visible: false
+                anchors.fill: cavaCanvas
+                source: cavaCanvas
+                start: Qt.point(0, 0)
+                end: Qt.point(cavaCanvas.width, cavaCanvas.height)
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.0
+                        color: Appearance.material_colors.source_color
+                    }
+                    GradientStop {
+                        position: 1.0
+                        color: Appearance.material_colors.tertiary
+                    }
+                }
+            }
         }
     }
 }

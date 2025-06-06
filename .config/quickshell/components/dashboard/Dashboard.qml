@@ -11,6 +11,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 
 import Quickshell.Services.Greetd
 
@@ -35,7 +36,7 @@ Rectangle {
     property var notificationList: notifList
 
     implicitHeight: layout.implicitHeight
-    implicitWidth: parent.width
+    implicitWidth: 400
     transformOrigin: Item.TopRight
 
     color: ColorUtils.alpha(Appearance.material_colors.surface_container, .8)
@@ -48,6 +49,13 @@ Rectangle {
 
     layer.enabled: true
     layer.smooth: true
+    layer.effect: MultiEffect {
+        shadowVerticalOffset: 0
+        shadowHorizontalOffset: 0
+        shadowColor: "#000000"
+        shadowEnabled: true
+        shadowBlur: 0.5
+    }
 
     scale: shown ? 1 : 0
     Behavior on scale {

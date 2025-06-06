@@ -43,6 +43,7 @@ Scope {
                     anchors.leftMargin: Appearance.sizes.barLeftMargin
 
                     color: "transparent"
+                    clip: false
 
                     //implicitHeight: 50
                     implicitHeight: Appearance.sizes.barHeight + Appearance.sizes.barTopMargin + Appearance.sizes.barBottomMargin

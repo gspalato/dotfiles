@@ -14,7 +14,7 @@ PanelWindow {
     //color: "#30606000"
 
     height: padding.height
-    width: 350 + 10
+    width: 360 + 10
 
     margins {
         bottom: 10
@@ -40,6 +40,8 @@ PanelWindow {
 
             width: 350
 
+            Layout.topMargin: 10
+            Layout.leftMargin: 10
             Layout.rightMargin: 10
 
             opacity: 1 - Panels.dashboard?.scale
