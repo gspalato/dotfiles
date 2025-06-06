@@ -40,7 +40,6 @@ PanelWindow {
 
             width: 350
 
-            //Layout.topMargin: Panels.dashboard?.scale * (Panels.dashboard?.implicitHeight + 10)
             Layout.rightMargin: 10
 
             opacity: 1 - Panels.dashboard?.scale

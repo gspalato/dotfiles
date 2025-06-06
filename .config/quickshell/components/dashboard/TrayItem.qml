@@ -13,7 +13,7 @@ IconImage {
     id: root
 
     required property SystemTrayItem item
-    property var bar: Panels.bars[0]
+    property var window
 
     implicitSize: 16
     source: IconUtils.resolveSystemTrayIconPath(item.icon)
@@ -21,11 +21,16 @@ IconImage {
         id: menu
 
         menu: root.item.menu
-        anchor.window: root.bar
-        anchor.rect.x: root.x + root.bar.width
-        anchor.rect.y: root.y
-        anchor.rect.height: root.height
-        anchor.edges: Edges.Bottom
+        anchor.window: root.window
+        anchor.edges: Edges.Top | Edges.Right
+        //anchor.rect.width: menu.width
+        //anchor.rect.height: menu.height
+
+        anchor.onAnchoring: {
+            let point = Panels.dashboard.mapFromItem(root, 0, 0);
+            menu.anchor.rect.x = point.x + menu.width;
+            menu.anchor.rect.y = point.y + 20;
+        }
     }
 
     MouseArea {

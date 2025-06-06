@@ -29,7 +29,7 @@ Common.BarModule {
 
         anchors.centerIn: parent
 
-        primaryColor: Appearance.material_colors.primary
+        primaryColor: ColorUtils.interpolateColorsInLCH(Appearance.material_colors.primary, Appearance.material_colors.error, 1 - Battery.percentage)
         secondaryColor: "#22ffffff"
 
         value: Battery.percentage

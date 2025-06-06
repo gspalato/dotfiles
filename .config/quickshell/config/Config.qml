@@ -11,4 +11,6 @@ Singleton {
 
     property var defaultNotificationTimeout: 5000
     property var criticalNotificationTimeout: 10000
+
+    property string wallpaperDirectory: "/home/spxlato/Pictures/Wallpapers"
 }

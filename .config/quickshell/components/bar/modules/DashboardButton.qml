@@ -3,7 +3,7 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick
 
-import "root:/components/notifications" as NotificationListView
+import "root:/components/notifications" as Notifs
 import "root:/components/common" as Common
 
 import "root:/config"

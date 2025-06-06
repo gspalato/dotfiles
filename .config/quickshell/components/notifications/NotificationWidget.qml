@@ -303,7 +303,9 @@ Rectangle {
 
                 // Title/summary row
                 ColumnLayout {
+                    id: contentRow
                     Layout.alignment: Qt.AlignTop
+                    Layout.fillWidth: true
 
                     Common.StyledText {
                         visible: text != ""
@@ -324,12 +326,13 @@ Rectangle {
                         width: root.implicitWidth - 20
                         text: notif?.body || ""
 
-                        Layout.maximumWidth: 240
+                        Layout.maximumWidth: 250
 
                         font.pixelSize: Appearance.font.pixelSize.small
                         font.weight: 300
                         color: "#ffffff"
                         elide: Text.ElideRight
+                        wrapMode: Text.WrapAnywhere
 
                         Behavior on opacity {
                             NumberAnimation {

@@ -1,3 +1,5 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
@@ -601,7 +603,6 @@ Rectangle {
 
                         spacing: 10
 
-                        // Notifications header
                         RowLayout {
                             spacing: 4
 
@@ -616,30 +617,27 @@ Rectangle {
                             }
                             */
 
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
                             ListView {
                                 id: trayListView
                                 Layout.fillHeight: true
                                 Layout.minimumHeight: 16
                                 Layout.preferredWidth: contentWidth
                                 Layout.alignment: Qt.AlignHCenter
-
-                                Behavior on Layout.preferredWidth {
-                                    NumberAnimation {
-                                        duration: 200
-                                        easing.type: Easing.OutQuad
-                                    }
-                                }
-
                                 clip: true
 
                                 orientation: ListView.Horizontal
                                 spacing: 5
                                 model: SystemTray.items.values
 
-                                delegate: Common.TrayItem {
+                                delegate: TrayItem {
                                     id: trayIcon
                                     required property SystemTrayItem modelData
                                     item: modelData
+                                    window: Panels.dashboardPanelWindow
                                 }
 
                                 add: Transition {
@@ -668,6 +666,10 @@ Rectangle {
                                         easing.type: Easing.OutQuad
                                     }
                                 }
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
                             }
                         }
                     }

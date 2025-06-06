@@ -1,21 +1,24 @@
+//@ pragma UseQApplication
+
 pragma ComponentBehavior: Bound
 
 import QtQuick
 import Quickshell
 
-import "components/bar" as BarComponents
-import "components/dashboard" as DashboardComponents
+import "components/bar" as Bar
+import "components/dashboard" as Dashboard
 import "components/notifications" as Notifs
+import "components/wallpaperSelect" as WallpaperSelect
 
 import "root:/services"
 import "root:/config"
 
 ShellRoot {
-    BarComponents.Bar {
+    Bar.Bar {
         id: bar
     }
 
-    DashboardComponents.DashboardPanel {
+    Dashboard.DashboardPanel {
         id: dashboardPanel
 
         mask: Region {
@@ -25,12 +28,16 @@ ShellRoot {
             height: dashboard.shown && dashboard.height
         }
 
-        DashboardComponents.Dashboard {
+        Dashboard.Dashboard {
             id: dashboard
 
             Component.onCompleted: {
                 Panels.dashboard = dashboard;
             }
+        }
+
+        Component.onCompleted: {
+            Panels.dashboardPanelWindow = dashboardPanel;
         }
     }
 
@@ -42,6 +49,13 @@ ShellRoot {
             top: 60
         }
     }
+
+    // Work in progress.
+    /*
+    WallpaperSelect.WallpaperSelectPanel {
+        id: wallpaperSelectPanel
+    }
+    */
 
     Component.onCompleted: {
         Matugen.reapplyTheme();
