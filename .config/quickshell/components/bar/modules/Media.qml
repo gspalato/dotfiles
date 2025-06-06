@@ -12,6 +12,8 @@ import "root:/components/common" as Common
 import "root:/components/media" as Media
 import "root:/components/bar"
 
+import "root:/shaders" as Shaders
+
 import "root:/config"
 import "root:/services"
 import "root:/utils/utils.js" as Utils
@@ -195,22 +197,21 @@ Common.BarModule {
 
             opacity: player ? 1.0 : 0.5
 
-            LinearGradient {
-                visible: false
-                anchors.fill: cavaCanvas
+            Shaders.MaskedGradientSwirl {
                 source: cavaCanvas
-                start: Qt.point(0, 0)
-                end: Qt.point(cavaCanvas.width, cavaCanvas.height)
-                gradient: Gradient {
-                    GradientStop {
-                        position: 0.0
-                        color: Appearance.material_colors.source_color
-                    }
-                    GradientStop {
-                        position: 1.0
-                        color: Appearance.material_colors.tertiary
-                    }
-                }
+                timeRunning: true
+
+                property color _color1: Appearance.material_colors.primary
+                property color _color2: Appearance.material_colors.secondary
+                property color _color3: Appearance.material_colors.tertiary
+                property color _color4: Appearance.material_colors.source_color
+
+                color1: Qt.vector3d(_color1.r, _color1.g, _color1.b)
+                color2: Qt.vector3d(_color2.r, _color2.g, _color2.b)
+                color3: Qt.vector3d(_color3.r, _color3.g, _color3.b)
+                color4: Qt.vector3d(_color4.r, _color4.g, _color4.b)
+
+                anchors.fill: parent
             }
         }
     }
