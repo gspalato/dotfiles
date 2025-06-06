@@ -8,7 +8,7 @@ Text {
     verticalAlignment: Text.AlignVCenter
 
     font {
-        hintingPreference: Font.PreferFullHinting
+        //hintingPreference: Font.PreferFullHinting
         family: Appearance.font.family.main
         pixelSize: Appearance.font.pixelSize.normal
         weight: 500

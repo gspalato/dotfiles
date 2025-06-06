@@ -6,7 +6,9 @@ import QtQuick
 
 // Configuration
 Singleton {
-    // Hyprland Workspaces
     property var minWorkspaceCount: 5
     property var maxWorkspaceCount: 10
+
+    property var defaultNotificationTimeout: 5000
+    property var criticalNotificationTimeout: 10000
 }

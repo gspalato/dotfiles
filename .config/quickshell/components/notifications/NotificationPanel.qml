@@ -5,7 +5,7 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 
 import "root:/config"
-import "root:/data"
+import "root:/services"
 
 PanelWindow {
     WlrLayershell.namespace: "nox:notifications"

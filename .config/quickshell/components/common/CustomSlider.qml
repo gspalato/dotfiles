@@ -26,6 +26,12 @@ Item {
         height: root.height
         radius: trackRadius
         color: trackColor
+        Behavior on color {
+            ColorAnimation {
+                duration: 150
+                easing.type: Easing.InOutQuad
+            }
+        }
     }
 
     Rectangle {
@@ -35,6 +41,12 @@ Item {
         height: track.height
         radius: track.radius
         color: fillColor
+        Behavior on color {
+            ColorAnimation {
+                duration: 150
+                easing.type: Easing.InOutQuad
+            }
+        }
     }
 
     MouseArea {

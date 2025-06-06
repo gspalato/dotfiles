@@ -7,7 +7,7 @@ import "components/bar" as BarComponents
 import "components/dashboard" as DashboardComponents
 import "components/notifications" as Notifs
 
-import "root:/data"
+import "root:/services"
 import "root:/config"
 
 ShellRoot {
@@ -36,7 +36,7 @@ ShellRoot {
 
     Notifs.NotificationPanel {
         id: notifPanel
-        screen: Quickshell.screens.find(s => s.name == "DP-1")
+        //screen: Quickshell.screens.find(s => s.name == "DP-1")
 
         margins {
             top: 60

@@ -48,7 +48,7 @@ ListView {
 
         showProgressToDismiss: false
 
-        width: parent.width
+        width: parent?.width
 
         // Remove the notification only from this popup list view model.
         callbackOnDismiss: id => {
@@ -88,7 +88,7 @@ ListView {
 
         Timer {
             id: removeTimer
-            interval: modelData.expireTimeout // 5 seconds
+            interval: modelData.expireTimeout > 0 ? modelData.expireTimeout : (modelData.urgency === NotificationUrgency.Critical ? Config.criticalNotificationTimeout : Config.defaultNotificationTimeout) // 5 seconds
             repeat: false
             running: true
             onTriggered: {
@@ -117,8 +117,6 @@ ListView {
                 to: 0 // final x
                 duration: 300
                 easing.type: Easing.OutCubic
-                onStarted: console.log("Add animation started for item")
-                onFinished: console.log("Add animation finished for item")
             }
         }
     }
@@ -143,8 +141,6 @@ ListView {
                 to: 0 // final x
                 duration: 300
                 easing.type: Easing.OutCubic
-                onStarted: console.log("Add animation started for item")
-                onFinished: console.log("Add animation finished for item")
             }
         }
     }
@@ -154,8 +150,6 @@ ListView {
             duration: 300
             easing.type: Easing.OutCubic
             properties: "y"
-            onStarted: console.log("Add displaced animation started for item")
-            onFinished: console.log("Add displaced animation finished for item")
         }
     }
 
@@ -164,8 +158,6 @@ ListView {
             duration: 300
             easing.type: Easing.OutCubic
             properties: "y"
-            onStarted: console.log("Remove displaced animation started for item")
-            onFinished: console.log("Remove displaced animation finished for item")
         }
     }
 }

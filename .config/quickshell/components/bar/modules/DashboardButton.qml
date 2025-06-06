@@ -7,7 +7,7 @@ import "root:/components/notifications" as NotificationListView
 import "root:/components/common" as Common
 
 import "root:/config"
-import "root:/data"
+import "root:/services"
 
 Common.BarModule {
     id: root
@@ -51,8 +51,8 @@ Common.BarModule {
 
     IconImage {
         id: icon
-        implicitSize: 18
-        source: "root:/assets/icons/home.svg"
+        implicitSize: 16
+        source: "root:/assets/icons/control_panel.svg"
 
         anchors.centerIn: parent
     }

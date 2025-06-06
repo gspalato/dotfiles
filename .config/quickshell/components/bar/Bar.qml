@@ -11,7 +11,7 @@ import "root:/components/dashboard" as Dashboard
 import "root:/components/common" as Common
 import "root:/components/media" as Media
 import "root:/config"
-import "root:/data"
+import "root:/services"
 
 Scope {
     Variants {
@@ -95,9 +95,11 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
 
+                        Modules.Time {}
+
                         Modules.Connectivity {}
 
-                        Modules.Time {}
+                        Modules.Battery {}
 
                         /*
                         Common.Separator {

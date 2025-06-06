@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Widgets
 
-import "root:/data"
+import "root:/services"
 
 IconImage {
     implicitSize: 18

@@ -12,7 +12,7 @@ import "root:/components/media" as Media
 import "root:/components/bar"
 
 import "root:/config"
-import "root:/data"
+import "root:/services"
 import "root:/utils/utils.js" as Utils
 
 // Container
@@ -28,15 +28,9 @@ Common.BarModule {
     property bool isPressed: false
     property bool isMediaControlsToggled: false
 
-    property var player: {
-        const player = Mpris.players.values.find(p => p.identity === "Spotify") || Mpris.players.values[0];
-        if (!player) {
-            return;
-        }
-        '';
+    property real progress: player?.position / player?.length || 0
 
-        return player;
-    }
+    property var player: MprisController.activePlayer
 
     // On song change, briefly show the title.
     Connections {
@@ -45,7 +39,14 @@ Common.BarModule {
             revealer.revealed = true;
             titleDisplayCounter.running = true;
         }
+
+        function onPositionChanged() {
+            root.position = player?.position || 0;
+            root.length = player?.length || 0;
+            console.log('position changed', root.position, root.length);
+        }
     }
+
     Timer {
         id: titleDisplayCounter
         interval: 2000
@@ -145,7 +146,7 @@ Common.BarModule {
                         implicitSize: 16
                         mipmap: true
 
-                        anchors.centerIn: parent
+                        Layout.alignment: Qt.AlignVCenter
 
                         source: player.identity === "Spotify" ? "root:/assets/icons/spotify.svg" : ""
                     }
@@ -156,7 +157,7 @@ Common.BarModule {
                         implicitHeight: 22
                         implicitWidth: 22
 
-                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignVCenter
 
                         Common.CircularProgress {
                             size: 26
@@ -165,9 +166,8 @@ Common.BarModule {
 
                             anchors.centerIn: parent
 
-                            Binding on value {
-                                value: player.position / player.length || 0
-                            }
+                            value: root.progress
+                            //value: player.position / player.length || 0
                         }
 
                         IconImage {
@@ -184,7 +184,7 @@ Common.BarModule {
                     }
 
                     Common.StyledText {
-                        anchors.verticalCenter: parent.verticalCenter
+                        Layout.alignment: Qt.AlignVCenter
                         text: player.trackTitle ? Utils.truncateString(player.trackTitle, 25) : "Unknown song"
                     }
 

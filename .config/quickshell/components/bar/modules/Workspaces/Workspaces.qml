@@ -8,7 +8,7 @@ import QtQuick.Layouts
 
 import "root:/components/common" as Common
 import "root:/config"
-import "root:/data"
+import "root:/services"
 
 // Container
 Common.BarModule {

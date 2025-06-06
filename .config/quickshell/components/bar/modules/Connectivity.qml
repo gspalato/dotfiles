@@ -3,14 +3,16 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
+import Quickshell.Services.UPower
 import Quickshell.Wayland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 
+import "root:/services"
 import "root:/components/common" as Common
 import "root:/config"
-import "root:/data"
+import "root:/utils/colorUtils.js" as ColorUtils
 
 // Container
 Common.BarModule {
@@ -19,21 +21,52 @@ Common.BarModule {
     Binding {
         root.implicitWidth: row.implicitWidth + Appearance.sizes.moduleHorizontalPadding
     }
-    Behavior on implicitWidth {
-        NumberAnimation {
-            duration: 200
-            easing.type: Easing.OutQuad
-        }
-    }
 
-    Row {
+    RowLayout {
         id: row
         spacing: 10
 
         anchors.centerIn: parent
 
-        Common.NetworkIcon {
-            Layout.alignment: Qt.AlignVCenter
+        RowLayout {
+            spacing: 0
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    networkNameRevealer.reveal = true;
+                }
+                onExited: {
+                    networkNameRevealer.reveal = false;
+                }
+            }
+
+            Common.NetworkIcon {
+                Layout.alignment: Qt.AlignVCenter
+            }
+
+            Common.Revealer {
+                id: networkNameRevealer
+                vertical: false
+                duration: 200
+
+                RowLayout {
+                    spacing: 10
+                    Common.StyledText {
+                        id: networkName
+                        Layout.alignment: Qt.AlignVCenter
+                        Layout.leftMargin: 10
+
+                        text: Network.networkName
+                    }
+
+                    Common.Separator {
+                        Layout.preferredHeight: networkName.height
+                        Layout.alignment: Qt.AlignVCenter
+                    }
+                }
+            }
         }
 
         Common.BluetoothIcon {

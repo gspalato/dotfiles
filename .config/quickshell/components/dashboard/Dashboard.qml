@@ -16,12 +16,19 @@ import "root:/components/notifications" as Notifs
 import "root:/components/common" as Common
 
 import "root:/config"
-import "root:/data"
+import "root:/services"
 import "root:/utils/colorUtils.js" as ColorUtils
 
 Rectangle {
     id: dashboard
+
     property bool shown: false
+    onShownChanged: {
+        // Hide the dialog when the dashboard is hidden.
+        if (!shown) {
+            confirmationDialog.reveal = false;
+        }
+    }
 
     property var notificationList: notifList
 
@@ -150,9 +157,9 @@ Rectangle {
                         // Prepare the confirmation dialog to be about rebooting the computer.
                         onClick: {
                             confirmationDialog.updateAndReveal("Are you sure you want to reboot your computer?", () => {
-                                console.log("Shutting down...");
+                                console.log("Rebooting...");
                                 rebootProc.running = true;
-                            }, "Yup", "Nah");
+                            }, "reboot", "Confirm", "Cancel");
                         }
                     }
 
@@ -176,7 +183,7 @@ Rectangle {
                             confirmationDialog.updateAndReveal("Are you sure you want to shut down your computer?", () => {
                                 console.log("Shutting down...");
                                 shutdownProc.running = true;
-                            }, "Yup", "Nah");
+                            }, "shutdown", "Confirm", "Cancel");
                         }
                     }
                 }
@@ -188,22 +195,29 @@ Rectangle {
                 vertical: true
                 duration: 200
 
+                property var currentDialog: null
                 property string prompt
                 property string confirmText: "Yup"
                 property string cancelText: "Nah"
-                property var confirmCallback: () => {}
+                property var confirmCallback
 
                 Layout.fillWidth: true
                 Layout.leftMargin: 10
                 Layout.rightMargin: 10
 
-                function updateAndReveal(prompt, callback, confirmText = "Yup", cancelText = "Nah") {
-                    revealAnimation.prompt = prompt;
-                    revealAnimation.confirmCallback = callback;
-                    revealAnimation.confirmText = confirmText;
-                    revealAnimation.cancelText = cancelText;
+                function updateAndReveal(prompt, callback, dialog, confirmText = "Yup", cancelText = "Nah") {
+                    // If switching dialogs, use the hide and reveal animation.
+                    console.log();
+                    let animation = (dialog != confirmationDialog.currentDialog) ? hideAndRevealAnimation : revealAnimation;
+                    confirmationDialog.currentDialog = dialog;
 
-                    revealAnimation.start();
+                    animation.prompt = prompt;
+                    confirmationDialog.confirmCallback = callback;
+
+                    animation.confirmText = confirmText;
+                    animation.cancelText = cancelText;
+
+                    animation.start();
                 }
 
                 SequentialAnimation {
@@ -212,17 +226,7 @@ Rectangle {
                     property string prompt
                     property string confirmText
                     property string cancelText
-                    property var confirmCallback
 
-                    PropertyAction {
-                        target: confirmationDialog
-                        property: "reveal"
-                        value: false
-                    }
-                    // Wait for revealer to be hidden.
-                    PauseAnimation {
-                        duration: 200
-                    }
                     // Update the content of the dialog.
                     ParallelAnimation {
                         PropertyAction {
@@ -240,10 +244,47 @@ Rectangle {
                             property: "cancelText"
                             value: revealAnimation.cancelText
                         }
+                    }
+                    // Reveal the dialog.
+                    PropertyAction {
+                        target: confirmationDialog
+                        property: "reveal"
+                        value: true
+                    }
+                }
+
+                SequentialAnimation {
+                    id: hideAndRevealAnimation
+
+                    property string prompt
+                    property string confirmText
+                    property string cancelText
+
+                    PropertyAction {
+                        target: confirmationDialog
+                        property: "reveal"
+                        value: false
+                    }
+                    // Wait for revealer to be hidden.
+                    PauseAnimation {
+                        duration: 200
+                    }
+                    // Update the content of the dialog.
+                    ParallelAnimation {
                         PropertyAction {
                             target: confirmationDialog
-                            property: "confirmCallback"
-                            value: revealAnimation.confirmCallback
+                            property: "prompt"
+                            value: hideAndRevealAnimation.prompt
+                        }
+                        PropertyAction {
+                            target: confirmationDialog
+                            property: "confirmText"
+                            value: hideAndRevealAnimation.confirmText
+                        }
+                        PropertyAction {
+                            target: confirmationDialog
+                            property: "cancelText"
+                            value: hideAndRevealAnimation.cancelText
                         }
                     }
                     // Reveal the dialog.
@@ -286,7 +327,7 @@ Rectangle {
                                 text: confirmationDialog.prompt
                                 wrapMode: Text.Wrap
 
-                                font.family: Appearance.font.family.main
+                                font.family: Appearance.font.family.secondary
                                 font.pixelSize: Appearance.font.pixelSize.small
                                 font.weight: 400
 
@@ -453,14 +494,25 @@ Rectangle {
 
                                 height: 20
                                 width: 20
+                                Layout.alignment: Qt.AlignVCenter
+
+                                opacity: notifList.notifications.count > 0 ? 1 : 0
+                                Behavior on opacity {
+                                    NumberAnimation {
+                                        duration: 200
+                                        easing.type: Easing.OutQuad
+                                    }
+                                }
+
+                                visible: opacity > 0
 
                                 background: "transparent"
                                 border.width: 0
 
                                 IconImage {
                                     anchors.centerIn: parent
-                                    implicitSize: 16
-                                    source: "root:/assets/icons/close.svg"
+                                    implicitSize: 18
+                                    source: "root:/assets/icons/clear-all.svg"
                                 }
 
                                 onClick: {
@@ -553,6 +605,7 @@ Rectangle {
                         RowLayout {
                             spacing: 4
 
+                            /*
                             IconImage {
                                 implicitSize: 16
                                 source: "root:/assets/icons/ellipsis.svg"
@@ -561,27 +614,58 @@ Rectangle {
                             Item {
                                 Layout.fillWidth: true
                             }
+                            */
 
                             ListView {
                                 id: trayListView
                                 Layout.fillHeight: true
+                                Layout.minimumHeight: 16
                                 Layout.preferredWidth: contentWidth
+                                Layout.alignment: Qt.AlignHCenter
+
+                                Behavior on Layout.preferredWidth {
+                                    NumberAnimation {
+                                        duration: 200
+                                        easing.type: Easing.OutQuad
+                                    }
+                                }
+
+                                clip: true
 
                                 orientation: ListView.Horizontal
+                                spacing: 5
                                 model: SystemTray.items.values
 
-                                delegate: IconImage {
+                                delegate: Common.TrayItem {
                                     id: trayIcon
-                                    required property Notification modelData
+                                    required property SystemTrayItem modelData
+                                    item: modelData
+                                }
 
-                                    implicitSize: 16
-                                    source: modelData.icon
+                                add: Transition {
+                                    NumberAnimation {
+                                        properties: "x"
+                                        duration: 150
+                                        from: parent.width
+                                        to: 0
+                                        easing.type: Easing.OutQuad
+                                    }
+                                }
 
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        hoverEnabled: true
+                                remove: Transition {
+                                    NumberAnimation {
+                                        properties: "x"
+                                        duration: 150
+                                        to: parent.width
+                                        easing.type: Easing.OutQuad
+                                    }
+                                }
 
-                                        onClicked: {}
+                                displaced: Transition {
+                                    NumberAnimation {
+                                        properties: "x"
+                                        duration: 150
+                                        easing.type: Easing.OutQuad
                                     }
                                 }
                             }

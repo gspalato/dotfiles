@@ -6,9 +6,9 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
-import "../../../common" as Common
-import "../../../../config"
-import "../../../../data"
+import "root:/components/common" as Common
+import "root:/config"
+import "root:/services"
 
 // Container
 Common.BarModule {

@@ -7,7 +7,7 @@ import QtQuick.Layouts
 
 import "root:/components/common" as Common
 import "root:/config"
-import "root:/data"
+import "root:/services"
 
 // Container
 Common.BarModule {
@@ -31,6 +31,9 @@ Common.BarModule {
         font.weight: 600
 
         color: Appearance.material_colors.on_surface
+
+        topPadding: 2
+        verticalAlignment: Text.AlignVCenter
 
         anchors.centerIn: parent
         text: Time.data ?? ""

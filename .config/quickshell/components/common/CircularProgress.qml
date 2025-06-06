@@ -2,11 +2,7 @@
 // License: LGPL-3.0 - A copy can be found in `licenses` folder of repo
 
 import QtQuick
-import "root:/modules/common"
 
-/**
-* Material 3 circular progress. See https://m3.material.io/components/progress-indicators/specs
-*/
 Item {
     id: root
 
@@ -25,6 +21,20 @@ Item {
     height: size
 
     signal animationFinished
+
+    Behavior on primaryColor {
+        ColorAnimation {
+            duration: 150
+            easing.type: Easing.InOutQuad
+        }
+    }
+
+    Behavior on secondaryColor {
+        ColorAnimation {
+            duration: 150
+            easing.type: Easing.InOutQuad
+        }
+    }
 
     onValueChanged: {
         canvas.degree = value * 360;

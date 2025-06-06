@@ -6,8 +6,6 @@ import Quickshell
 
 import "root:/utils/colorUtils.js" as ColorUtils
 
-import "."
-
 Singleton {
     id: root
 
@@ -16,7 +14,7 @@ Singleton {
             property string main: "Gabarito"
             property string title: "Gabarito"
             property string display: "Unbounded"
-            property string secondary: "Figtree"
+            property string secondary: "Outfit"
 
             //property string iconMaterial: "Material Symbols Rounded"
             //property string iconNerd: "SpaceMono NF"
