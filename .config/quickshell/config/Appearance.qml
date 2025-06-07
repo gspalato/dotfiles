@@ -56,11 +56,17 @@ Singleton {
         property int moduleHorizontalPadding: 30
 
         property int barTopMargin: 10
-        property int barBottomMargin: 6
+        property int barBottomMargin: 10
         property int barLeftMargin: 10
         property int barRightMargin: 10
 
         property int barHeight: moduleHeight
+    }
+
+    property var spacings: QtObject {
+        property int large: 15
+        property int normal: 10
+        property int small: 5
     }
 
     property var easings: QtObject {

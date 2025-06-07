@@ -19,9 +19,21 @@ ListView {
     }
 
     function clearAllNotifications() {
-        // Animate removal of all notifications by a delay for each item.
+        // Trigger all remove animations for existing notifications.
         notifList.contentItem.children.forEach((child, i) => {
+            if (!child)
+                return;
+
+            // For some reason, the child might not be a NotificationWidget.
+            if (child.callbackOnDismiss)
+                child.callbackOnDismiss = () => {};
             child?.triggerRemoveAnimation();
+        });
+
+        // Then clear the current model, and the ask the notification service to clear the notifications.
+        Qt.callLater(() => {
+            data.clear();
+            Notifs.Notifications.clearNotifications();
         });
     }
 

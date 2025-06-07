@@ -13,7 +13,7 @@ PanelWindow {
     color: "transparent"
     //color: "#30606000"
 
-    height: padding.height
+    //height: padding.height
     width: 360 + 10
 
     margins {

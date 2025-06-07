@@ -3,6 +3,9 @@
 
 import QtQuick
 
+import "root:/config"
+import "root:/shaders" as Shaders
+
 Item {
     id: root
 

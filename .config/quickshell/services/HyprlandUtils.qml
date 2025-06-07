@@ -37,27 +37,16 @@ Singleton {
             // even when switching monitors.
             case "workspacev2":
                 {
-                    // hyprland.focusedWorkspace = Hyprland.focusedMonitor?.activeWorkspace;
-                    console.log(`workspace: ${hyprland.focusedWorkspace.id}`);
-                    console.log(`num workspaces ${hyprland.workspaces.length}`);
-                    console.log(`num workspaces (real) ${Hyprland.workspaces.values.length}`);
                     break;
                 }
             case "focusedmonv2":
                 {
-                    // hyprland.focusedWorkspace = Hyprland.focusedMonitor?.activeWorkspace;
-                    console.log(`workspace: ${hyprland.focusedWorkspace.id}`);
-                    console.log(`num workspaces ${hyprland.workspaces.length}`);
-                    console.log(`num workspaces (real) ${Hyprland.workspaces.values.length}`);
                     break;
                 }
             case "createworkspacev2":
                 {
                     hyprland.workspaces = hyprland.sortWorkspaces(Hyprland.workspaces.values);
                     hyprland.maxWorkspace = findMaxId();
-                    hyprland.workspaces.forEach((ws, index) => {
-                        console.log(`workspace ${index + 1}: ${ws.id} - ${ws.name}`);
-                    });
                 }
             case "destroyworkspacev2":
                 {

@@ -26,7 +26,6 @@ Common.BarModule {
 
     property var activeWorkspaceColor: Appearance.material_colors.primary
 
-    property var previousFocusedWorkspaceId: focusedWorkspaceId
     property int focusedWorkspaceId: Hyprland.focusedMonitor?.activeWorkspace.id
     Behavior on focusedWorkspaceId {
         NumberAnimation {
@@ -89,6 +88,12 @@ Common.BarModule {
                 Layout.alignment: Qt.AlignVCenter
 
                 color: focused ? activeWorkspaceColor : "#22ffffff"
+                Behavior on color {
+                    ColorAnimation {
+                        duration: 200
+                        easing.type: Easing.InOutQuad
+                    }
+                }
 
                 Behavior on opacity {
                     NumberAnimation {
@@ -108,6 +113,7 @@ Common.BarModule {
                         duration: 200
                         easing.type: Easing.OutCubic
                     }
+
                     NumberAnimation {
                         target: ws
                         property: "Layout.preferredWidth"
@@ -130,6 +136,7 @@ Common.BarModule {
                         duration: 200
                         easing.type: Easing.OutCubic
                     }
+
                     NumberAnimation {
                         id: shrinkWidthAnim
                         target: ws

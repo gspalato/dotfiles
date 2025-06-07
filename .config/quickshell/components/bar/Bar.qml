@@ -32,6 +32,8 @@ Scope {
                 height: Math.max(Appearance.sizes.barHeight, contentContainer.implicitHeight)
                 color: "transparent"
 
+                exclusiveZone: height - Appearance.sizes.barBottomMargin
+
                 // Content
                 Rectangle {
                     id: contentContainer
@@ -45,7 +47,6 @@ Scope {
                     color: "transparent"
                     clip: false
 
-                    //implicitHeight: 50
                     implicitHeight: Appearance.sizes.barHeight + Appearance.sizes.barTopMargin + Appearance.sizes.barBottomMargin
 
                     // Left widgets

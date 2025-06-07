@@ -1,7 +1,9 @@
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
+import QtQuick.Effects
 
+import "root:/config"
 import "root:/services"
 
 IconImage {
@@ -48,6 +50,12 @@ IconImage {
             else
                 root.iconName = "battery-full";
         }
+    }
+
+    layer.enabled: true
+    layer.effect: MultiEffect {
+        colorization: 1
+        colorizationColor: Appearance.material_colors.on_surface
     }
 
     Component.onCompleted: {

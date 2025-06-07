@@ -63,11 +63,9 @@ ShellRoot {
     }
 
     // Work in progress.
-    /*
     WallpaperSelect.WallpaperSelectPanel {
         id: wallpaperSelectPanel
     }
-    */
 
     Component.onCompleted: {
         Matugen.reapplyTheme();

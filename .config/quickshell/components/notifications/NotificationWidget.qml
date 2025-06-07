@@ -21,7 +21,7 @@ Rectangle {
     property bool showProgressToDismiss: false
     property real progressToDismiss: 0
 
-    property var callbackOnDismiss: id => root.notif.dismiss()
+    property var callbackOnDismiss: id => root.notif?.dismiss()
 
     color: ColorUtils.alpha(Matugen.surface_container_low, .8)
     Behavior on color {
@@ -41,14 +41,14 @@ Rectangle {
     border.color: Qt.lighter(Appearance.material_colors.surface_container, 1.15)
     border.pixelAligned: true
 
-    layer.enabled: false
+    layer.enabled: true
     layer.smooth: true
     layer.effect: MultiEffect {
         shadowVerticalOffset: 0
         shadowHorizontalOffset: 0
         shadowColor: "#000000"
         shadowEnabled: true
-        shadowBlur: 0.5
+        shadowBlur: .5
     }
 
     Behavior on x {
@@ -73,7 +73,7 @@ Rectangle {
 
         // If x means the notification was swiped away, dismiss it.
         if (root.x > 1.5 * root.width) {
-            root.callbackOnDismiss(notif.id);
+            root.callbackOnDismiss(notif?.id);
         }
     }
 
@@ -104,6 +104,15 @@ Rectangle {
         anchors.fill: parent
 
         hoverEnabled: true
+        scrollGestureEnabled: true
+
+        // Accept swiping right with two fingers on touchpad.
+        onWheel: event => {
+            if (event.angleDelta.x > 40) {
+                root.triggerRemoveAnimation();
+                event.accepted = true;
+            }
+        }
 
         drag {
             minimumX: 0
@@ -111,7 +120,7 @@ Rectangle {
             target: parent
 
             onActiveChanged: {
-                if (dragArea.drag.active) {
+                if (dragArea?.drag?.active) {
                     return;
                 }
 

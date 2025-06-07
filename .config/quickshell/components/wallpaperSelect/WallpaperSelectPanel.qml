@@ -20,6 +20,7 @@ Scope {
             WlrLayershell.namespace: "nox:wallpaper-select"
             WlrLayershell.layer: WlrLayer.Overlay
             exclusionMode: ExclusionMode.Ignore
+            focusable: true
 
             property var focusedScreen: Quickshell.screens.find(s => s.name === Hyprland.focusedMonitor?.name)
             Connections {
@@ -31,29 +32,49 @@ Scope {
 
             color: "transparent"
 
-            height: 140
+            height: 200
 
             anchors {
                 left: true
                 right: true
                 bottom: true
-                top: true
+                top: false
             }
 
-            WallpaperSelect {
-                id: content
+            Item {
+                id: container
 
-                shown: false
+                height: root.height
+                width: root.width
+
+                WallpaperSelect {
+                    id: content
+
+                    Component.onCompleted: {
+                        Panels.wallpaperSelect = content;
+                    }
+                }
+
+                y: content.shown ? 0 : container.height
+                Behavior on y {
+                    NumberAnimation {
+                        duration: 200
+                        easing.type: Easing.InOutCubic
+                    }
+                }
             }
 
             mask: Region {
-                item: Rectangle {
-                    height: content.shown && content.height
-                    width: content.shown && content.width
-                    x: content.shown && content.x
-                    y: content.shown && content.y
-                    visible: false
-                }
+                item: content.shown ? regionMask : null
+            }
+
+            Rectangle {
+                id: regionMask
+                height: container.height
+                width: container.width
+                x: container.x
+                y: container.y
+                visible: false
             }
         }
     }

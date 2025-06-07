@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Effects
 
 import "root:/components/notifications" as Notifs
 import "root:/components/common" as Common
@@ -51,10 +52,16 @@ Common.BarModule {
 
     IconImage {
         id: icon
-        implicitSize: 16
-        source: "root:/assets/icons/control_panel.svg"
+        implicitSize: 20
+        source: "root:/assets/icons/menu.svg"
 
         anchors.centerIn: parent
+
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            colorization: 1
+            colorizationColor: Appearance.material_colors.on_surface
+        }
     }
 }
 

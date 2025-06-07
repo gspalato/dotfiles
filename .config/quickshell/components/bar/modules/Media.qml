@@ -209,25 +209,25 @@ Common.BarModule {
                 Behavior on _color1 {
                     ColorAnimation {
                         duration: 200
-                        easing.type: Easing.InOutQuad
+                        easing.type: Easing.OutCubic
                     }
                 }
                 Behavior on _color2 {
                     ColorAnimation {
                         duration: 300
-                        easing.type: Easing.InOutQuad
+                        easing.type: Easing.OutCubic
                     }
                 }
                 Behavior on _color3 {
                     ColorAnimation {
                         duration: 400
-                        easing.type: Easing.InOutQuad
+                        easing.type: Easing.OutCubic
                     }
                 }
                 Behavior on _color4 {
                     ColorAnimation {
                         duration: 500
-                        easing.type: Easing.InOutQuad
+                        easing.type: Easing.OutCubic
                     }
                 }
 

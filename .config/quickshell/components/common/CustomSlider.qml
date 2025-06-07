@@ -54,39 +54,36 @@ Item {
         }
 
         Shaders.MaskedGradientSwirl {
-            id: gradientSwirl
-            source: progress
+            source: parent
             timeRunning: true
 
-            anchors.fill: progress
-
-            property color _color1: "#ffffff" || Appearance.material_colors.primary
-            property color _color2: "#ffffff" || Appearance.material_colors.primary
-            property color _color3: "#ffffff" || Appearance.material_colors.source_color
-            property color _color4: "#ffffff" || Appearance.material_colors.source_color
+            property color _color1: Appearance.material_colors.primary
+            property color _color2: Appearance.material_colors.secondary
+            property color _color3: Appearance.material_colors.tertiary
+            property color _color4: Appearance.material_colors.source_color
 
             Behavior on _color1 {
                 ColorAnimation {
                     duration: 200
-                    easing.type: Easing.InOutQuad
+                    easing.type: Easing.OutCubic
                 }
             }
             Behavior on _color2 {
                 ColorAnimation {
                     duration: 300
-                    easing.type: Easing.InOutQuad
+                    easing.type: Easing.OutCubic
                 }
             }
             Behavior on _color3 {
                 ColorAnimation {
                     duration: 400
-                    easing.type: Easing.InOutQuad
+                    easing.type: Easing.OutCubic
                 }
             }
             Behavior on _color4 {
                 ColorAnimation {
                     duration: 500
-                    easing.type: Easing.InOutQuad
+                    easing.type: Easing.OutCubic
                 }
             }
 
@@ -94,6 +91,8 @@ Item {
             color2: Qt.vector3d(_color2.r, _color2.g, _color2.b)
             color3: Qt.vector3d(_color3.r, _color3.g, _color3.b)
             color4: Qt.vector3d(_color4.r, _color4.g, _color4.b)
+
+            anchors.fill: parent
         }
     }
 

@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import Qt.labs.folderlistmodel
 import Quickshell
@@ -15,19 +16,9 @@ import "root:/components/common" as Common
 Rectangle {
     id: root
 
-    property real optionSize: 100
-
     property bool shown: false
-    onShownChanged: {
-        console.log("WallpaperSelect: shown changed to", shown);
-        if (shown) {
-            showAnimation.start();
-        } else {
-            hideAnimation.start();
-        }
-    }
 
-    opacity: 1
+    opacity: shown ? 1 : 0
     Behavior on opacity {
         NumberAnimation {
             duration: 200
@@ -37,46 +28,9 @@ Rectangle {
 
     visible: opacity > 0
 
-    SequentialAnimation {
-        id: hideAnimation
-        NumberAnimation {
-            target: root
-            property: "y"
-            from: 0
-            to: -root.parent.height
-            duration: 200
-            easing.type: Easing.OutCubic
-        }
-        NumberAnimation {
-            target: root
-            property: "opacity"
-            to: 0
-            duration: 200
-            easing.type: Easing.OutCubic
-        }
-    }
-    SequentialAnimation {
-        id: showAnimation
-        NumberAnimation {
-            target: root
-            property: "y"
-            from: -root.parent.height
-            to: 0
-            duration: 200
-            easing.type: Easing.OutCubic
-        }
-        NumberAnimation {
-            target: root
-            property: "opacity"
-            to: 1
-            duration: 200
-            easing.type: Easing.OutCubic
-        }
-    }
-
-    height: layout.height
-    width: layout.width
-    anchors.centerIn: parent
+    height: 120
+    width: parent.width
+    anchors.bottom: parent.bottom
 
     color: ColorUtils.alpha(Appearance.material_colors.surface_container, .8)
     clip: true
@@ -85,33 +39,72 @@ Rectangle {
     border.width: 1
     border.color: Qt.lighter(Appearance.material_colors.surface_container, 1.25)
     border.pixelAligned: true
-    radius: Appearance.rounding.windowRounding
+    topLeftRadius: Appearance.rounding.windowRounding
+    topRightRadius: Appearance.rounding.windowRounding
 
     layer.enabled: true
     layer.smooth: true
+    layer.effect: MultiEffect {
+        shadowVerticalOffset: 0
+        shadowHorizontalOffset: 0
+        shadowColor: "#000000"
+        shadowEnabled: true
+        shadowBlur: .5
+    }
 
-    /*
+    function reveal() {
+        if (shown)
+            return;
+        shown = true;
+        revealAnimation.start();
+    }
+
+    function hide() {
+        if (!shown)
+            return;
+        shown = false;
+        hideAnimation.start();
+    }
+
+    NumberAnimation {
+        id: revealAnimation
+        target: root
+        property: "y"
+        from: root.height
+        to: 0
+    }
+    NumberAnimation {
+        id: hideAnimation
+        target: root
+        property: "y"
+        from: 0
+        to: root.height
+    }
+
     property var fileModel: FolderListModel {
         id: folderModel
         //nameFilters: ["*.png", "*.jpg", "*.jpeg", "*.webp"]
         showFiles: true
         showDirs: false
-        folder: Config.wallpaperDirectory
+        folder: Qt.resolvedUrl(Config.wallpaperDirectory)
     }
-    */
 
-    property var fileModel: ListModel {
-        id: fruitModel
+    Item {
+        id: keyHandler
+        anchors.fill: parent
 
-        ListElement {
-            fileUrl: "/home/spxlato/Pictures/Wallpapers/a_gas_station_with_purple_lights.jpg"
+        // Handle escape key to close the panel.
+        Keys.enabled: true
+        Keys.onEscapePressed: event => {
+            console.log("esc pressed");
+
+            root.hide();
+            event.accepted = true;
         }
-        ListElement {
-            fileUrl: "/home/spxlato/Pictures/Wallpapers/p15.png"
+        Keys.onPressed: event => {
+            console.log("key pressed:", event.key);
         }
-        ListElement {
-            fileUrl: "/home/spxlato/Pictures/Wallpapers/cyberskull.png"
-        }
+        Component.onCompleted: keyHandler.forceActiveFocus()
     }
 
     Common.StyledText {
@@ -133,63 +126,74 @@ Rectangle {
     }
 
     RowLayout {
-        id: layout
+        id: padding
+        anchors.fill: parent
 
-        opacity: fileModel.count > 0 ? 1 : 0
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.OutCubic
-            }
-        }
+        Rectangle {
+            Layout.preferredHeight: listView.implicitHeight
+            Layout.fillWidth: true
+            Layout.leftMargin: Appearance.spacings.normal
+            Layout.rightMargin: Appearance.spacings.normal
 
-        ListView {
-            id: listView
-            orientation: ListView.Horizontal
+            color: "transparent"
+            radius: Appearance.rounding.windowRounding
+            clip: true
 
-            implicitHeight: root.optionSize
-            implicitWidth: contentWidth
+            ListView {
+                id: listView
+                visible: true
+                orientation: ListView.Horizontal
 
-            Layout.preferredHeight: root.optionSize
-            Layout.minimumWidth: 3 * root.optionSize + 2 * listView.spacing
-            Layout.maximumWidth: 8 * root.optionSize + 7 * listView.spacing
-            Layout.margins: 10
+                anchors.verticalCenter: parent.verticalCenter
 
-            spacing: 10
+                implicitHeight: 100
+                implicitWidth: parent.width
 
-            model: root.fileModel
+                displayMarginBeginning: Appearance.spacings.normal
+                displayMarginEnd: Appearance.spacings.normal
+                keyNavigationEnabled: true
 
-            delegate: Image {
-                id: wallpaperOption
-                required property string fileUrl
+                spacing: 10
 
-                height: root.optionSize
-                width: root.optionSize
-                clip: true
+                model: root.fileModel
 
-                fillMode: Image.PreserveAspectCrop
-                mipmap: true
+                delegate: Image {
+                    id: wallpaperOption
+                    required property string fileUrl
 
-                source: Qt.resolvedUrl(fileUrl)
+                    height: 100
+                    width: height * 16 / 9
+                    clip: false
 
-                layer.enabled: true
-                layer.effect: OpacityMask {
-                    maskSource: Rectangle {
-                        id: wallpaperOptionMask
-                        width: wallpaperOption.height
-                        height: wallpaperOption.width
-                        radius: root.radius
-                        visible: false
+                    sourceSize.width: width
+                    sourceSize.height: height
+
+                    cache: true
+
+                    fillMode: Image.PreserveAspectCrop
+                    mipmap: true
+
+                    source: Qt.resolvedUrl(fileUrl)
+
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: Rectangle {
+                            id: wallpaperOptionMask
+                            width: wallpaperOption.width
+                            height: wallpaperOption.height
+                            radius: 15
+                            visible: false
+                        }
                     }
-                }
 
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
 
-                    onClicked: {
-                        Wallnut.apply(fileUrl);
-                        root.shown = false;
+                        onClicked: {
+                            Wallnut.apply(fileUrl);
+                            root.shown = false;
+                        }
                     }
                 }
             }
