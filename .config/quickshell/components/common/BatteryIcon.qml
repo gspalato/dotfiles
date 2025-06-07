@@ -13,20 +13,24 @@ IconImage {
 
     Connections {
         target: Battery
-        onPercentageChanged: root.updateIconName()
-        onIsChargingChanged: root.updateIconName()
-        onIsPluggedInChanged: root.updateIconName()
-        onChargeStateChanged: root.updateIconName()
+        function onPercentageChanged() {
+            root.updateIconName();
+        }
+        function onIsChargingChanged() {
+            root.updateIconName();
+        }
+        function onIsPluggedInChanged() {
+            root.updateIconName();
+        }
+        function onChargeStateChanged() {
+            root.updateIconName();
+        }
     }
 
     function updateIconName() {
-        console.log("Battery status:", "percentage =", Battery.percentage, "charging =", Battery.isCharging, "pluggedIn =", Battery.isPluggedIn, "state = ", Battery.chargeState.toString());
-
         if (Battery.isCharging || Battery.isPluggedIn) {
-            console.log("IS CHARGING");
             root.iconName = "bolt";
         } else {
-            console.log("IS DISCHARGING");
             if (Battery.percentage <= .125)
                 root.iconName = "battery-0-bar";
             else if (Battery.percentage <= .25)

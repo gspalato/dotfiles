@@ -5,8 +5,7 @@ Rectangle {
     id: ws
 
     property bool hovered: false
-    
-    Layout.alignment: Qt.AlignHCenter
+
     radius: height / 2
 
     MouseArea {

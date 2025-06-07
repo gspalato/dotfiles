@@ -1,4 +1,9 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick 2.15
+
+import "root:/config"
+import "root:/shaders" as Shaders
 
 Item {
     id: root
@@ -35,7 +40,7 @@ Item {
     }
 
     Rectangle {
-        id: fill
+        id: progress
         anchors.verticalCenter: track.verticalCenter
         width: value * parent.width
         height: track.height
@@ -46,6 +51,49 @@ Item {
                 duration: 150
                 easing.type: Easing.InOutQuad
             }
+        }
+
+        Shaders.MaskedGradientSwirl {
+            id: gradientSwirl
+            source: progress
+            timeRunning: true
+
+            anchors.fill: progress
+
+            property color _color1: "#ffffff" || Appearance.material_colors.primary
+            property color _color2: "#ffffff" || Appearance.material_colors.primary
+            property color _color3: "#ffffff" || Appearance.material_colors.source_color
+            property color _color4: "#ffffff" || Appearance.material_colors.source_color
+
+            Behavior on _color1 {
+                ColorAnimation {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on _color2 {
+                ColorAnimation {
+                    duration: 300
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on _color3 {
+                ColorAnimation {
+                    duration: 400
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on _color4 {
+                ColorAnimation {
+                    duration: 500
+                    easing.type: Easing.InOutQuad
+                }
+            }
+
+            color1: Qt.vector3d(_color1.r, _color1.g, _color1.b)
+            color2: Qt.vector3d(_color2.r, _color2.g, _color2.b)
+            color3: Qt.vector3d(_color3.r, _color3.g, _color3.b)
+            color4: Qt.vector3d(_color4.r, _color4.g, _color4.b)
         }
     }
 
@@ -65,7 +113,6 @@ Item {
 
             if (stepped !== root.value) {
                 root.value = stepped;
-                root.valueChanged(stepped);
             }
         }
     }

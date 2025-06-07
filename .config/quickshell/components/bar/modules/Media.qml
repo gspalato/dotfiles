@@ -144,7 +144,7 @@ Common.BarModule {
 
                         Layout.alignment: Qt.AlignVCenter
 
-                        source: player.identity === "Spotify" ? "root:/assets/icons/spotify.svg" : ""
+                        source: player?.identity === "Spotify" ? "root:/assets/icons/spotify.svg" : ""
                     }
 
                     // Small padding so the progress isn't clipped.
@@ -173,7 +173,7 @@ Common.BarModule {
 
                             anchors.centerIn: parent
 
-                            property string iconName: player.isPlaying ? "media-pause2" : "media-play2"
+                            property string iconName: player?.isPlaying ? "media-pause2" : "media-play2"
                             source: "root:/assets/icons/" + iconName + ".svg"
                             //source: player.identity === "Spotify" ? "root:/assets/icons/spotify.svg" : ""
                         }
@@ -181,7 +181,7 @@ Common.BarModule {
 
                     Common.StyledText {
                         Layout.alignment: Qt.AlignVCenter
-                        text: player.trackTitle ? Utils.truncateString(player.trackTitle, 25) : "Unknown song"
+                        text: player?.trackTitle ? Utils.truncateString(player?.trackTitle, 25) : "Unknown song"
                     }
 
                     // Discrete border
@@ -205,6 +205,31 @@ Common.BarModule {
                 property color _color2: Appearance.material_colors.secondary
                 property color _color3: Appearance.material_colors.tertiary
                 property color _color4: Appearance.material_colors.source_color
+
+                Behavior on _color1 {
+                    ColorAnimation {
+                        duration: 200
+                        easing.type: Easing.InOutQuad
+                    }
+                }
+                Behavior on _color2 {
+                    ColorAnimation {
+                        duration: 300
+                        easing.type: Easing.InOutQuad
+                    }
+                }
+                Behavior on _color3 {
+                    ColorAnimation {
+                        duration: 400
+                        easing.type: Easing.InOutQuad
+                    }
+                }
+                Behavior on _color4 {
+                    ColorAnimation {
+                        duration: 500
+                        easing.type: Easing.InOutQuad
+                    }
+                }
 
                 color1: Qt.vector3d(_color1.r, _color1.g, _color1.b)
                 color2: Qt.vector3d(_color2.r, _color2.g, _color2.b)

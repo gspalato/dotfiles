@@ -17,13 +17,6 @@ layout(std140, binding = 0) uniform buf {
 
 layout(binding = 1) uniform sampler2D iSource;
 
-//layout(set = 0, binding = 0) uniform Params {
-//    vec3 color1;
-//    vec3 color2;
-//    vec3 color3;
-//    vec3 color4;
-//};
-
 mat2 Rot(float a) {
     float s = sin(a);
     float c = cos(a);

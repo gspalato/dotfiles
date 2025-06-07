@@ -27,12 +27,18 @@ Common.BarModule {
         spacing: 10
 
         anchors.centerIn: parent
+        height: parent.height
 
         RowLayout {
+            id: networkRow
             spacing: 0
+
+            // Makes it easier to hover and see the network name.
+            Layout.preferredHeight: parent.height
 
             MouseArea {
                 anchors.fill: parent
+
                 hoverEnabled: true
                 onEntered: {
                     networkNameRevealer.reveal = true;

@@ -145,7 +145,7 @@ Rectangle {
                 RowLayout {
                     id: buttons
 
-                    spacing: 5
+                    spacing: 10
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignRight
 
@@ -434,7 +434,7 @@ Rectangle {
                                 id: volumeSlider
                                 Layout.fillWidth: true
 
-                                fillColor: Matugen.primary
+                                fillColor: Appearance.material_colors.primary
 
                                 value: Audio.sink?.audio.volume
                                 onValueChanged: {

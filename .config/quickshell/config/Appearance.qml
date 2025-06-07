@@ -62,4 +62,8 @@ Singleton {
 
         property int barHeight: moduleHeight
     }
+
+    property var easings: QtObject {
+        property var main: Easing.OutCubic
+    }
 }

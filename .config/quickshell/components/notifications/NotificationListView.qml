@@ -93,7 +93,7 @@ ListView {
         required property Notification modelData
 
         notif: modelData
-        width: parent.width
+        width: parent?.width
 
         color: "#33000000"
         border.width: 0

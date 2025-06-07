@@ -131,7 +131,7 @@
                         "minValue": "0, 0, 0",
                         "name": "color1",
                         "type": "vec3",
-                        "value": "0.698, 0.773, 1"
+                        "value": "0.141935, 0.773, 1"
                     },
                     {
                         "defaultValue": "0, 0, 0",
@@ -139,7 +139,7 @@
                         "minValue": "0, 0, 0",
                         "name": "color2",
                         "type": "vec3",
-                        "value": "0.753, 0.776, 0.867"
+                        "value": "0.753, 0.231627, 0.867"
                     },
                     {
                         "defaultValue": "0, 0, 0",
@@ -147,7 +147,7 @@
                         "minValue": "0, 0, 0",
                         "name": "color3",
                         "type": "vec3",
-                        "value": "0.22, 0.357, 0.69"
+                        "value": "0.22, 0.115485, 0.69"
                     },
                     {
                         "defaultValue": "0, 0, 0",
@@ -155,7 +155,7 @@
                         "minValue": "0, 0, 0",
                         "name": "color4",
                         "type": "vec3",
-                        "value": "0.882, 0.733, 0.863"
+                        "value": "0.882, 0.733, 0.212447"
                     }
                 ],
                 "type": 2,
