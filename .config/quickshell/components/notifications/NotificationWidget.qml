@@ -108,7 +108,7 @@ Rectangle {
 
         // Accept swiping right with two fingers on touchpad.
         onWheel: event => {
-            if (event.angleDelta.x > 40) {
+            if (event.angleDelta.x > 100) {
                 root.triggerRemoveAnimation();
                 event.accepted = true;
             }

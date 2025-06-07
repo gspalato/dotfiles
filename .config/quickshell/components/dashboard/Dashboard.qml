@@ -150,6 +150,22 @@ Rectangle {
                     Layout.alignment: Qt.AlignRight
 
                     HeaderButton {
+                        id: wallnutButton
+
+                        Common.TintedIcon {
+                            anchors.centerIn: parent
+                            implicitSize: 18
+                            iconName: "palette"
+                            tint: Appearance.material_colors.on_surface
+                        }
+
+                        onClick: {
+                            // Open the Wallnut settings dialog.
+                            Panels.wallpaperSelect.shown = true;
+                        }
+                    }
+
+                    HeaderButton {
                         id: rebootButton
 
                         IconImage {
@@ -386,6 +402,41 @@ Rectangle {
                                 }
                             }
                         }
+                    }
+                }
+            }
+
+            // Buttons (work in progress)
+            Rectangle {
+                id: buttonsBg
+                visible: false
+
+                implicitHeight: buttonsContainer.implicitHeight
+                implicitWidth: buttonsContainer.width
+
+                color: "#11ffffff"
+                border.width: 1
+                border.color: "#1fffffff"
+
+                Layout.leftMargin: 10
+                Layout.rightMargin: 10
+                Layout.fillWidth: true
+
+                radius: Appearance.rounding.full
+
+                RowLayout {
+                    id: buttonsContainer
+                    spacing: 10
+
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    WifiButtonRound {
+                        height: 50
+                        radius: Appearance.rounding.full
+                    }
+                    BluetoothButtonRound {
+                        height: 50
+                        radius: Appearance.rounding.full
                     }
                 }
             }

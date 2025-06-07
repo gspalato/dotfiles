@@ -32,13 +32,13 @@ Scope {
 
             color: "transparent"
 
-            height: 200
+            //height: 200
 
             anchors {
                 left: true
                 right: true
                 bottom: true
-                top: false
+                top: true
             }
 
             Item {

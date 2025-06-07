@@ -15,6 +15,13 @@ Singleton {
     property string selectedWallpaper
 
     function apply(path) {
+        console.log("Applying wallpaper:", path);
+
+        // Remove the protocol from the path.
+        if (path.startsWith("file://")) {
+            path = path.substring(7);
+        }
+
         root.selectedWallpaper = path;
 
         if (root.selectedWallpaper) {

@@ -11,6 +11,7 @@ import QtQuick
 Singleton {
     id: root
 
+    property bool enabled: false
     property bool wifi: true
     property bool ethernet: false
     property int updateInterval: 1000
