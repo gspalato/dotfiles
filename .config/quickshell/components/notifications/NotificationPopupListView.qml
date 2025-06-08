@@ -54,7 +54,7 @@ ListView {
         callbackOnDismiss: id => {
             for (let i = 0; i < notifList.notifications.count; i++) {
                 const e = notifList.notifications.get(i);
-                if (e.n.id === id) {
+                if (e?.n?.id === id) {
                     notifList.notifications.remove(i);
                     return;
                 }
@@ -88,7 +88,7 @@ ListView {
 
         Timer {
             id: removeTimer
-            interval: modelData.expireTimeout > 0 ? modelData.expireTimeout : (modelData.urgency === NotificationUrgency.Critical ? Config.criticalNotificationTimeout : Config.defaultNotificationTimeout) // 5 seconds
+            interval: modelData?.expireTimeout > 0 ? modelData?.expireTimeout : (modelData?.urgency === NotificationUrgency.Critical ? Config.criticalNotificationTimeout : Config.defaultNotificationTimeout) // 5 seconds
             repeat: false
             running: true
             onTriggered: {

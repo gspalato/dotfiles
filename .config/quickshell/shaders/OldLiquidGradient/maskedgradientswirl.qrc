@@ -1,0 +1,8 @@
+
+<RCC>
+    <qresource prefix="/">
+        <file>maskedgradientswirl.vert.qsb</file>
+        <file>maskedgradientswirl.frag.qsb</file>
+        <file>MaskedGradientSwirl.qml</file>
+    </qresource>
+</RCC>

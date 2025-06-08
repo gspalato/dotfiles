@@ -59,7 +59,7 @@ ColumnLayout {
                 }
 
                 onClick: {
-                    Panels.dashboard.stack.pop();
+                    Panels.dashboard.stack.popAnimated();
                 }
             }
 
@@ -204,7 +204,7 @@ ColumnLayout {
                                 RowLayout {
                                     id: rowLayout
 
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    //anchors.verticalCenter: parent.verticalCenter
 
                                     spacing: 10
 

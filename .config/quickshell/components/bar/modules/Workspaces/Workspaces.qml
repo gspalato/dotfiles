@@ -36,6 +36,7 @@ Common.BarModule {
 
     implicitWidth: indicatorRow.implicitWidth + Appearance.sizes.moduleHorizontalPadding
     Behavior on implicitWidth {
+        enabled: true
         NumberAnimation {
             duration: 200
             easing.type: Appearance.easings.main

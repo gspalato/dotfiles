@@ -197,7 +197,7 @@ Common.BarModule {
 
             opacity: player ? 1.0 : 0.5
 
-            Shaders.MaskedGradientSwirl {
+            Shaders.LiquidGradient {
                 source: cavaCanvas
                 timeRunning: true
 

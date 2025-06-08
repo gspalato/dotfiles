@@ -24,7 +24,7 @@ import "root:/utils/colorUtils.js" as ColorUtils
 Common.Button {
     id: wifiButton
 
-    implicitHeight: buttonContentPadding.implicitHeight
+    implicitHeight: 50
     implicitWidth: buttonContentPadding.implicitWidth
 
     property bool isEnabled: Network.enabled
@@ -42,7 +42,7 @@ Common.Button {
     // This kind of hides the flickering from the gradient shader.
     border.width: 1
 
-    Shaders.MaskedGradientSwirl {
+    Shaders.LiquidGradientNew {
         source: wifiButton
         timeRunning: true
         opacity: isConnected ? .75 : 0
@@ -53,11 +53,11 @@ Common.Button {
             }
         }
 
-        visible: opacity > 0
+        visible: true
 
         property color _color1: Appearance.material_colors.primary
         property color _color2: Appearance.material_colors.source_color
-        property color _color3: Appearance.material_colors.primary_container
+        property color _color3: Appearance.material_colors.primary
         property color _color4: Appearance.material_colors.source_color
 
         Behavior on _color1 {
@@ -85,10 +85,11 @@ Common.Button {
             }
         }
 
-        color1: Qt.vector3d(_color1.r, _color1.g, _color1.b)
-        color2: Qt.vector3d(_color2.r, _color2.g, _color2.b)
-        color3: Qt.vector3d(_color3.r, _color3.g, _color3.b)
-        color4: Qt.vector3d(_color4.r, _color4.g, _color4.b)
+        color1: Qt.vector4d(_color1.r, _color1.g, _color1.b, _color1.a)
+        color2: Qt.vector4d(_color2.r, _color2.g, _color2.b, _color2.a)
+        color3: Qt.vector4d(_color3.r, _color3.g, _color3.b, _color3.a)
+        color4: Qt.vector4d(_color4.r, _color4.g, _color4.b, _color4.a)
+        seed: 20
 
         anchors.fill: parent
     }
@@ -101,7 +102,9 @@ Common.Button {
 
         RowLayout {
             Layout.margins: 15
+
             spacing: 10
+            Layout.fillWidth: true
 
             Common.NetworkIcon {
                 implicitSize: 20
@@ -120,25 +123,25 @@ Common.Button {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.fillWidth: true
             }
-        }
 
-        Common.Separator {
-            Layout.preferredHeight: 20
-            Layout.preferredWidth: 1
-            Layout.alignment: Qt.AlignVCenter
-            color: "#1fffffff"
-        }
+            Common.Separator {
+                Layout.preferredHeight: 20
+                Layout.preferredWidth: 1
+                Layout.alignment: Qt.AlignVCenter
+                color: "#1fffffff"
+            }
 
-        Item {
-            Layout.fillHeight: true
-            Layout.preferredWidth: 40
+            Item {
+                Layout.fillHeight: true
+                Layout.preferredWidth: 20
 
-            Common.TintedIcon {
-                anchors.centerIn: parent
+                Common.TintedIcon {
+                    anchors.centerIn: parent
 
-                implicitSize: 24
-                iconName: "chevron-right"
-                tint: Appearance.material_colors.on_surface
+                    implicitSize: 24
+                    iconName: "chevron-right"
+                    tint: Appearance.material_colors.on_surface
+                }
             }
         }
     }

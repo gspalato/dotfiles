@@ -397,7 +397,7 @@ ColumnLayout {
 
                     onClick: {
                         // Push the Wifi page onto the stack.
-                        Panels.dashboard.stack.push(Panels.dashboard.pages.wifi);
+                        Panels.dashboard.stack.pushAnimated(Panels.dashboard.pages.wifi);
                     }
                 }
 
@@ -408,7 +408,7 @@ ColumnLayout {
 
                     onClick: {
                         // Push the Bluetooth page onto the stack.
-                        Panels.dashboard.stack.push(Panels.dashboard.pages.bluetooth);
+                        Panels.dashboard.stack.pushAnimated(Panels.dashboard.pages.bluetooth);
                     }
                 }
             }

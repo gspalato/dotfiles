@@ -11,8 +11,8 @@
                 "toId": 2
             }
         ],
-        "exportDirectory": "../../.config/quickshell/shaders/LiquidGradient",
-        "exportFlags": 23,
+        "exportDirectory": "../../../SHADERS/LiquidFixed",
+        "exportFlags": 7,
         "exportName": "MaskedGradientSwirl",
         "nodes": [
             {
@@ -36,24 +36,19 @@
                     "}"
                 ],
                 "x": 101.44999694824219,
-                "y": 48.29999923706055
+                "y": 45.79999923706055
             },
             {
                 "name": "Output",
                 "nodeId": 1,
                 "type": 1,
                 "x": 101.44999694824219,
-                "y": 837.7000122070312
+                "y": 790.2000122070312
             },
             {
                 "description": "This is an empty node for creating custom effects.",
                 "fragmentCode": [
-                    "//layout(set = 0, binding = 0) uniform Params {",
-                    "//    vec3 color1;",
-                    "//    vec3 color2;",
-                    "//    vec3 color3;",
-                    "//    vec3 color4;",
-                    "//};",
+                    "precision highp float;",
                     "",
                     "mat2 Rot(float a) {",
                     "    float s = sin(a);",
@@ -160,7 +155,7 @@
                 ],
                 "type": 2,
                 "x": 66.44999694824219,
-                "y": 521.8533935546875
+                "y": 492.1049499511719
             }
         ],
         "version": 1

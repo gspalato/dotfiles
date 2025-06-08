@@ -106,7 +106,7 @@ Rectangle {
         samples: 11
         color: Qt.rgba(0, 0, 0, 1)
         cached: true
-        visible: true
+        visible: false
     }
 
     MouseArea {

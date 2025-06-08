@@ -11,8 +11,6 @@ import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import QtQuick.Effects
 
-import Quickshell.Services.Greetd
-
 import "root:/components/notifications" as Notifs
 import "root:/components/common" as Common
 
@@ -33,7 +31,6 @@ Rectangle {
         }
     }
 
-    property var notificationList: notifList
     property var stack: stack
 
     property var pages: QtObject {
@@ -44,12 +41,6 @@ Rectangle {
     }
 
     implicitHeight: stack.implicitHeight
-    Behavior on implicitHeight {
-        NumberAnimation {
-            duration: 200
-            easing.type: Easing.OutCubic
-        }
-    }
 
     implicitWidth: 400
     transformOrigin: Item.TopRight
@@ -85,6 +76,7 @@ Rectangle {
 
     StackView {
         id: stack
+
         implicitHeight: currentItem.implicitHeight
 
         anchors.left: parent.left
@@ -92,17 +84,62 @@ Rectangle {
 
         opacity: dashboard.scale
 
+        // We're not using a behavior on implicitHeight because it causes weird animations.
+        // The stack height lags behind the content if it updates (i.e. notifications on the main page).
+        // So, we're animating the push/pop actions manually.
+        property var resizeAnimation: NumberAnimation {
+            property real height
+            target: stack
+            property: "implicitHeight"
+            from: stack.implicitHeight
+            to: height
+            duration: 200
+            easing.type: Easing.OutCubic
+        }
+
+        function pushAnimated(page) {
+            if (stack.currentItem === page)
+                return;
+
+            stack.resizeAnimation.height = page.implicitHeight;
+            stack.resizeAnimation.start();
+
+            stack.push(page);
+        }
+
+        function popAnimated() {
+            const target = stack.get(stack.index - 1);
+            if (!target)
+                return;
+
+            stack.resizeAnimation.height = target?.implicitHeight;
+            stack.resizeAnimation.start();
+            stack.pop();
+        }
+
+        function popToIndexAnimated(index) {
+            const target = stack.get(index);
+            if (!target)
+                return;
+
+            stack.resizeAnimation.height = target?.implicitHeight;
+            stack.resizeAnimation.start();
+            stack.popToIndex(index);
+        }
+
         pushEnter: Transition {
-            SequentialAnimation {
-                PropertyAction {
-                    property: "visible"
-                    value: true
-                }
-                PropertyAnimation {
-                    property: "opacity"
-                    from: 0
-                    to: 1
-                    duration: 200
+            ParallelAnimation {
+                SequentialAnimation {
+                    PropertyAction {
+                        property: "visible"
+                        value: true
+                    }
+                    PropertyAnimation {
+                        property: "opacity"
+                        from: 0
+                        to: 1
+                        duration: 200
+                    }
                 }
             }
         }

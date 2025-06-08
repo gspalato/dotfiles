@@ -1,0 +1,8 @@
+
+<RCC>
+    <qresource prefix="/">
+        <file>liquidgradient.vert.qsb</file>
+        <file>liquidgradient.frag.qsb</file>
+        <file>LiquidGradient.qml</file>
+    </qresource>
+</RCC>
