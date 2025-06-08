@@ -24,12 +24,12 @@ Common.Button {
     id: root
 
     implicitWidth: height
+    radius: Appearance.rounding.full
 
-    property bool isEnabled: Bluetooth.bluetoothEnabled
-    property bool isConnected: Bluetooth.bluetoothConnected
-    background: isConnected ? Appearance.material_colors.primary_container : (isEnabled ? "#44ffffff" : "#11ffffff")
-    backgroundHover: (isConnected || isEnabled) ? ColorUtils.mix(background, "#eeeeee", .7) : "#22ffffff"
-    backgroundPressed: (isConnected || isEnabled) ? ColorUtils.mix(background, "#eeeeee", .8) : "#33ffffff"
+    property bool isConnected: Network.wifi || Network.ethernet
+    background: isConnected ? Appearance.material_colors.primary_container : "#11ffffff"
+    backgroundHover: isConnected ? ColorUtils.mix(Appearance.material_colors.primary_container, "#000000", .9) : "#22ffffff"
+    backgroundPressed: isConnected ? ColorUtils.mix(Appearance.material_colors.primary_container, "#000000", .8) : "#33ffffff"
     property color textColor: isConnected ? Appearance.material_colors.on_primary_container : Appearance.material_colors.on_surface
 
     Common.BluetoothIcon {

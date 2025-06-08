@@ -11,7 +11,7 @@ Rectangle {
 
     property color background: Qt.rgba(255, 255, 255, .1)
     property color backgroundHover: Qt.rgba(255, 255, 255, .2)
-    property color backgroundPressed: Qt.rgba(255, 255, 255, .1)
+    property color backgroundPressed: Qt.rgba(255, 255, 255, .15)
 
     property bool isHovered: false
     property bool isPressed: false

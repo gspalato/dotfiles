@@ -110,6 +110,8 @@ ListView {
         color: "#33000000"
         border.width: 0
 
+        shadowBlur: 0.25
+
         SequentialAnimation {
             id: removeAnimation
             PropertyAction {

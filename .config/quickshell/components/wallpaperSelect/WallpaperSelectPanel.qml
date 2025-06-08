@@ -1,3 +1,5 @@
+//pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -39,6 +41,33 @@ Scope {
                 right: true
                 bottom: true
                 top: true
+            }
+
+            Item {
+                id: background
+                anchors.fill: parent
+
+                Rectangle {
+                    id: darken
+                    anchors.fill: root
+                    color: "#33000000"
+                    visible: opacity > 0
+                    opacity: root.shown ? 1 : 0
+                    Behavior on opacity {
+                        NumberAnimation {
+                            duration: 200
+                            easing.type: Appearance.easings.main
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+
+                        onClicked: {
+                            root.hide();
+                        }
+                    }
+                }
             }
 
             Item {

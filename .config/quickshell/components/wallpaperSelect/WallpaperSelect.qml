@@ -34,28 +34,6 @@ Item {
     }
 
     Rectangle {
-        id: background
-        anchors.fill: root
-        color: "#33000000"
-        visible: opacity > 0
-        opacity: root.shown ? 1 : 0
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 200
-                easing.type: Easing.InOutCubic
-            }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-
-            onClicked: {
-                root.hide();
-            }
-        }
-    }
-
-    Rectangle {
         id: selector
 
         opacity: root.shown ? 1 : 0
@@ -89,7 +67,7 @@ Item {
             shadowHorizontalOffset: 0
             shadowColor: "#000000"
             shadowEnabled: true
-            shadowBlur: .5
+            shadowBlur: 1
         }
 
         property var revealAnimation: NumberAnimation {
@@ -128,28 +106,10 @@ Item {
             Keys.onPressed: event => {
                 console.log("key pressed:", event.key);
             }
-            Component.onCompleted: keyHandler.forceActiveFocus()
+            Component.onCompleted: selectorKeyHandler.forceActiveFocus()
         }
 
-        Common.StyledText {
-            id: title
-            text: "No wallpaper found."
-            font.family: Appearance.font.family.display
-            font.pixelSize: Appearance.font.pixelSize.large
-            font.weight: 400
-            color: ColorUtils.alpha(Appearance.material_colors.on_surface, .3)
-            anchors.centerIn: parent
-
-            opacity: selector.fileModel.count > 0 ? 0 : 1
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: 200
-                    easing.type: Easing.OutCubic
-                }
-            }
-        }
-
-        RowLayout {
+        ColumnLayout {
             id: padding
             anchors.fill: parent
 
@@ -162,6 +122,24 @@ Item {
                 color: "transparent"
                 radius: Appearance.rounding.windowRounding
                 clip: true
+
+                Common.StyledText {
+                    id: noWallpaperText
+                    text: "No wallpaper found."
+                    font.family: Appearance.font.family.display
+                    font.pixelSize: Appearance.font.pixelSize.large
+                    font.weight: 400
+                    color: ColorUtils.alpha(Appearance.material_colors.on_surface, .3)
+                    anchors.centerIn: parent
+
+                    opacity: selector.fileModel.count > 0 ? 0 : 1
+                    Behavior on opacity {
+                        NumberAnimation {
+                            duration: 200
+                            easing.type: Easing.OutCubic
+                        }
+                    }
+                }
 
                 ListView {
                     id: listView

@@ -8,7 +8,7 @@ import Quickshell.Services.UPower
 /**
  * A migration of my "Wallnut" script to Quickshell.
  * It handles wallpaper applying and theme generation.
-*/
+ */
 Singleton {
     id: root
 

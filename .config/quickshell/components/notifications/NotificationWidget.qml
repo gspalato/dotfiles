@@ -12,15 +12,27 @@ import "root:/utils/colorUtils.js" as ColorUtils
 
 Rectangle {
     id: root
+
+    // The notification object that this widget represents.
     required property Notification notif
 
+    // Swipe properties
     property bool isSwipeable: true
     property real swipeThreshold: root.width - root.width / 3
     property bool changeOpacityOnSwipe: true
 
+    // Shadow properties
+    property bool shadowEnabled: true
+    property real shadowBlur: .5
+    property color shadowColor: "#000000"
+    property real shadowVerticalOffset: 0
+    property real shadowHorizontalOffset: 0
+
+    // Progress properties
     property bool showProgressToDismiss: false
     property real progressToDismiss: 0
 
+    // Callback when the notification dismiss/swipe animation is triggered.
     property var callbackOnDismiss: id => root.notif?.dismiss()
 
     color: ColorUtils.alpha(Matugen.surface_container_low, .8)
@@ -44,11 +56,11 @@ Rectangle {
     layer.enabled: true
     layer.smooth: true
     layer.effect: MultiEffect {
-        shadowVerticalOffset: 0
-        shadowHorizontalOffset: 0
-        shadowColor: "#000000"
-        shadowEnabled: true
-        shadowBlur: .5
+        shadowVerticalOffset: root.shadowVerticalOffset
+        shadowHorizontalOffset: root.shadowHorizontalOffset
+        shadowColor: root.shadowColor
+        shadowEnabled: root.shadowEnabled
+        shadowBlur: root.shadowBlur
     }
 
     Behavior on x {

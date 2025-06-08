@@ -17,6 +17,7 @@ PanelWindow {
     width: 360 + 10
 
     margins {
+        top: -10
         bottom: 10
         right: 0
     }
@@ -40,6 +41,7 @@ PanelWindow {
 
             width: 350
 
+            // Giving space for the notification shadows.
             Layout.topMargin: 10
             Layout.leftMargin: 10
             Layout.rightMargin: 10

@@ -11,7 +11,7 @@
                 "toId": 2
             }
         ],
-        "exportDirectory": "../../.config/quickshell/shaders",
+        "exportDirectory": "../../.config/quickshell/shaders/LiquidGradient",
         "exportFlags": 23,
         "exportName": "MaskedGradientSwirl",
         "nodes": [
@@ -35,15 +35,15 @@
                     "    gl_Position = qt_Matrix * vec4(vertCoord, 0.0, 1.0);",
                     "}"
                 ],
-                "x": 244.70001220703125,
-                "y": 45.5
+                "x": 101.44999694824219,
+                "y": 48.29999923706055
             },
             {
                 "name": "Output",
                 "nodeId": 1,
                 "type": 1,
-                "x": 244.70001220703125,
-                "y": 784.5
+                "x": 101.44999694824219,
+                "y": 837.7000122070312
             },
             {
                 "description": "This is an empty node for creating custom effects.",
@@ -119,7 +119,7 @@
                     "    vec4 sourceColor = texture(iSource, uv);",
                     "    float mask = sourceColor.a;",
                     "    ",
-                    "    fragColor = vec4(col, 1.0) * mask;",
+                    "    fragColor = vec4(col * mask, mask);",
                     "}"
                 ],
                 "name": "Custom",
@@ -159,8 +159,8 @@
                     }
                 ],
                 "type": 2,
-                "x": 208.32891845703125,
-                "y": 488.53515625
+                "x": 66.44999694824219,
+                "y": 521.8533935546875
             }
         ],
         "version": 1
