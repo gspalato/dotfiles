@@ -36,6 +36,6 @@ Common.BarModule {
         verticalAlignment: Text.AlignVCenter
 
         anchors.centerIn: parent
-        text: Time.data ?? ""
+        text: `${Time.hours > 9 ? Time.hours : "0" + Time.hours}:${Time.minutes > 9 ? Time.minutes : "0" + Time.minutes}` ?? ""
     }
 }

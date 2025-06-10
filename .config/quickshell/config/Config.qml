@@ -13,4 +13,11 @@ Singleton {
     property var criticalNotificationTimeout: 10000
 
     property string wallpaperDirectory: "/home/spxlato/Pictures/Wallpapers"
+
+    // Palette
+    property string actionPrefix: ">"
+    property real paletteItemHeight: 50
+    property int paletteSearchMaxResults: 10
+    property real paletteWallpaperWidth: 300
+    property int paletteMaxWallpapers: 5
 }

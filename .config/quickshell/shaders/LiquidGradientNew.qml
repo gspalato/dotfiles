@@ -12,6 +12,8 @@ Item {
     // When timeRunning is false, this can be used to control iTime manually
     property real animatedTime: frameAnimation.elapsedTime
 
+    property size meshResolution: Qt.size(32, 32)
+
     property vector4d color1: Qt.vector4d(1, 0, 0, 1)
     property vector4d color2: Qt.vector4d(1, 0, 1, 1)
     property vector4d color3: Qt.vector4d(0, 0, 1, 1)
@@ -34,7 +36,7 @@ Item {
         readonly property alias seed: rootItem.seed
 
         mesh: GridMesh {
-            resolution: Qt.size(32, 32)
+            resolution: meshResolution
         }
 
         vertexShader: './LiquidGradientNew/liquidgradient.vert.qsb'

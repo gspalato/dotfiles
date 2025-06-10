@@ -6,24 +6,18 @@ import Quickshell.Io
 
 Singleton {
     id: root
-    property var data
 
-    Process {
-        id: proc
-        command: ["date", "+%H:%M"]
+    readonly property date date: clock.date
+    readonly property int hours: clock.hours
+    readonly property int minutes: clock.minutes
+    readonly property int seconds: clock.seconds
 
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                root.data = data;
-            }
-        }
+    function format(fmt: string): string {
+        return Qt.formatDateTime(clock.date, fmt);
     }
 
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: proc.running = true
+    SystemClock {
+        id: clock
+        precision: SystemClock.Seconds
     }
 }

@@ -4,6 +4,8 @@ import Quickshell
 import Quickshell.Services.Notifications
 
 import "root:/config"
+import "root:/services"
+
 import "root:/components/common" as Common
 import "root:/components/notifications" as Notifs
 import "root:/utils/utils.js" as Utils
@@ -22,9 +24,9 @@ ListView {
     property ListModel notifications: ListModel {
         id: data
         Component.onCompleted: () => {
-            Notifs.Notifications.notificationReceived.connect(n => {
+            Notifications.notificationReceived.connect(n => {
                 // Ignore notifications when quickshell reloads.
-                if (!n.lastGeneration) {
+                if (!n.notification.lastGeneration) {
                     data.insert(0, {
                         n: n
                     });
@@ -32,16 +34,15 @@ ListView {
             });
         }
     }
-
     model: notifications
 
     spacing: 5
 
-    delegate: Notifs.NotificationWidget {
+    delegate: Notifs.NotificationWidget2 {
         id: widget
 
         required property int index
-        required property Notification modelData
+        required property Notifications.Notif modelData
 
         notif: modelData
         changeOpacityOnSwipe: false
@@ -52,12 +53,19 @@ ListView {
 
         // Remove the notification only from this popup list view model.
         callbackOnDismiss: id => {
-            for (let i = 0; i < notifList.notifications.count; i++) {
-                const e = notifList.notifications.get(i);
+            for (let i = 0; i < notifList.model.count; i++) {
+                const e = notifList.model.get(i);
                 if (e?.n?.id === id) {
-                    notifList.notifications.remove(i);
+                    notifList.model.remove(i);
                     return;
                 }
+            }
+        }
+
+        Connections {
+            target: notif
+            function onTimeoutExpired(): void {
+                widget.triggerRemoveAnimation();
             }
         }
 
@@ -83,16 +91,6 @@ ListView {
                 target: widget
                 property: "ListView.delayRemove"
                 value: false
-            }
-        }
-
-        Timer {
-            id: removeTimer
-            interval: modelData?.expireTimeout > 0 ? modelData?.expireTimeout : (modelData?.urgency === NotificationUrgency.Critical ? Config.criticalNotificationTimeout : Config.defaultNotificationTimeout) // 5 seconds
-            repeat: false
-            running: true
-            onTriggered: {
-                widget.triggerRemoveAnimation();
             }
         }
     }

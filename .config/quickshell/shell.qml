@@ -9,6 +9,7 @@ import Quickshell
 import "components/bar" as Bar
 import "components/dashboard" as Dashboard
 import "components/notifications" as Notifs
+import "components/palette" as Palette
 import "components/wallpaperSelect" as WallpaperSelect
 
 import "root:/services"

@@ -44,33 +44,6 @@ Scope {
             }
 
             Item {
-                id: background
-                anchors.fill: parent
-
-                Rectangle {
-                    id: darken
-                    anchors.fill: root
-                    color: "#33000000"
-                    visible: opacity > 0
-                    opacity: root.shown ? 1 : 0
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 200
-                            easing.type: Appearance.easings.main
-                        }
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-
-                        onClicked: {
-                            root.hide();
-                        }
-                    }
-                }
-            }
-
-            Item {
                 id: container
 
                 height: root.height
@@ -104,6 +77,14 @@ Scope {
                 x: container.x
                 y: container.y
                 visible: false
+            }
+
+            HyprlandFocusGrab {
+                id: grab
+                windows: [root]
+                onCleared: {
+                    Panels.wallpaperSelect.hide();
+                }
             }
         }
     }

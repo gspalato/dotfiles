@@ -41,6 +41,7 @@ Common.Button {
 
     // This kind of hides the flickering from the gradient shader.
     border.width: 1
+    border.color: "#1fffffff"
 
     Shaders.LiquidGradientNew {
         source: wifiButton

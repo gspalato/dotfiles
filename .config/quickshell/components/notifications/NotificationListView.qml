@@ -3,6 +3,8 @@ import Quickshell
 import Quickshell.Services.Notifications
 
 import "root:/config"
+import "root:/services"
+
 import "root:/components/notifications" as Notifs
 import "root:/utils/utils.js" as Utils
 
@@ -33,7 +35,7 @@ ListView {
         // Then clear the current model, and the ask the notification service to clear the notifications.
         Qt.callLater(() => {
             data.clear();
-            Notifs.Notifications.clearNotifications();
+            Notifications.clearNotifications();
         });
     }
 
@@ -41,8 +43,8 @@ ListView {
         id: data
         Component.onCompleted: () => {
             // Populate the model with existing notifications
-            Notifs.Notifications.notifications.values.forEach(n => {
-                if (n.transient)
+            Notifications.list.forEach(n => {
+                if (n.notification.transient)
                     return; // Skip transient notifications
 
                 data.insert(0, {
@@ -50,11 +52,12 @@ ListView {
                 });
             });
 
-            Notifs.Notifications.notificationReceived.connect(n => {
-                if (n.transient)
+            // Connect to notification events
+            Notifications.notificationReceived.connect(n => {
+                if (n.notification.transient)
                     return; // Skip transient notifications
 
-                if (!n.lastGeneration) {
+                if (!n.notification.lastGeneration) {
                     data.insert(0, {
                         n: n
                     });
@@ -84,7 +87,7 @@ ListView {
                 }
             });
 
-            Notifs.Notifications.notificationDismissed.connect(id => {
+            Notifications.notificationDismissed.connect(id => {
                 for (let i = 0; i < data.count; i++) {
                     const e = data.get(i);
                     if (e.n.id === id) {
@@ -100,9 +103,9 @@ ListView {
 
     spacing: 5
 
-    delegate: Notifs.NotificationWidget {
+    delegate: Notifs.NotificationWidget2 {
         id: widget
-        required property Notification modelData
+        required property Notifications.Notif modelData
 
         notif: modelData
         width: parent?.width
@@ -110,7 +113,18 @@ ListView {
         color: "#33000000"
         border.width: 0
 
-        shadowBlur: 0.25
+        shadowBlur: 0
+
+        // Remove the notification only from this popup list view model.
+        callbackOnDismiss: id => {
+            for (let i = 0; i < notifList.model.count; i++) {
+                const e = notifList.model.get(i);
+                if (e?.n?.id === id) {
+                    notifList.model.remove(i);
+                    return;
+                }
+            }
+        }
 
         SequentialAnimation {
             id: removeAnimation

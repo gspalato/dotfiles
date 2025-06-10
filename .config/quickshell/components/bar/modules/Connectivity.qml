@@ -75,9 +75,6 @@ Common.BarModule {
                 }
             }
         }
-
-        Common.BluetoothIcon {
-            Layout.alignment: Qt.AlignVCenter
-        }
+        Common.BluetoothIcon {}
     }
 }

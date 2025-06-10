@@ -577,7 +577,7 @@ ColumnLayout {
                             font.weight: 300
                             verticalAlignment: Text.AlignVCenter
 
-                            opacity: notifList.notifications.count === 0 ? 0.5 : 0
+                            opacity: root.notificationList.notifications.count === 0 ? 0.5 : 0
                             visible: opacity > 0
 
                             Behavior on opacity {
