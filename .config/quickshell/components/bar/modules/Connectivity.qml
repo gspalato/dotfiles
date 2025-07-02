@@ -75,6 +75,7 @@ Common.BarModule {
                 }
             }
         }
+
         Common.BluetoothIcon {}
     }
 }

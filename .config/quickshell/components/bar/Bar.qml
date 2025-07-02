@@ -62,13 +62,7 @@ Scope {
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
 
-                        Workspaces.Workspaces {}
-
-                        /*
-                        Common.Separator {
-                            Layout.alignment: Qt.AlignVCenter
-                        }
-                        */
+                        Modules.Workspaces {}
 
                         Modules.Media {
                             id: mediaModule
@@ -103,13 +97,9 @@ Scope {
 
                         Modules.Connectivity {}
 
-                        Modules.Battery {}
+                        Modules.Volume {}
 
-                        /*
-                        Common.Separator {
-                            Layout.alignment: Qt.AlignVCenter
-                        }
-                        */
+                        Modules.Battery {}
 
                         Modules.DashboardButton {
                             id: dashboardButton

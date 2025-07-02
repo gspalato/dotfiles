@@ -81,8 +81,8 @@ Common.BarModule {
     color: Qt.lighter(Appearance.colors.moduleColor, isPressed ? 2.5 : (isHovered ? 1.75 : 0))
     Behavior on color {
         ColorAnimation {
-            duration: 150
-            easing.type: Easing.InOutQuad
+            duration: 100
+            easing.type: Easing.OutCubic
         }
     }
 

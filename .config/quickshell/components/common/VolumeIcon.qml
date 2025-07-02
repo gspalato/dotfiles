@@ -8,11 +8,11 @@ IconImage {
     id: root
     property real volume: Audio.sink?.audio.volume || 0
     property string iconName: {
-        if (volume <= 0) {
+        if (Audio.sink?.audio.muted) {
             return "volume-muted";
-        } else if (volume <= 33) {
+        } else if (volume <= .33) {
             return "volume-low";
-        } else if (volume <= 66) {
+        } else if (volume <= .66) {
             return "volume-medium";
         } else {
             return "volume-high";

@@ -3,6 +3,10 @@ command = "swww"
 arguments = ["img", "--transition-type", "fade", "--transition-duration", ".5", "--transition-step", "1", "--transition-fps", "240"]
 set = true
 
+[templates.quickshell]
+input_path = './templates/quickshell.json'
+output_path = '~/.config/quickshell/config/Matugen.json'
+
 [templates.waybar]
 input_path = './templates/colors.css'
 output_path = '~/.config/waybar/colors.css'

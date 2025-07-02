@@ -5,8 +5,9 @@ import Quickshell.Io
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-//import Qt5Compat.GraphicalEffects
 import QtQuick.Effects
+
+import "root:/components/common"
 
 import "root:/config"
 
@@ -30,7 +31,7 @@ Rectangle {
         shadowHorizontalOffset: 0
         shadowColor: "#000000"
         shadowEnabled: true
-        shadowBlur: 0.5
+        shadowBlur: .5
     }
 
     color: Appearance.colors.moduleColor

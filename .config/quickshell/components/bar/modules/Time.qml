@@ -9,7 +9,6 @@ import "root:/components/common" as Common
 import "root:/config"
 import "root:/services"
 
-// Container
 Common.BarModule {
     id: container
     implicitHeight: Appearance.sizes.moduleHeight
