@@ -1,0 +1,183 @@
+{
+    "QEP": {
+        "QQEM": "0.44",
+        "connections": [
+            {
+                "fromId": 0,
+                "toId": 2
+            },
+            {
+                "fromId": 2,
+                "toId": 1
+            }
+        ],
+        "exportDirectory": "export",
+        "exportFlags": 31,
+        "exportName": "LiquidGradient",
+        "nodes": [
+            {
+                "fragmentCode": [
+                    "void main() {",
+                    "    fragColor = texture(iSource, texCoord);",
+                    "    @nodes",
+                    "    fragColor = fragColor * qt_Opacity;",
+                    "}"
+                ],
+                "name": "Main",
+                "nodeId": 0,
+                "type": 0,
+                "vertexCode": [
+                    "void main() {",
+                    "    texCoord = qt_MultiTexCoord0;",
+                    "    fragCoord = qt_Vertex.xy;",
+                    "    vec2 vertCoord = qt_Vertex.xy;",
+                    "    @nodes",
+                    "    gl_Position = qt_Matrix * vec4(vertCoord, 0.0, 1.0);",
+                    "}"
+                ],
+                "x": 244.70001220703125,
+                "y": 45.79999923706055
+            },
+            {
+                "name": "Output",
+                "nodeId": 1,
+                "type": 1,
+                "x": 244.70001220703125,
+                "y": 790.2000122070312
+            },
+            {
+                "description": "This is an empty node for creating custom effects.",
+                "fragmentCode": [
+                    "precision highp float;",
+                    "",
+                    "mat2 Rot(float a) {",
+                    "    float s = sin(a);",
+                    "    float c = cos(a);",
+                    "    return mat2(c, -s, s, c);",
+                    "}",
+                    "",
+                    "// Created by inigo quilez - iq/2014",
+                    "// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.",
+                    "vec2 hash( vec2 p)",
+                    "{",
+                    "    // Incorporate seed into the hash constants",
+                    "    float s1 = 2127.1 + seed * 73.0;",
+                    "    float s2 = 81.17 + seed * 37.0;",
+                    "    float s3 = 1269.5 + seed * 91.0;",
+                    "    float s4 = 283.37 + seed * 53.0;",
+                    "    ",
+                    "    p = vec2( dot(p,vec2(s1,s2)), dot(p,vec2(s3,s4)) );",
+                    "    return fract(sin(p)*43758.5453);",
+                    "}",
+                    "",
+                    "float noise( in vec2 p )",
+                    "{",
+                    "    vec2 i = floor( p );",
+                    "    vec2 f = fract( p );",
+                    "\t",
+                    "\tvec2 u = f*f*(3.0-2.0*f);",
+                    "",
+                    "    float n = mix( mix( dot( -1.0+2.0*hash( i + vec2(0.0,0.0) ), f - vec2(0.0,0.0) ), ",
+                    "                        dot( -1.0+2.0*hash( i + vec2(1.0,0.0) ), f - vec2(1.0,0.0) ), u.x),",
+                    "                   mix( dot( -1.0+2.0*hash( i + vec2(0.0,1.0) ), f - vec2(0.0,1.0) ), ",
+                    "                        dot( -1.0+2.0*hash( i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);",
+                    "\treturn 0.5 + 0.5*n;",
+                    "}",
+                    "",
+                    "",
+                    "@main",
+                    "{",
+                    "    fragColor = texture(iSource, texCoord);",
+                    "    {",
+                    "        vec2 uv = texCoord;",
+                    "        float ratio = iResolution.x / iResolution.y;",
+                    "    ",
+                    "        vec2 tuv = uv;",
+                    "        tuv -= .5;",
+                    "    ",
+                    "        // rotate with Noise",
+                    "        float degree = noise(vec2(iTime*.1, tuv.x*tuv.y));",
+                    "    ",
+                    "        tuv.y *= 1./ratio;",
+                    "        tuv *= Rot(radians((degree-.5)*720.+180.));",
+                    "    \ttuv.y *= ratio;",
+                    "    ",
+                    "        ",
+                    "        // Wave warp with sin",
+                    "        float frequency = 5.;",
+                    "        float amplitude = 30.;",
+                    "        float speed = iTime * 2.;",
+                    "        tuv.x += sin(tuv.y*frequency+speed)/amplitude;",
+                    "       \ttuv.y += sin(tuv.x*frequency*1.5+speed)/(amplitude*.5);",
+                    "        ",
+                    "        ",
+                    "        // draw the image",
+                    "        vec4 layer1 = mix(color1, color2, smoothstep(-.3, .2, (tuv*Rot(radians(-5.))).x));",
+                    "        vec4 layer2 = mix(color3, color4, smoothstep(-.3, .2, (tuv*Rot(radians(-5.))).x));",
+                    "        ",
+                    "        vec4 finalComp = mix(layer1, layer2, smoothstep(.5, -.3, tuv.y));",
+                    "        ",
+                    "        vec4 col = finalComp;",
+                    "        ",
+                    "        // get mask",
+                    "        vec4 sourceColor = texture(iSource, uv);",
+                    "        float mask = sourceColor.a;",
+                    "        ",
+                    "        fragColor = vec4(col) * mask;",
+                    "    }",
+                    "    fragColor = fragColor * qt_Opacity;",
+                    "}",
+                    ""
+                ],
+                "name": "Custom",
+                "nodeId": 2,
+                "properties": [
+                    {
+                        "defaultValue": "0, 0, 0, 0",
+                        "maxValue": "1, 1, 1, 1",
+                        "minValue": "0, 0, 0, 0",
+                        "name": "color1",
+                        "type": "vec4",
+                        "value": "1, 0, 0, 1"
+                    },
+                    {
+                        "defaultValue": "0, 0, 0, 0",
+                        "maxValue": "1, 1, 1, 1",
+                        "minValue": "0, 0, 0, 0",
+                        "name": "color2",
+                        "type": "vec4",
+                        "value": "1, 0, 1, 1"
+                    },
+                    {
+                        "defaultValue": "0, 0, 0, 0",
+                        "maxValue": "1, 1, 1, 1",
+                        "minValue": "0, 0, 0, 0",
+                        "name": "color3",
+                        "type": "vec4",
+                        "value": "0, 0, 1, 1"
+                    },
+                    {
+                        "defaultValue": "0, 0, 0, 0",
+                        "maxValue": "1, 1, 1, 1",
+                        "minValue": "0, 0, 0, 0",
+                        "name": "color4",
+                        "type": "vec4",
+                        "value": "0, 1, 0, 1"
+                    },
+                    {
+                        "defaultValue": "0",
+                        "maxValue": "100",
+                        "minValue": "0",
+                        "name": "seed",
+                        "type": "float",
+                        "value": "0"
+                    }
+                ],
+                "type": 2,
+                "x": 209.70001220703125,
+                "y": 433
+            }
+        ],
+        "version": 1
+    }
+}
